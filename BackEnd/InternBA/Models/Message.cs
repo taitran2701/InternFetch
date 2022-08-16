@@ -1,6 +1,7 @@
-﻿using System;
+﻿using InternBA.Interfaces;
+using System;
 
-public class Message
+public class Message: IDelete, ICreatedDate, IUpdatedDate
 {
     public Guid ID { get; set; }
     public Guid UserId { get; set; }

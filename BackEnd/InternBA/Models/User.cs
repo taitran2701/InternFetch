@@ -1,7 +1,8 @@
-﻿using System;
+﻿using InternBA.Interfaces;
+using System;
 using System.Collections.Generic;
 
-public class User
+public class User: IDelete, ICreatedDate, IUpdatedDate
 {
     public Guid Id { get; set; } 
     public string Username { get; set; }
@@ -11,5 +12,5 @@ public class User
     public DateTime CreatedDate { get; set; }
     public DateTime UpdatedDate { get; set; }
     public bool IsDelete { get; set; }
-    public virtual ICollection<Room> MyProperty { get; set; }
+    public virtual ICollection<Room> Room { get; set; }
 }
