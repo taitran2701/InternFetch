@@ -33,14 +33,16 @@ namespace InternBA.Models
             return context.UserRefreshToken.FirstOrDefault(x => x.UserName == username && x.RefreshToken == refreshToken && x.IsActive == true);
         }
 
-        public Task<bool> IsValidUserAsync(User user)
+        public async Task<bool> IsValidUserAsync(User user)
         {
-            throw new NotImplementedException();
+            var u = _userManager.Users.FirstOrDefault(o => o.UserName == user.Username);
+            var result = await _userManager.CheckPasswordAsync(u, user.Password);
+            return result;
         }
 
         public int SaveCommit()
         {
-            throw new NotImplementedException();
+            return context.SaveChanges();
         }
     }
 }

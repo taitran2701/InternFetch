@@ -4,7 +4,8 @@ namespace InternBA.Models
 {
     public class UnitOfWork : IDisposable
     {
-        private InternBADBContext context = new();
+        // todo: XuanLoi - context will update later
+        private InternBADBContext context = null;
         private GenericRepository<Room> roomRepository;
         private GenericRepository<User> userRepository;
         private GenericRepository<Message> messageRepository;

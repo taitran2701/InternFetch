@@ -19,6 +19,10 @@ namespace InternBA.Models
 
             builder.ApplyConfiguration(new UserRefreshTokensConfiguration());
         }
+        public InternBADBContext(DbContextOptions<InternBADBContext> options)
+        : base(options)
+        {
+        }
 
     }
 }
