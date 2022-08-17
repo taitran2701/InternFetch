@@ -8,7 +8,7 @@ namespace InternBA.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Message> Messages { get; set; }
-
+        public DbSet<UserRefreshTokens> UserRefreshToken { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             //
@@ -16,6 +16,8 @@ namespace InternBA.Models
             builder.ApplyConfiguration(new RoomConfiguration());
 
             builder.ApplyConfiguration(new UserConfiguration());
+
+            builder.ApplyConfiguration(new UserRefreshTokensConfiguration());
         }
 
     }

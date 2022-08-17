@@ -1,4 +1,5 @@
-﻿using InternBA.Models;
+﻿using InternBA.Interfaces;
+using InternBA.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
