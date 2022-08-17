@@ -10,28 +10,9 @@ namespace InternBA.Models
         private GenericRepository<Message> messageRepository;
 
         public GenericRepository<User> UserRepository => userRepository ?? new GenericRepository<User>(context);
-        public GenericRepository<Room> RoomRepository
-        {
-            get
-            {
-                if (this.roomRepository == null)
-                {
-                    roomRepository = new GenericRepository<Room>(context);
-                }
-                return roomRepository;
-            }
-        }
-        public GenericRepository<Message> MessageRepository
-        {
-            get
-            {
-                if (this.messageRepository == null)
-                {
-                    this.messageRepository = new GenericRepository<Message>(context);
-                }
-                return messageRepository;
-            }
-        }
+        public GenericRepository<Room> RoomRepository => roomRepository ?? new GenericRepository<Room>(context);
+        
+        public GenericRepository<Message> MessageRepository => messageRepository ?? new GenericRepository<Message>(context);
         public void Dispose()
         {
             throw new NotImplementedException();
