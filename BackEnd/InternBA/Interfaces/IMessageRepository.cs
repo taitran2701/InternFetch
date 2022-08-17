@@ -1,8 +1,7 @@
 ﻿namespace InternBA.Interfaces
 {
-    public interface IRoomRepository
+    public interface IMessageRepository
     {
         
     }
 }
-    
