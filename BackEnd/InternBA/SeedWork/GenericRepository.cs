@@ -64,10 +64,5 @@ namespace InternBA.SeedWork
         {
             return dbSet.ToList();
         }
-
-        public void Save()
-        {
-            context.SaveChanges();
-        }
     }
 }

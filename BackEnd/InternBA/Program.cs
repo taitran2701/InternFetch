@@ -1,8 +1,10 @@
 using InternBA;
 using InternBA.Extensions;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
+using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,9 @@ builder.Services.AddSwaggerGen();
 
 //Use extension method 
 builder.Services.AddMyDbContext(builder);
+
+//MediatR 
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
 //JWT
 

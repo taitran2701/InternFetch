@@ -75,6 +75,7 @@ namespace InternBA.SeedWork
                 throw;
             }
         }
+
         public string GenerateRefreshToken()
         {
             var randomNumber = new byte[32];
