@@ -1,7 +1,8 @@
-﻿using InternBA.Interfaces;
+﻿using InternBA.Models;
+using InternBA.Repository;
 using Microsoft.AspNetCore.Identity;
 
-namespace InternBA.Models
+namespace InternBA.SeedWork
 {
     public class UserServiceRepository : IUserServiceRepository
     {

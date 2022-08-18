@@ -1,8 +1,8 @@
 ﻿using InternBA.Generic;
-using InternBA.Interfaces;
+using InternBA.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace InternBA.Models
+namespace InternBA.SeedWork
 {
     public class RoomRepository : GenericRepository<Room>, IRoomRepository
     {
@@ -13,6 +13,6 @@ namespace InternBA.Models
         {
         }
 
-        
+
     }
 }

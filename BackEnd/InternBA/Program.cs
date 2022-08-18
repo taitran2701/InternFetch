@@ -1,6 +1,7 @@
 
 
-using InternBA.Models;
+using InternBA;
+using InternBA.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
@@ -14,10 +15,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<InternBADBContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("mydata"));
-});
+
+//Use extension method 
+builder.Services.AddMyDbContext(builder);
 //JWT
 
 //builder.Services.AddAuthentication(x =>

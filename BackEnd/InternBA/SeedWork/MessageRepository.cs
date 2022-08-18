@@ -1,6 +1,6 @@
 ﻿using InternBA.Generic;
 
-namespace InternBA.Models
+namespace InternBA.SeedWork
 {
     public class MessageRepository : GenericRepository<Message>
     {

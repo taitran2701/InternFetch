@@ -1,7 +1,7 @@
-﻿namespace InternBA.Interfaces
+﻿namespace InternBA.Repository
 {
     public interface IMessageRepository
     {
-        
+
     }
 }

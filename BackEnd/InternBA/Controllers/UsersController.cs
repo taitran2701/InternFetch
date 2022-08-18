@@ -1,5 +1,4 @@
-﻿using InternBA.Interfaces;
-using InternBA.Models;
+﻿using InternBA.Models;
 using InternBA.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

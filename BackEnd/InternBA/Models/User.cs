@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-public class User: IDelete, ICreatedDate, IUpdatedDate
+public class User: IBaseEntity
 {
     public Guid Id { get; set; } 
     public string Username { get; set; }

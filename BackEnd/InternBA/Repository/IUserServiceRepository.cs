@@ -1,6 +1,6 @@
 ﻿using InternBA.Models;
 
-namespace InternBA.Interfaces
+namespace InternBA.Repository
 {
     public interface IUserServiceRepository
     {

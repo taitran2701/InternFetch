@@ -1,7 +1,7 @@
 ﻿using InternBA.Interfaces;
 using System;
 
-public class Room: IDelete, ICreatedDate, IUpdatedDate
+public class Room: IBaseEntity
 {
 	public Guid Id { get; set; }
 	public Guid User1 { get; set; }
