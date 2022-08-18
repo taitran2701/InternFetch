@@ -1,6 +1,4 @@
-﻿using InternBA.Generic;
-
-namespace InternBA.SeedWork
+﻿namespace InternBA.SeedWork
 {
     public class UnitOfWork : IDisposable
     {

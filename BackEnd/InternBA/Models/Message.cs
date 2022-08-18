@@ -1,7 +1,7 @@
 ﻿using InternBA.Interfaces;
 using System;
 
-public class Message: IDelete, ICreatedDate, IUpdatedDate
+public class Message: IBaseEntity
 {
     public Guid ID { get; set; }
     public Guid UserId { get; set; }

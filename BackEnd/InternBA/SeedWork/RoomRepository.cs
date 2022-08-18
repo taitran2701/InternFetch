@@ -1,5 +1,4 @@
-﻿using InternBA.Generic;
-using InternBA.Repository;
+﻿using InternBA.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace InternBA.SeedWork

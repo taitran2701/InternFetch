@@ -1,5 +1,3 @@
-
-
 using InternBA;
 using InternBA.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -18,39 +16,9 @@ builder.Services.AddSwaggerGen();
 
 //Use extension method 
 builder.Services.AddMyDbContext(builder);
+
 //JWT
 
-//builder.Services.AddAuthentication(x =>
-//{
-//    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-//    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-//}).AddJwtBearer(o =>
-//{
-//    var key = Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]);
-//    o.SaveToken = true;
-//    o.TokenValidationParameters = new TokenValidationParameters
-//    {
-//        ValidateIssuer = false,
-//        ValidateAudience = false,
-//        ValidateLifetime = true,
-//        ValidateIssuerSigningKey = true,
-//        ValidIssuer = builder.Configuration["JWT:Issuer"],
-//        ValidAudience = builder.Configuration["JWT:Audience"],
-//        IssuerSigningKey = new SymmetricSecurityKey(key),
-//        ClockSkew = TimeSpan.Zero
-//    };
-//    o.Events = new JwtBearerEvents
-//    {
-//        OnAuthenticationFailed = context =>
-//        {
-//            if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
-//            {
-//                context.Response.Headers.Add("IS-TOKEN-EXPIRED", "true");
-//            }
-//            return Task.CompletedTask;
-//        }
-//    };
-//});
 
 var app = builder.Build();
 
@@ -67,15 +35,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-
-
-//Use logging
-//var logger = new LoggerConfiguration()
-//    .ReadFrom.Configuration(builder.Configuration)
-//    .Enrich.FromLogContext()
-//    .CreateLogger();
-//builder.Logging.ClearProviders();
-//builder.Logging.AddSerilog(logger);
+//logging
 
 
 app.Run();
