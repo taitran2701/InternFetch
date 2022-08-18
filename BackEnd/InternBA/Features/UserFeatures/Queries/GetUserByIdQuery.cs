@@ -9,6 +9,10 @@ namespace InternBA.Features.UserFeatures.Queries
         public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, User>
         {
             private readonly InternBADBContext context;
+            public GetUserByIdQueryHandler(InternBADBContext context)
+            {
+                this.context = context;
+            }
 
             public async Task<User> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
             {

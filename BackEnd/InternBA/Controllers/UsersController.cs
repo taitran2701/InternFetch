@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using InternBA;
+using MediatR;
+using InternBA.Features.UserFeatures.Queries;
+using InternBA.Features.UserFeatures.Command;
 
 namespace InternBA.Controllers
 {
@@ -13,40 +16,24 @@ namespace InternBA.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly InternBADBContext _context;
-
-        public UsersController(InternBADBContext context)
-        {
-            _context = context;
-        }
+        private IMediator mediator;
+        protected IMediator Mediator => mediator ??= HttpContext.RequestServices.GetService<IMediator>();
 
         // GET: api/Users
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            if (_context.Users == null)
-            {
-                return NotFound();
-            }
-            return await _context.Users.ToListAsync();
+            return Ok(await mediator.Send(new GetAllUsersQuery()));
         }
 
         // GET: api/Users/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(Guid id)
         {
-            if (_context.Users == null)
+            return Ok(await Mediator.Send(new GetUserByIdQuery()
             {
-                return NotFound();
-            }
-            var user = await _context.Users.FindAsync(id);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return user;
+                Id = id
+            }));
         }
 
         // PUT: api/Users/5
@@ -83,42 +70,25 @@ namespace InternBA.Controllers
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<User>> PostUser(CreateUserCommand command)
         {
-            if (_context.Users == null)
-            {
-                return Problem("Entity set 'InternBADBContext.Users'  is null.");
-            }
-            user.Id = new Guid();
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return Ok(await Mediator.Send(command));
         }
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(Guid id)
+        public async Task<IActionResult> DeleteUser(Guid id, UpdateUserCommand command)
         {
-            if (_context.Users == null)
+            if (id != command.Id)
             {
-                return NotFound();
+                return BadRequest();
             }
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return Ok(await Mediator.Send(command));
         }
 
-        private bool UserExists(Guid id)
-        {
-            return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
+        //private bool UserExists(Guid id)
+        //{
+        //    return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
+        //}
     }
 }
