@@ -1,15 +1,19 @@
-﻿namespace InternBA.Models
+﻿using InternBA.Interface;
+using System.ComponentModel.DataAnnotations.Schema;
+namespace InternBA.Models
 {
-    public enum AttachmentTypes
+
+    
+    public class Attachment : IDelete, ICreatedDate, IUpdatedDate
     {
-        Images,
-        Videos
-    }
-    public class Attachment
-    {
-        public int PostID { get; set; }
+        public Guid ID { get; set; }
+        public Guid PostID { get; set; }
         public int Type { get; set; }
 
-        public AttachmentTypes AttachmentType { get; set; }
+        public ICollection <Type>? Types { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
+        public bool IsDeleted { get; set; }  
     }
 }

@@ -1,0 +1,13 @@
+﻿using InternBA.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+namespace InternBA.EntityConfiguration
+{
+    public class AttachmentConfiguration : IEntityTypeConfiguration<Attachment>
+    {
+        public void Configure(EntityTypeBuilder<Attachment> builder)
+        {
+            builder.HasKey(a=>a.ID);
+        }
+    }
+}
