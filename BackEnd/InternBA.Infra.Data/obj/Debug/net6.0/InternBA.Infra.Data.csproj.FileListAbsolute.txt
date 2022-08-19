@@ -1,0 +1,14 @@
+D:\Fetch\InternFetch\BackEnd\InternBA.Infra.Data\bin\Debug\net6.0\InternBA.Infra.Data.deps.json
+D:\Fetch\InternFetch\BackEnd\InternBA.Infra.Data\bin\Debug\net6.0\InternBA.Infra.Data.runtimeconfig.json
+D:\Fetch\InternFetch\BackEnd\InternBA.Infra.Data\bin\Debug\net6.0\InternBA.Infra.Data.dll
+D:\Fetch\InternFetch\BackEnd\InternBA.Infra.Data\bin\Debug\net6.0\InternBA.Infra.Data.pdb
+D:\Fetch\InternFetch\BackEnd\InternBA.Infra.Data\obj\Debug\net6.0\InternBA.Infra.Data.csproj.AssemblyReference.cache
+D:\Fetch\InternFetch\BackEnd\InternBA.Infra.Data\obj\Debug\net6.0\InternBA.Infra.Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\Fetch\InternFetch\BackEnd\InternBA.Infra.Data\obj\Debug\net6.0\InternBA.Infra.Data.AssemblyInfoInputs.cache
+D:\Fetch\InternFetch\BackEnd\InternBA.Infra.Data\obj\Debug\net6.0\InternBA.Infra.Data.AssemblyInfo.cs
+D:\Fetch\InternFetch\BackEnd\InternBA.Infra.Data\obj\Debug\net6.0\InternBA.Infra.Data.csproj.CoreCompileInputs.cache
+D:\Fetch\InternFetch\BackEnd\InternBA.Infra.Data\obj\Debug\net6.0\InternBA.Infra.Data.dll
+D:\Fetch\InternFetch\BackEnd\InternBA.Infra.Data\obj\Debug\net6.0\refint\InternBA.Infra.Data.dll
+D:\Fetch\InternFetch\BackEnd\InternBA.Infra.Data\obj\Debug\net6.0\InternBA.Infra.Data.pdb
+D:\Fetch\InternFetch\BackEnd\InternBA.Infra.Data\obj\Debug\net6.0\InternBA.Infra.Data.genruntimeconfig.cache
+D:\Fetch\InternFetch\BackEnd\InternBA.Infra.Data\obj\Debug\net6.0\ref\InternBA.Infra.Data.dll

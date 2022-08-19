@@ -1,0 +1,5 @@
+D:\Fetch\InternFetch\BackEnd\ClassLibrary1\obj\Debug\net6.0\InternBA.Domain.csproj.AssemblyReference.cache
+D:\Fetch\InternFetch\BackEnd\ClassLibrary1\obj\Debug\net6.0\InternBA.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Fetch\InternFetch\BackEnd\ClassLibrary1\obj\Debug\net6.0\InternBA.Domain.AssemblyInfoInputs.cache
+D:\Fetch\InternFetch\BackEnd\ClassLibrary1\obj\Debug\net6.0\InternBA.Domain.AssemblyInfo.cs
+D:\Fetch\InternFetch\BackEnd\ClassLibrary1\obj\Debug\net6.0\InternBA.Domain.csproj.CoreCompileInputs.cache
