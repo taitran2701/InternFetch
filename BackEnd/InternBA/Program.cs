@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var config = builder.Configuration;
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -17,7 +17,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Use extension method 
-builder.Services.AddMyDbContext(builder);
+builder.Services.AddMyDbContext(config);
 
 //MediatR 
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());

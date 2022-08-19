@@ -39,32 +39,13 @@ namespace InternBA.Controllers
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(Guid id, User user)
+        public async Task<IActionResult> PutUser(Guid id, UpdateUserCommand command)
         {
-            if (id != user.Id)
+            if (id != command.Id)
             {
                 return BadRequest();
             }
-
-            _context.Entry(user).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok(await Mediator.Send(command));
         }
 
         // POST: api/Users
@@ -76,15 +57,11 @@ namespace InternBA.Controllers
         }
 
         // DELETE: api/Users/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(Guid id, UpdateUserCommand command)
-        {
-            if (id != command.Id)
-            {
-                return BadRequest();
-            }
-            return Ok(await Mediator.Send(command));
-        }
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteUser(Guid id, DeleteUserByIdCommand command)
+        //{
+        //    return Ok(await mediator)
+        //}
 
         //private bool UserExists(Guid id)
         //{

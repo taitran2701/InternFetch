@@ -20,8 +20,13 @@ namespace InternBA.Features.UserFeatures.Command
                 user.Password = request.Password;
                 user.Email = request.Email;
                 user.Avater = request.Avater;
+                user.CreatedDate = DateTime.UtcNow;
+                user.UpdatedDate = DateTime.UtcNow;
+                user.IsDelete = false;
+
                 context.Users.Add(user);
                 await context.SaveChangesAsync();
+
                 return user.Id;
             }
         }
