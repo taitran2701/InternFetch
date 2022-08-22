@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using InternBA;
 using InternBA.Infrastructure.Data;
+using InternBA.ViewModels;
 
 namespace InternBA.Controllers
 {
@@ -29,7 +30,7 @@ namespace InternBA.Controllers
             {
                 return NotFound();
             }
-            return await _context.Rooms.ToListAsync();
+            return await _context.Rooms.Where(r => r.DeleteAt != null).ToListAsync();
         }
 
         // GET: api/Rooms/5
@@ -53,14 +54,18 @@ namespace InternBA.Controllers
         // PUT: api/Rooms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRoom(Guid id, Room room)
+        public async Task<ActionResult<Room>> PutRoom(Guid id, RoomViewModel room)
         {
             if (id != room.Id)
             {
                 return BadRequest();
             }
-
-            _context.Entry(room).State = EntityState.Modified;
+            var result = _context.Rooms.Find(id);
+            result.Id = room.Id;
+            result.User1 = room.User1;
+            result.User2 = room.User2;
+            result.UpdatedDate = DateTime.UtcNow;
+            _context.Entry(result).State = EntityState.Modified;
 
             try
             {
@@ -78,19 +83,26 @@ namespace InternBA.Controllers
                 }
             }
 
-            return NoContent();
+            return result;
         }
 
         // POST: api/Rooms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Room>> PostRoom(Room room)
+        public async Task<ActionResult<Room>> PostRoom(RoomViewModel room)
         {
+            
             if (_context.Rooms == null)
             {
                 return Problem("Entity set 'InternBADBContext.Rooms'  is null.");
             }
-            _context.Rooms.Add(room);
+            var rm = new Room()
+            {
+                Id = room.Id,
+                User1 = room.User1,
+                User2 = room.User2
+            };
+            _context.Rooms.Add(rm);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetRoom", new { id = room.Id }, room);  
@@ -98,7 +110,7 @@ namespace InternBA.Controllers
 
         // DELETE: api/Rooms/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRoom(Guid id)
+        public async Task<ActionResult<IEnumerable<Room>>> DeleteRoom(Guid id)
         {
             if (_context.Rooms == null)
             {
@@ -109,11 +121,11 @@ namespace InternBA.Controllers
             {
                 return NotFound();
             }
-
-            _context.Rooms.Remove(room);
+            room.DeleteAt = DateTime.UtcNow;
+            //_context.Rooms.Remove(room);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return await _context.Rooms.Where(r => r.DeleteAt != null).ToListAsync();
         }
 
         private bool RoomExists(Guid id)

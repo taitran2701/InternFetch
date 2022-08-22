@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using InternBA;
 using InternBA.Infrastructure.Data;
+using InternBA.ViewModels;
 
 namespace InternBA.Controllers
 {
@@ -29,7 +30,7 @@ namespace InternBA.Controllers
             {
                 return NotFound();
             }
-            return await _context.Messages.ToListAsync();
+            return await _context.Messages.Where(m => m.DeleteAt != null).ToListAsync();
         }
 
         // GET: api/Messages/5
@@ -53,13 +54,13 @@ namespace InternBA.Controllers
         // PUT: api/Messages/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMessage(Guid id, Message message)
+        public async Task<IActionResult> PutMessage(Guid id, MessageViewModel message)
         {
             if (id != message.ID)
             {
                 return BadRequest();
             }
-
+            message.UpdatedDate = DateTime.UtcNow;
             _context.Entry(message).State = EntityState.Modified;
 
             try
@@ -84,13 +85,23 @@ namespace InternBA.Controllers
         // POST: api/Messages
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Message>> PostMessage(Message message)
+        public async Task<ActionResult<Message>> PostMessage(MessageViewModel message)
         {
             if (_context.Messages == null)
             {
                 return Problem("Entity set 'InternBADBContext.Messages'  is null.");
             }
-            _context.Messages.Add(message);
+            var ms = new Message()
+            {
+                ID = message.ID,
+                UserId = message.UserId,
+                Content = message.Content,
+                CreatedDate = DateTime.UtcNow,
+                UpdatedDate = null,
+                DeleteAt = null,
+                RoomId = message.RoomId
+            };
+            _context.Messages.Add(ms);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetMessage", new { id = message.ID }, message);
@@ -98,7 +109,7 @@ namespace InternBA.Controllers
 
         // DELETE: api/Messages/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMessage(Guid id)
+        public async Task<ActionResult<IEnumerable<Message>>> DeleteMessage(Guid id)
         {
             if (_context.Messages == null)
             {
@@ -109,11 +120,10 @@ namespace InternBA.Controllers
             {
                 return NotFound();
             }
-
-            _context.Messages.Remove(message);
+            message.DeleteAt = DateTime.UtcNow;
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return await _context.Messages.Where(m => m.DeleteAt != null).ToListAsync();
         }
 
         private bool MessageExists(Guid id)
