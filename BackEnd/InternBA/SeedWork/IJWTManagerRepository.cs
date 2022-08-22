@@ -1,7 +1,7 @@
 ﻿using InternBA.Models;
 using System.Security.Claims;
 
-namespace InternBA.Repository
+namespace InternBA.SeedWork
 {
     public interface IJWTManagerRepository
     {

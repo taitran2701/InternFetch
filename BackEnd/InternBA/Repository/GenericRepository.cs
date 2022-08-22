@@ -1,9 +1,10 @@
-﻿using InternBA.Interfaces;
-using InternBA.Repository;
+﻿using InternBA.Infrastructure.Data;
+using InternBA.Interfaces;
+using InternBA.SeedWork;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace InternBA.SeedWork
+namespace InternBA.Repository
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {

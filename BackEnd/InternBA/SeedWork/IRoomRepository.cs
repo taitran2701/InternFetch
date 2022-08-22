@@ -1,4 +1,4 @@
-﻿namespace InternBA.Repository
+﻿namespace InternBA.SeedWork
 {
     public interface IRoomRepository
     {

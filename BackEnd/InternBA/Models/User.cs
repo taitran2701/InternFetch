@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-public class User: IBaseEntity
+public class User: BaseEntity
 {
     public Guid Id { get; set; } 
     public string Username { get; set; }
@@ -10,7 +10,7 @@ public class User: IBaseEntity
     public string Email { get; set; }
     public string Avater { get; set; }
     public DateTime CreatedDate { get; set; }
-    public DateTime UpdatedDate { get; set; }
-    public bool IsDelete { get; set; }
+    public DateTime? UpdatedDate { get; set; }
+    public DateTime? DeleteAt { get; set; }
     public virtual ICollection<Room> Room { get; set; }
 }

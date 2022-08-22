@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "P7IBN0068/9sXecQ4aKpPtGTfl+jT5cLQY9apjD828i7h9qCZ+PqLQnG3diQleqPbfAlqJe9V3aXGOFmcn33oA==",
+  "dgSpecHash": "evnHtn3W1L88mHJU999DWyE5LNm6Y54nMFAScgAW9MLMJaRnRkDT/ieKhegBfMNUgoMY02xX00PzFnkxnMxReg==",
   "success": true,
   "projectFilePath": "D:\\InternFetch\\BackEnd\\InternBA\\InternBA.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nvdun\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\nvdun\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\nvdun\\.nuget\\packages\\mediatr\\10.0.1\\mediatr.10.0.1.nupkg.sha512",
+    "C:\\Users\\nvdun\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512",
+    "C:\\Users\\nvdun\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\10.0.1\\mediatr.extensions.microsoft.dependencyinjection.10.0.1.nupkg.sha512",
     "C:\\Users\\nvdun\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\nvdun\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
     "C:\\Users\\nvdun\\.nuget\\packages\\messagepackanalyzer\\2.1.152\\messagepackanalyzer.2.1.152.nupkg.sha512",

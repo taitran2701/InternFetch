@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using InternBA.Infrastructure.Data;
+using MediatR;
 using System.Linq;
 
 namespace InternBA.Features.UserFeatures.Queries

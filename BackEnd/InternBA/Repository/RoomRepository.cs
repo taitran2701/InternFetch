@@ -1,7 +1,8 @@
-﻿using InternBA.Repository;
+﻿using InternBA.Infrastructure.Data;
+using InternBA.SeedWork;
 using Microsoft.EntityFrameworkCore;
 
-namespace InternBA.SeedWork
+namespace InternBA.Repository
 {
     public class RoomRepository : GenericRepository<Room>, IRoomRepository
     {

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using InternBA.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace InternBA.Extensions
 {

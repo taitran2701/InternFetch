@@ -1,4 +1,7 @@
-﻿namespace InternBA.SeedWork
+﻿using InternBA.Infrastructure.Data;
+using InternBA.Repository;
+
+namespace InternBA.SeedWork
 {
     public class UnitOfWork : IDisposable
     {

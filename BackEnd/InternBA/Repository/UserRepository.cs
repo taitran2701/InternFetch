@@ -1,4 +1,6 @@
-﻿namespace InternBA.SeedWork
+﻿using InternBA.Infrastructure.Data;
+
+namespace InternBA.Repository
 {
     public class UserRepository : GenericRepository<User>
     {

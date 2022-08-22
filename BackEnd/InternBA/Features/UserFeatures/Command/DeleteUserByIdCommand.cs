@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using InternBA.Infrastructure.Data;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace InternBA.Features.UserFeatures.Command

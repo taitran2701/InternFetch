@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using InternBA.Infrastructure.Data;
+using MediatR;
 
 namespace InternBA.Features.UserFeatures.Command
 {
@@ -22,7 +23,7 @@ namespace InternBA.Features.UserFeatures.Command
                 user.Avater = request.Avater;
                 user.CreatedDate = DateTime.UtcNow;
                 user.UpdatedDate = DateTime.UtcNow;
-                user.IsDelete = false;
+                user.DeleteAt = DateTime.UtcNow;
 
                 context.Users.Add(user);
                 await context.SaveChangesAsync();
