@@ -8,6 +8,12 @@ using Serilog;
 using System.Reflection;
 using System.Text;
 
+using InternBA;
+using InternBA.Models;
+using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 // Add services to the container.
@@ -34,6 +40,11 @@ builder.Services.AddControllers()
 
 //JWT
 
+
+builder.Services.AddDbContext<InternBADBContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("mydata"));
+});
 
 var app = builder.Build();
 
