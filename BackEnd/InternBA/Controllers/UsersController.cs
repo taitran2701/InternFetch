@@ -16,8 +16,20 @@ namespace InternBA.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+<<<<<<< Updated upstream
         private IMediator mediator;
         protected IMediator Mediator => mediator ??= HttpContext.RequestServices.GetService<IMediator>();
+=======
+        private readonly IMediator mediator;
+
+        public UsersController(IMediator mediator)
+        {
+            this.mediator = mediator;
+        }
+
+      ///*  protected IMediator mediator => mediator ??= */HttpContext.RequestServices.GetService<IMediator>();
+        private readonly InternBADBContext _context;
+>>>>>>> Stashed changes
 
         // GET: api/Users
         [HttpGet]
@@ -30,7 +42,7 @@ namespace InternBA.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(Guid id)
         {
-            return Ok(await Mediator.Send(new GetUserByIdQuery()
+            return Ok(await mediator.Send(new GetUserByIdQuery()
             {
                 Id = id
             }));
@@ -45,7 +57,7 @@ namespace InternBA.Controllers
             {
                 return BadRequest();
             }
-            return Ok(await Mediator.Send(command));
+            return Ok(await mediator.Send(command));
         }
 
         // POST: api/Users
@@ -53,15 +65,24 @@ namespace InternBA.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(CreateUserCommand command)
         {
-            return Ok(await Mediator.Send(command));
+            return Ok(await mediator.Send(command));
         }
 
+<<<<<<< Updated upstream
         // DELETE: api/Users/5
         //[HttpDelete("{id}")]
         //public async Task<IActionResult> DeleteUser(Guid id, DeleteUserByIdCommand command)
         //{
         //    return Ok(await mediator)
         //}
+=======
+        //DELETE: api/Users/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(Guid id, DeleteUserByIdCommand command)
+        {
+            return Ok(await mediator.Send(command));
+        }
+>>>>>>> Stashed changes
 
         //private bool UserExists(Guid id)
         //{

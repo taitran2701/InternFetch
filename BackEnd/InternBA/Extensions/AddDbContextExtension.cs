@@ -12,6 +12,7 @@ namespace InternBA.Extensions
             
             servicserviceCollection.AddDbContext<InternBADBContext>(options =>
             {
+                //options.UseLazyLoadingProxies();
                 options.UseSqlServer(configuration.GetConnectionString("mydata"));
             });
             return servicserviceCollection;

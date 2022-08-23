@@ -27,6 +27,7 @@ namespace InternBA.Features.UserFeatures.Command
                 user.Password = request.Password;
                 user.Avater = request.Avater;
                 user.Email = request.Email;
+                user.UpdatedDate = DateTime.UtcNow;
                 await context.SaveChangesAsync();
                 return user.Id;
             }
