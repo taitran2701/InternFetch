@@ -9,7 +9,7 @@ namespace InternBA.Features.RoomFeatures.Command
         public Guid UserID1 { get; set; }
         public Guid UserID2 { get; set; }
 
-        public class CreateRoomCommandHandler : IRequestHandler<Room>
+        public class CreateRoomCommandHandler : IRequestHandler<CreateRoomCommand,Room>
         {
             public readonly InternBADBContext _context;
 
