@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using InternBA;
 using InternBA.Extensions;
 using MediatR;
@@ -21,6 +22,15 @@ builder.Services.AddMyDbContext(config);
 
 //MediatR 
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+
+//Fluent Validation
+builder.Services.AddControllers()
+    .AddFluentValidation(options =>
+    {
+        options.ImplicitlyValidateChildProperties = true;
+        options.ImplicitlyValidateRootCollectionElements = true;
+        options.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+    });
 
 //JWT
 
