@@ -7,7 +7,10 @@ namespace InternBA.Models.Validation
     {
         public MessageValidation()
         {
-            RuleFor(message => message.Content).NotNull().NotEmpty().WithMessage("Content can not empty");
+            RuleFor(message => message.Content)
+                .NotNull()
+                .NotEmpty()
+                .WithMessage("Content can not empty");
         }
     }
 }

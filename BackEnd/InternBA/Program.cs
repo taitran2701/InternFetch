@@ -32,6 +32,7 @@ builder.Services.AddControllers()
         options.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
     });
 
+
 //JWT
 
 
