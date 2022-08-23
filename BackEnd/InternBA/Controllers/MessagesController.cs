@@ -54,14 +54,16 @@ namespace InternBA.Controllers
         // PUT: api/Messages/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMessage(Guid id, MessageViewModel message)
+        public async Task<ActionResult<Message>> PutMessage(Guid id, MessageViewModel message)
         {
             if (id != message.ID)
             {
                 return BadRequest();
             }
-            message.UpdatedDate = DateTime.UtcNow;
-            _context.Entry(message).State = EntityState.Modified;
+            var result = await _context.Messages.FindAsync(id);
+            result.Content = message.Content;
+            result.UpdatedDate = DateTime.UtcNow;
+            _context.Entry(result).State = EntityState.Modified;
 
             try
             {
@@ -79,7 +81,7 @@ namespace InternBA.Controllers
                 }
             }
 
-            return NoContent();
+            return result;
         }
 
         // POST: api/Messages

@@ -9,6 +9,7 @@ using InternBA;
 using MediatR;
 using InternBA.Features.UserFeatures.Queries;
 using InternBA.Features.UserFeatures.Command;
+using InternBA.Infrastructure.Data;
 
 namespace InternBA.Controllers
 {
@@ -16,10 +17,7 @@ namespace InternBA.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-<<<<<<< Updated upstream
-        private IMediator mediator;
-        protected IMediator Mediator => mediator ??= HttpContext.RequestServices.GetService<IMediator>();
-=======
+
         private readonly IMediator mediator;
 
         public UsersController(IMediator mediator)
@@ -29,7 +27,6 @@ namespace InternBA.Controllers
 
       ///*  protected IMediator mediator => mediator ??= */HttpContext.RequestServices.GetService<IMediator>();
         private readonly InternBADBContext _context;
->>>>>>> Stashed changes
 
         // GET: api/Users
         [HttpGet]
@@ -68,21 +65,14 @@ namespace InternBA.Controllers
             return Ok(await mediator.Send(command));
         }
 
-<<<<<<< Updated upstream
-        // DELETE: api/Users/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteUser(Guid id, DeleteUserByIdCommand command)
-        //{
-        //    return Ok(await mediator)
-        //}
-=======
+
         //DELETE: api/Users/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(Guid id, DeleteUserByIdCommand command)
         {
             return Ok(await mediator.Send(command));
         }
->>>>>>> Stashed changes
+
 
         //private bool UserExists(Guid id)
         //{
