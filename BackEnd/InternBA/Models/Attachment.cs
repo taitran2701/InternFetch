@@ -1,15 +1,12 @@
 ﻿namespace InternBA.Models
 {
-    public enum AttachmentTypes
-    {
-        Images,
-        Videos
-    }
     public class Attachment
     {
-        public int PostID { get; set; }
-        public int Type { get; set; }
+        public Guid ID { get; set; }
+        public Guid PostID { get; set; }
+        public Post Post { get; set; }
+        public int Category { get; set; }
+        public ICollection<Category> Categories { get; set; }
 
-        public AttachmentTypes AttachmentType { get; set; }
     }
 }
