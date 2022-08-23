@@ -1,3 +1,4 @@
+using InternBA;
 using InternBA.Models;
 using Microsoft.EntityFrameworkCore;
 
