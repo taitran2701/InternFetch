@@ -30,7 +30,7 @@ namespace InternBA.Controllers
             {
                 return NotFound();
             }
-            return await _context.Messages.Where(m => m.DeleteAt != null).ToListAsync();
+            return await _context.Messages.Where(m => m.DeleteAt == null).ToListAsync();
         }
 
         // GET: api/Messages/5
