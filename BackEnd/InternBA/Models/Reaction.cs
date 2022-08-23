@@ -1,14 +1,21 @@
-﻿namespace InternBA.Models
-{
-    public class Reaction
-    {
-        public Guid ID { get; set; } 
-        public int UserID { get; set; }
-        public int PostID { get; set; }
-        public int Type { get; set; }
-        public DateTime CreatedTime { get; set; }
-        public DateTime UpdatedTime { get; set; }
+﻿using InternBA.Interface;
 
-        
+namespace InternBA.Models
+{
+    public class Reaction : IBaseEntity
+    {
+        public Guid ID { get; set; }
+        public Guid UserID { get; set; }
+        public string Expression { get; set; }
+        public bool? IsDeleted { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+
+        public Guid PostID { get; set; }
+        public Post Post { get; set; }
+
+        public Guid CommentID { get; set; }
+        public Comment Comment { get; set; }
+
     }
 }
