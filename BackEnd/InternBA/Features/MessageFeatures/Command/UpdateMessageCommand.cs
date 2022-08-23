@@ -1,5 +1,6 @@
 ﻿using InternBA.Infrastructure.Data;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace InternBA.Features.MessageFeatures.Command
 {
@@ -28,6 +29,9 @@ namespace InternBA.Features.MessageFeatures.Command
                 message.Content = request.Content;
                 message.UpdatedDate = DateTime.UtcNow;
 
+                _context.Entry(message).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return message;
             }
         }
     }

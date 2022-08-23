@@ -9,7 +9,7 @@ namespace InternBA.Features.RoomFeatures.Command
         public Guid UserID1 { get; set; }
         public Guid UserID2 { get; set; }
 
-        public class CreateRoomCommandHandler : IRequestHandler<CreateRoomCommand,Room>
+        public class CreateRoomCommandHandler : IRequestHandler<CreateRoomCommand, Room>
         {
             public readonly InternBADBContext _context;
 
@@ -18,13 +18,13 @@ namespace InternBA.Features.RoomFeatures.Command
                 _context = context;
             }
 
-            public async Task<Room> Handle(Room request, CancellationToken cancellationToken)
+            public async Task<Room> Handle(CreateRoomCommand request, CancellationToken cancellationToken)
             {
                 var room = new Room()
                 {
-                    Id = request.Id,
-                    User1 = request.User1,
-                    User2 = request.User2,
+                    Id = request.ID,
+                    User1 = request.UserID1,
+                    User2 = request.UserID2,
                     CreatedDate = DateTime.UtcNow
                 };
                 
