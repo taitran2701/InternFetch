@@ -1,15 +1,19 @@
-﻿namespace InternBA.Models
+﻿using InternBA.Interface;
+namespace InternBA.Models
 {
-    public class Comment
+    public class Comment : IBaseEntity
     {
         public Guid ID { get; set; }
-        public int PostID { get; set; }
-        public int UserID { get; set; }
+        public Guid UserID { get; set; }
         public string Content { get; set; }
-        public  int Reaction { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime UpdatedDate { get; set; }
-
+        public Guid ReactionID { get; set; }
         public ICollection<Reaction> Reactions { get; set; }
+
+        public Guid PostID { get; set; }
+        public Post Post { get; set; }  
+        public DateTime CreatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+        public bool? IsDeleted { get; set; }
+
     }
 }
