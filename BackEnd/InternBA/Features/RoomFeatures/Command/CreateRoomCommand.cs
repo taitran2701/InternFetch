@@ -1,6 +1,9 @@
-﻿namespace InternBA.Features.RoomFeatures.Command
+﻿using MediatR;
+
+namespace InternBA.Features.RoomFeatures.Command
 {
-    public class CreateRoomCommand
+    public class CreateRoomCommand : IRequest<Room>
     {
+
     }
 }

@@ -99,8 +99,6 @@ namespace InternBA.Controllers
                 UserId = message.UserId,
                 Content = message.Content,
                 CreatedDate = DateTime.UtcNow,
-                UpdatedDate = null,
-                DeleteAt = null,
                 RoomId = message.RoomId
             };
             _context.Messages.Add(ms);
