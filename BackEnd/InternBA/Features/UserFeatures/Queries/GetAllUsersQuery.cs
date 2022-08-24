@@ -17,7 +17,9 @@ namespace InternBA.Features.UserFeatures.Queries
 
             public async Task<IEnumerable<User>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
             {
+                Console.WriteLine("Xin chao");
                 var users = await context.Users.ToListAsync();
+                
                 if (users == null)
                 {
                     return null;

@@ -9,6 +9,7 @@ namespace InternBA.Infrastructure.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<UserRoom> UserRoom { get; set; }
         //public int MyProperty { get; set; }
         //public DbSet<UserRefreshTokens> UserRefreshToken { get; set; }
 

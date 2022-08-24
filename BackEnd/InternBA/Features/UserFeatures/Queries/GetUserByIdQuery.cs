@@ -20,6 +20,10 @@ namespace InternBA.Features.UserFeatures.Queries
                 //Todo - XuanLoi: can be error
                 var user = context.Users.Where(u => u.Id == request.Id).FirstOrDefault();
                 if (user == null) return null;
+                foreach (var room in user.UserRooms)
+                {
+                    Console.WriteLine($"------- {room.User}");
+                }
                 return user;
             }
             public Guid ToGuid(int value)
