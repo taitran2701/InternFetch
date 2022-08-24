@@ -276,21 +276,6 @@ namespace InternBA.Migrations
                     b.ToTable("Rooms");
                 });
 
-            modelBuilder.Entity("RoomUser", b =>
-                {
-                    b.Property<Guid>("RoomId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("RoomId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("RoomUser");
-                });
-
             modelBuilder.Entity("User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -402,13 +387,13 @@ namespace InternBA.Migrations
             modelBuilder.Entity("InternBA.Models.UserRoom", b =>
                 {
                     b.HasOne("Room", "Room")
-                        .WithMany()
+                        .WithMany("UserRooms")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("User", "User")
-                        .WithMany()
+                        .WithMany("UserRooms")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -429,19 +414,14 @@ namespace InternBA.Migrations
                     b.Navigation("Room");
                 });
 
-            modelBuilder.Entity("RoomUser", b =>
+            modelBuilder.Entity("Room", b =>
                 {
-                    b.HasOne("Room", null)
-                        .WithMany()
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("UserRooms");
+                });
 
-                    b.HasOne("User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            modelBuilder.Entity("User", b =>
+                {
+                    b.Navigation("UserRooms");
                 });
 
             modelBuilder.Entity("InternBA.Models.Attachment", b =>

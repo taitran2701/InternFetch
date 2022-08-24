@@ -17,6 +17,7 @@ namespace InternBA.Infrastructure.Data
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Attachment> Attachments { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<UserRoom> UserRoom { get; set; }
         //public int MyProperty { get; set; }
         //public DbSet<UserRefreshTokens> UserRefreshToken { get; set; }
 
