@@ -14,3 +14,4 @@ BackEnd/InternBA/appsettings.json
 BackEnd/InternBA/.vs/InternBA/v17/.suo
 FrontEnd/internba/node_modules/.bin/escodegen
 FrontEnd/internba/node_modules/.bin/esgenerate.ps1
+node_modules

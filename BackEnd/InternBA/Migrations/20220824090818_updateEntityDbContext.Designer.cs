@@ -4,6 +4,7 @@ using InternBA.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternBA.Migrations
 {
     [DbContext(typeof(InternBADBContext))]
-    partial class InternBADBContextModelSnapshot : ModelSnapshot
+    [Migration("20220824090818_updateEntityDbContext")]
+    partial class updateEntityDbContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,8 +39,7 @@ namespace InternBA.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("ID")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(0);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");

@@ -17,6 +17,8 @@ namespace InternBA.EntityConfigs
             builder.HasOne<Room>(ur => ur.Room)
                 .WithMany(r => r.UserRooms)
                 .HasForeignKey(r => r.RoomId);
+
+            builder.Property(ur => ur.ID).HasColumnOrder(0);
         }
     }
 }
