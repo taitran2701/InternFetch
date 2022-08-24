@@ -1,0 +1,14 @@
+
+*.vsidx
+*.vsidx
+.vs/InternFetch/v17/.suo
+.vs/slnx.sqlite
+*.v2
+.vs/InternFetch/v17/.suo
+BackEnd/InternBA/obj/*
+BackEnd/InternBA/bin/*
+BackEnd/InternBA/.vs/*
+BackEnd/InternBA/obj/Debug/net6.0/InternBA.assets.cache
+BackEnd/InternBA/obj/Release/net6.0/InternBA.GlobalUsings.g.cs
+BackEnd/InternBA/appsettings.json
+BackEnd/InternBA/.vs/InternBA/v17/.suo
