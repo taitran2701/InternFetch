@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using InternBA;
 using InternBA.Models;
 using InternBA.Infrastructure.Data;
+using InternBA.ViewModels;
 
 namespace InternBA.Controllers
 {
@@ -30,7 +31,7 @@ namespace InternBA.Controllers
           {
               return NotFound();
           }
-            return await _context.Reactions.ToListAsync();
+            return await _context.Reactions.Where(r => r.DeleteAt != null).ToListAsync();
         }
 
         // GET: api/Reactions/5
@@ -54,13 +55,18 @@ namespace InternBA.Controllers
         // PUT: api/Reactions/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutReaction(Guid id, Reaction reaction)
+        public async Task<ActionResult<Reaction>> PutReaction(Guid id, ReactionViewModel reaction)
         {
             if (id != reaction.ID)
             {
                 return BadRequest();
             }
 
+            var result = _context.Reactions.Find(id);
+            result.ID = reaction.ID;    
+            result.Expression = reaction.Expression;
+            result.CommentID=reaction.CommentID;
+            result.PostID = reaction.PostID;
             _context.Entry(reaction).State = EntityState.Modified;
 
             try
@@ -79,19 +85,27 @@ namespace InternBA.Controllers
                 }
             }
 
-            return NoContent();
+            return result;
         }
 
         // POST: api/Reactions
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Reaction>> PostReaction(Reaction reaction)
+        public async Task<ActionResult<Reaction>> PostReaction(ReactionViewModel reaction)
         {
           if (_context.Reactions == null)
           {
               return Problem("Entity set 'InternBADBContext.Reactions'  is null.");
           }
-            _context.Reactions.Add(reaction);
+            var react = new Reaction()
+            {
+                ID = reaction.ID,
+                UserID = reaction.UserID,
+                Expression = reaction.Expression,
+                CommentID = reaction.CommentID,
+                PostID = reaction.PostID,
+            };
+            _context.Reactions.Add(react);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetReaction", new { id = reaction.ID }, reaction);
@@ -99,7 +113,7 @@ namespace InternBA.Controllers
 
         // DELETE: api/Reactions/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteReaction(Guid id)
+        public async Task<ActionResult<IEnumerable<Reaction>>> DeleteReaction(Guid id)
         {
             if (_context.Reactions == null)
             {
@@ -110,11 +124,11 @@ namespace InternBA.Controllers
             {
                 return NotFound();
             }
+            reaction.DeleteAt = DateTime.UtcNow;
+/*            _context.Reactions.Remove(reaction);
+*/            await _context.SaveChangesAsync();
 
-            _context.Reactions.Remove(reaction);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return await _context.Reactions.Where(r=>r.DeleteAt != null).ToListAsync();
         }
 
         private bool ReactionExists(Guid id)

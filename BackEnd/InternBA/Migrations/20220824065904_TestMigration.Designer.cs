@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternBA.Migrations
 {
     [DbContext(typeof(InternBADBContext))]
-    [Migration("20220824022845_TestMigration")]
+    [Migration("20220824065904_TestMigration")]
     partial class TestMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -129,10 +129,10 @@ namespace InternBA.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AttachmentID")
+                    b.Property<Guid?>("AttachmentID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CommentID")
+                    b.Property<Guid?>("CommentID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Content")
@@ -146,7 +146,7 @@ namespace InternBA.Migrations
                     b.Property<DateTime?>("DeleteAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("Reaction")
+                    b.Property<Guid?>("Reaction")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("UpdatedDate")

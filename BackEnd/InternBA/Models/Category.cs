@@ -8,8 +8,5 @@ namespace InternBA.Models
         public string Video { get; set; }
         public Guid AttachmentID { get; set; }
         public Attachment Attachment { get; set; }
-        public DateTime? DeleteAt { get ; set ; }
-        public DateTime CreatedDate { get ; set; }
-        public DateTime? UpdatedDate { get ; set; }
     }
 }
