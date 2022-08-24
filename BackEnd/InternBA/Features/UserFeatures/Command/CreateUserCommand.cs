@@ -12,8 +12,12 @@ namespace InternBA.Features.UserFeatures.Command
 
         public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
         {
-            private readonly InternBADBContext context;
+            private readonly InternBADBContext _context;
 
+            public CreateUserCommandHandler(InternBADBContext context)
+            {
+                _context = context;
+            }
             public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
             {
                 var user = new User();
@@ -22,12 +26,9 @@ namespace InternBA.Features.UserFeatures.Command
                 user.Email = request.Email;
                 user.Avater = request.Avater;
                 user.CreatedDate = DateTime.UtcNow;
-                user.UpdatedDate = DateTime.UtcNow;
-                user.DeleteAt = DateTime.UtcNow;
 
-                context.Users.Add(user);
-                await context.SaveChangesAsync();
-
+                _context.Users.Add(user);
+                await _context.SaveChangesAsync();
                 return user.Id;
             }
         }

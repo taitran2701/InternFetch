@@ -37,12 +37,9 @@ namespace InternBA.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(Guid id)
+        public async Task<ActionResult<User>> GetUser([FromQuery] GetUserByIdQuery query)
         {
-            return Ok(await mediator.Send(new GetUserByIdQuery()
-            {
-                Id = id
-            }));
+            return Ok(await mediator.Send(query));
         }
 
         // PUT: api/Users/5
