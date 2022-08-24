@@ -38,7 +38,7 @@ namespace InternBA.Features.UserFeatures.Command
                 
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
-                return user.Id;
+                return user.ID;
             }
         }
     }

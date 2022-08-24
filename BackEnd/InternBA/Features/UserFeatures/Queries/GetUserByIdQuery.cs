@@ -18,7 +18,7 @@ namespace InternBA.Features.UserFeatures.Queries
             public async Task<User> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
             {
                 //Todo - XuanLoi: can be error
-                var user = context.Users.Where(u => u.Id == request.Id).FirstOrDefault();
+                var user = context.Users.Where(u => u.ID == request.Id).FirstOrDefault();
                 if (user == null) return null;
                 foreach (var room in user.UserRooms)
                 {
