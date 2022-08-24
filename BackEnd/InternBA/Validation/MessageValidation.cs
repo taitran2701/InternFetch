@@ -3,7 +3,7 @@ using InternBA.ViewModels;
 
 namespace InternBA.Models.Validation
 {
-    public class MessageValidation : AbstractValidator<MessageViewModel> 
+    public class MessageValidation : AbstractValidator<MessageViewModel>
     {
         public MessageValidation()
         {
