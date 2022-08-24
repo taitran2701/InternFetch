@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using InternBA;
 using InternBA.Models;
+using InternBA.Infrastructure.Data;
 
 namespace InternBA.Controllers
 {

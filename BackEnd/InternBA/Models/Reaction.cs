@@ -1,13 +1,13 @@
-﻿using InternBA.Interface;
+﻿using InternBA.Interfaces;
 
 namespace InternBA.Models
 {
-    public class Reaction : IBaseEntity
+    public class Reaction : BaseEntity
     {
         public Guid ID { get; set; }
         public Guid UserID { get; set; }
         public string Expression { get; set; }
-        public bool? IsDeleted { get; set; }
+        public DateTime? DeleteAt { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
 

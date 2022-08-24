@@ -1,6 +1,7 @@
 ﻿using InternBA;
 using InternBA.Controllers;
-using InternBA.Interface;
+using InternBA.Infrastructure.Data;
+using InternBA.Interfaces;
 using InternBA.Models;
 /*using InternBA.Repository;
 */using Microsoft.EntityFrameworkCore;

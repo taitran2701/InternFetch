@@ -9,6 +9,7 @@ namespace InternBA.EntityConfigs
         {
             builder.HasKey(u => u.Id);
             builder.HasMany(u => u.Room);
+            builder.HasMany(u=> u.Posts);
             builder.Property(u => u.Username)
                 .HasColumnName("Username")
                 .IsRequired()
