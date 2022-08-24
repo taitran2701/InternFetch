@@ -1,4 +1,5 @@
 ﻿using InternBA.Infrastructure.Data;
+using InternBA.Models;
 using MediatR;
 
 namespace InternBA.Features.UserFeatures.Command
@@ -9,6 +10,7 @@ namespace InternBA.Features.UserFeatures.Command
         public string Password { get; set; }
         public string Email { get; set; }
         public string Avater { get; set; }
+        public Guid RoomID { get; set; }
 
         public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
         {
@@ -26,7 +28,14 @@ namespace InternBA.Features.UserFeatures.Command
                 user.Email = request.Email;
                 user.Avater = request.Avater;
                 user.CreatedDate = DateTime.UtcNow;
-
+                user.UserRooms = new List<UserRoom>
+                {
+                    new UserRoom()
+                    {
+                        RoomId = request.RoomID
+                    }
+                };
+                
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
                 return user.Id;

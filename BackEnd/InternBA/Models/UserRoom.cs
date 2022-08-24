@@ -1,6 +1,8 @@
-﻿namespace InternBA.Models
+﻿using InternBA.Interfaces;
+
+namespace InternBA.Models
 {
-    public class UserRoom
+    public class UserRoom : BaseEntity
     {
         public Guid UserId { get; set; }
         public User User { get; set; }
