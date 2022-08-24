@@ -1,17 +1,18 @@
-﻿using InternBA.Interface;
+﻿using InternBA.Interfaces;
 
 namespace InternBA.Models
 {
-    public class Post : IBaseEntity
+    public class Post : BaseEntity
     {
         public Guid ID { get; set; }
         public string Content { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
-        public bool? IsDeleted { get; set; }
+        public DateTime? DeleteAt { get; set; }
 
 
         public Guid UserID { get; set; }
+        public User User { get; set; }
 
         public Guid Reaction { get; set; }
         public virtual ICollection<Reaction> Reactions { get; set; }
