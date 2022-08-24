@@ -1,4 +1,5 @@
 ﻿using InternBA.Infrastructure.Data;
+using InternBA.Models;
 using MediatR;
 
 namespace InternBA.Features.UserFeatures.Command
@@ -9,11 +10,16 @@ namespace InternBA.Features.UserFeatures.Command
         public string Password { get; set; }
         public string Email { get; set; }
         public string Avater { get; set; }
+        public Guid RoomID { get; set; }
 
         public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
         {
-            private readonly InternBADBContext context;
+            private readonly InternBADBContext _context;
 
+            public CreateUserCommandHandler(InternBADBContext context)
+            {
+                _context = context;
+            }
             public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
             {
                 var user = new User();
@@ -22,12 +28,16 @@ namespace InternBA.Features.UserFeatures.Command
                 user.Email = request.Email;
                 user.Avater = request.Avater;
                 user.CreatedDate = DateTime.UtcNow;
-                user.UpdatedDate = DateTime.UtcNow;
-                user.DeleteAt = DateTime.UtcNow;
-
-                context.Users.Add(user);
-                await context.SaveChangesAsync();
-
+                user.UserRooms = new List<UserRoom>
+                {
+                    new UserRoom()
+                    {
+                        RoomId = request.RoomID
+                    }
+                };
+                
+                _context.Users.Add(user);
+                await _context.SaveChangesAsync();
                 return user.Id;
             }
         }

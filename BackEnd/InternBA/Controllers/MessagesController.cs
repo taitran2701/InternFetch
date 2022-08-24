@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using InternBA;
 using InternBA.Infrastructure.Data;
 using InternBA.ViewModels;
+using MediatR;
+using InternBA.Features.MessageFeatures.Query;
+using InternBA.Features.MessageFeatures.Command;
 
 namespace InternBA.Controllers
 {
@@ -16,114 +19,120 @@ namespace InternBA.Controllers
     public class MessagesController : ControllerBase
     {
         private readonly InternBADBContext _context;
-
-        public MessagesController(InternBADBContext context)
+        private readonly IMediator mediator;
+        public MessagesController(InternBADBContext context,IMediator mediator)
         {
             _context = context;
+            this.mediator = mediator;
         }
 
         // GET: api/Messages
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Message>>> GetMessages()
+        public async Task<ActionResult<IEnumerable<Message>>> GetMessages(GetAllMessagesQuery query)
         {
-            if (_context.Messages == null)
-            {
-                return NotFound();
-            }
-            return await _context.Messages.Where(m => m.DeleteAt != null).ToListAsync();
+            //if (_context.Messages == null)
+            //{
+            //    return NotFound();
+            //}
+            //return await _context.Messages.Where(m => m.DeleteAt == null).ToListAsync();
+            return Ok(await mediator.Send(query));
         }
 
         // GET: api/Messages/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Message>> GetMessage(Guid id)
+        public async Task<ActionResult<Message>> GetMessage([FromQuery]GetMessageByIdQuery query)
         {
-            if (_context.Messages == null)
-            {
-                return NotFound();
-            }
-            var message = await _context.Messages.FindAsync(id);
+            //if (_context.Messages == null)
+            //{
+            //    return NotFound();
+            //}
+            //var command = await _context.Messages.FindAsync(id);
 
-            if (message == null)
-            {
-                return NotFound();
-            }
+            //if (command == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return message;
+            //return command;
+            return Ok(await mediator.Send(query));
         }
 
         // PUT: api/Messages/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult<Message>> PutMessage(Guid id, MessageViewModel message)
+        public async Task<ActionResult<Message>> PutMessage(Guid id, UpdateMessageCommand command)
         {
-            if (id != message.ID)
+            if (id != command.ID)
             {
                 return BadRequest();
             }
-            var result = await _context.Messages.FindAsync(id);
-            result.Content = message.Content;
-            result.UpdatedDate = DateTime.UtcNow;
-            _context.Entry(result).State = EntityState.Modified;
+            //var result = await _context.Messages.FindAsync(id);
+            //result.Content = command.Content;
+            //result.UpdatedDate = DateTime.UtcNow;
+            //_context.Entry(result).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MessageExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!MessageExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
 
-            return result;
+            //return result;
+            return Ok(await mediator.Send(command));
         }
 
         // POST: api/Messages
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Message>> PostMessage(MessageViewModel message)
+        public async Task<ActionResult<Message>> PostMessage(CreateMessageCommand command)
         {
-            if (_context.Messages == null)
-            {
-                return Problem("Entity set 'InternBADBContext.Messages'  is null.");
-            }
-            var ms = new Message()
-            {
-                ID = message.ID,
-                UserId = message.UserId,
-                Content = message.Content,
-                CreatedDate = DateTime.UtcNow,
-                RoomId = message.RoomId
-            };
-            _context.Messages.Add(ms);
-            await _context.SaveChangesAsync();
+            //if (_context.Messages == null)
+            //{
+            //    return Problem("Entity set 'InternBADBContext.Messages'  is null.");
+            //}
+            //var ms = new Message()
+            //{
+            //    ID = command.ID,
+            //    UserId = command.UserId,
+            //    Content = command.Content,
+            //    CreatedDate = DateTime.UtcNow,
+            //    RoomId = command.RoomId
+            //};
+            //_context.Messages.Add(ms);
+            //await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMessage", new { id = message.ID }, message);
+            //return CreatedAtAction("GetMessage", new { id = command.ID }, command);
+            return Ok(await mediator.Send(command));
         }
 
         // DELETE: api/Messages/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<IEnumerable<Message>>> DeleteMessage(Guid id)
+        public async Task<ActionResult<IEnumerable<Message>>> DeleteMessage(DeleteMessageByIdCommand command)
         {
-            if (_context.Messages == null)
-            {
-                return NotFound();
-            }
-            var message = await _context.Messages.FindAsync(id);
-            if (message == null)
-            {
-                return NotFound();
-            }
-            message.DeleteAt = DateTime.UtcNow;
-            await _context.SaveChangesAsync();
+            //if (id == )
+            //{
+            //    return NotFound();
+            //}
+            //var command = await _context.Messages.FindAsync(id);
+            //if (command == null)
+            //{
+            //    return NotFound();
+            //}
+            //command.DeleteAt = DateTime.UtcNow;
+            //await _context.SaveChangesAsync();
 
-            return await _context.Messages.Where(m => m.DeleteAt != null).ToListAsync();
+            //return await _context.Messages.Where(m => m.DeleteAt != null).ToListAsync();
+            return Ok(await mediator.Send(command));
         }
 
         private bool MessageExists(Guid id)
