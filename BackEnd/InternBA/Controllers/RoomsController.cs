@@ -140,7 +140,7 @@ namespace InternBA.Controllers
 
         private bool RoomExists(Guid id)
         {
-            return (_context.Rooms?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Rooms?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }

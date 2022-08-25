@@ -65,7 +65,6 @@ namespace InternBA.Controllers
             var result = _context.Attachments.Find(id);
             result.ID = attachment.ID;
             result.PostID = attachment.PostID;
-            result.CategoryID = attachment.CategoryID;
 
 
             _context.Entry(attachment).State = EntityState.Modified;
@@ -103,7 +102,6 @@ namespace InternBA.Controllers
             {
                 ID = attachment.ID,
                 PostID = attachment.PostID,
-                CategoryID = attachment.CategoryID,
             };
             _context.Attachments.Add(at);
             await _context.SaveChangesAsync();

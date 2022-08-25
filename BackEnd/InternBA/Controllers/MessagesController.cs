@@ -134,10 +134,5 @@ namespace InternBA.Controllers
             //return await _context.Messages.Where(m => m.DeleteAt != null).ToListAsync();
             return Ok(await mediator.Send(command));
         }
-
-        private bool MessageExists(Guid id)
-        {
-            return (_context.Messages?.Any(e => e.ID == id)).GetValueOrDefault();
-        }
     }
 }

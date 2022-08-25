@@ -1,12 +1,17 @@
-﻿namespace InternBA.Models
+﻿
+using InternBA.Interfaces;
+
+namespace InternBA.Models
 {
-    public class Attachment
+    public class Attachment: BaseEntity
     {
-        public Guid ID { get; set; }
-        public Guid PostID { get; set; }
+
+        public Guid? PostID { get; set; }
         public Post Post { get; set; }
-        public Guid CategoryID { get; set; }
-        public ICollection<Category> Categories { get; set; }
+
+
+        public Guid? CategoryId { get; set; }
+        public Category Category { get; set; }
 
     }
 }

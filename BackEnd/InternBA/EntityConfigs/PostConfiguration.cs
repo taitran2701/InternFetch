@@ -15,9 +15,10 @@ namespace InternBA.EntityConfigs
 
             //builder.HasMany(p => p.Reactions);
 
-            builder.HasMany(p => p.Categories);
-
-            builder.HasMany(p=>p.Comments);
+            builder.HasOne(u => u.User)
+                .WithMany(p => p.Posts)
+                .HasForeignKey( u=> u.UserID);
+            
         }
     }
 }

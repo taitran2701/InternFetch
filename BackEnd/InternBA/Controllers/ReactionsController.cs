@@ -31,7 +31,7 @@ namespace InternBA.Controllers
           {
               return NotFound();
           }
-            return await _context.Reactions.Where(r => r.DeleteAt != null).ToListAsync();
+            return await _context.Reactions.Where(r => r.DeleteAt == null).ToListAsync();
         }
 
         // GET: api/Reactions/5
@@ -100,7 +100,6 @@ namespace InternBA.Controllers
             var react = new Reaction()
             {
                 ID = reaction.ID,
-                UserID = reaction.UserID,
                 Expression = reaction.Expression,
                 CommentID = reaction.CommentID,
                 PostID = reaction.PostID,

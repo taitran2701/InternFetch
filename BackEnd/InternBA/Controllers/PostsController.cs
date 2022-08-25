@@ -31,7 +31,7 @@ namespace InternBA.Controllers
             {
                 return NotFound();
             }
-            return Ok(await _context.Posts.ToListAsync());
+            return await _context.Posts.Where(r => r.DeleteAt == null).ToListAsync();
         }
 
         // GET: api/Posts/5
@@ -65,7 +65,6 @@ namespace InternBA.Controllers
             result.ID = post.ID;
             result.Content = post.Content;
             result.Reaction = post.Reaction;
-            result.CommentID = post.CommentID;
             result.AttachmentID = post.AttachmentID;
             result.UpdatedDate = DateTime.UtcNow;
             _context.Entry(result).State = EntityState.Modified;
@@ -103,7 +102,6 @@ namespace InternBA.Controllers
                 ID = post.ID,
                 Content = post.Content,
                 Reaction = post.Reaction,
-                CommentID = post.CommentID,
                 AttachmentID = post.AttachmentID,
             };
             _context.Posts.Add(pst);

@@ -18,11 +18,11 @@ namespace InternBA.Features.UserFeatures.Command
 
             public async Task<Guid> Handle(DeleteUserByIdCommand request, CancellationToken cancellationToken)
             {
-                var user = await context.Users.Where(u => u.Id == request.Id).FirstOrDefaultAsync();
+                var user = await context.Users.Where(u => u.ID == request.Id).FirstOrDefaultAsync();
                 if (user == null) return default;
                 context.Users.Remove(user);
                 await context.SaveChangesAsync();
-                return user.Id;
+                return user.ID;
             }
         }
     }

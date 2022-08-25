@@ -9,9 +9,15 @@ namespace InternBA.EntityConfigs
         {
             builder.HasKey(a =>a.ID);
 
-            builder.HasOne(a => a.Post);
 
-            builder.HasMany(a=>a.Categories);
+            builder.HasOne(c=>c.Category)
+                .WithMany(a=>a.Attachments)
+                .HasForeignKey(c=>c.CategoryId);
+
+            builder.HasOne(p=>p.Post)
+                .WithMany(a=>a.Attachments)
+                .HasForeignKey(p=>p.PostID);
+
         }
     }
 }

@@ -40,7 +40,7 @@ namespace InternBA.Infrastructure.Data
 
             builder.ApplyConfiguration(new AttachmentConfiguration());
 
-            builder.ApplyConfiguration(new CateConfiguration());
+            builder.ApplyConfiguration(new CategoryConfiguration());
 
             //builder.ApplyConfiguration(new UserRefreshTokensConfiguration());
         }

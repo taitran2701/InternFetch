@@ -14,7 +14,9 @@ namespace InternBA.EntityConfigs
                 .HasColumnName("Type");
 
 
-            builder.HasOne(r => r.Comment);
+            builder.HasOne(r => r.Comment)
+                .WithMany(r=>r.Reactions)
+                .HasForeignKey(r=>r.CommentID);
 
             builder.HasOne(r => r.Post)
                 .WithMany(x=>x.Reactions)

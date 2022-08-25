@@ -22,7 +22,7 @@ namespace InternBA.Features.RoomFeatures.Command
             {
                 var room = new Room()
                 {
-                    Id = request.ID,
+                    ID = request.ID,
                     User1 = request.UserID1,
                     User2 = request.UserID2,
                     CreatedDate = DateTime.UtcNow

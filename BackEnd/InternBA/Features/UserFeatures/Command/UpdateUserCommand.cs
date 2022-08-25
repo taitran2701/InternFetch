@@ -21,7 +21,7 @@ namespace InternBA.Features.UserFeatures.Command
 
             public async Task<Guid> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
             {
-                var user = context.Users.Where(u => u.Id == request.Id).FirstOrDefault();
+                var user = context.Users.Where(u => u.ID == request.Id).FirstOrDefault();
                 if (user == null) return default;
                 user.Username = request.Username;
                 user.Password = request.Password;
@@ -29,7 +29,7 @@ namespace InternBA.Features.UserFeatures.Command
                 user.Email = request.Email;
                 user.UpdatedDate = DateTime.UtcNow;
                 await context.SaveChangesAsync();
-                return user.Id;
+                return user.ID;
             }
         }
     }

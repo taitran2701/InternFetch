@@ -9,14 +9,20 @@ namespace InternBA.EntityConfigs
         {
             builder.HasKey(c =>c.ID);
 
-            builder.HasOne(c => c.Post);
-
             builder.Property(c => c.Content)
                 .HasColumnName("Content")
                 .IsRequired()
                 .HasMaxLength(500);
 
-            builder.HasMany(c => c.Reactions);
+            
+
+            builder.HasOne(c=>c.Post)
+                .WithMany(c=>c.Comments)
+                .HasForeignKey(c=>c.PostID);
+
+            builder.HasOne(u=>u.User)
+                .WithMany(c=>c.Comments)
+                .HasForeignKey(u=>u.UserID);
        
 
         }
