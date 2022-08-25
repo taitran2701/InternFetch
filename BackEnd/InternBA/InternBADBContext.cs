@@ -11,12 +11,19 @@ namespace InternBA.Infrastructure.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Message> Messages { get; set; }
+
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Reaction> Reactions { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Attachment> Attachments { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<UserRoom> UserRoom { get; set; }
         //public int MyProperty { get; set; }
         //public DbSet<UserRefreshTokens> UserRefreshToken { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            
+
             builder.ApplyConfiguration(new MessageConfiguration());
 
             builder.ApplyConfiguration(new RoomConfiguration());
@@ -25,31 +32,6 @@ namespace InternBA.Infrastructure.Data
 
             builder.ApplyConfiguration(new UserRoomConfiguration());
 
-            //builder.ApplyConfiguration(new UserRefreshTokensConfiguration());
-        }
-
-        public InternBADBContext(DbContextOptions<InternBADBContext> options)
-        : base(options)
-        {
-
-
-namespace InternBA
-{
-    public class InternBADBContext : DbContext
-    {
-        public InternBADBContext(DbContextOptions<InternBADBContext> options) : base(options)
-        {
-
-        }
-
-        public DbSet<Post> Posts { get; set; }
-        public DbSet<Reaction> Reactions { get; set; }
-        public DbSet<Comment> Comments { get; set; }
-        public DbSet<Attachment> Attachments { get; set; }
-        public DbSet<Category> Categories { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
             builder.ApplyConfiguration(new PostConfiguration());
 
             builder.ApplyConfiguration(new ReactionConfiguration());
@@ -58,9 +40,15 @@ namespace InternBA
 
             builder.ApplyConfiguration(new AttachmentConfiguration());
 
-            builder.ApplyConfiguration(new CateConfiguration());
+            builder.ApplyConfiguration(new CategoryConfiguration());
 
+            //builder.ApplyConfiguration(new UserRefreshTokensConfiguration());
         }
 
+        public InternBADBContext(DbContextOptions<InternBADBContext> options)
+        : base(options)
+        { }
     }
 }
+
+

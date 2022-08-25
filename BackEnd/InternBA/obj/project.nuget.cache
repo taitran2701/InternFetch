@@ -1,12 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "XdJlwz14hJ7GXP92MFqQvuGToYBsdmWtEPVurkw3hNu5fSbxYOE/BPjVylgTx0PObx6U61lMWaPy+CaDxl8Otw==",
+  "dgSpecHash": "vyWqOHN41TS4vLlcFYTNvl2tN+yaNeYBNrpH4RNpyfFitat4Igy0sTnc7+fGkLoPl1CB8CQ+r1qOOjinWapx+g==",
   "success": true,
   "projectFilePath": "C:\\Users\\Asdmin\\Desktop\\ThucTap\\InternFetch\\BackEnd\\InternBA\\InternBA.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Asdmin\\.nuget\\packages\\castle.core\\4.4.1\\castle.core.4.4.1.nupkg.sha512",
     "C:\\Users\\Asdmin\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\Asdmin\\.nuget\\packages\\fluentassertions\\6.7.0\\fluentassertions.6.7.0.nupkg.sha512",
+    "C:\\Users\\Asdmin\\.nuget\\packages\\fluentvalidation\\11.2.0\\fluentvalidation.11.2.0.nupkg.sha512",
+    "C:\\Users\\Asdmin\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.2.1\\fluentvalidation.aspnetcore.11.2.1.nupkg.sha512",
+    "C:\\Users\\Asdmin\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.2.0\\fluentvalidation.dependencyinjectionextensions.11.2.0.nupkg.sha512",
     "C:\\Users\\Asdmin\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Asdmin\\.nuget\\packages\\mediatr\\10.0.1\\mediatr.10.0.1.nupkg.sha512",
     "C:\\Users\\Asdmin\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512",
@@ -228,7 +231,7 @@
       "code": "Undefined",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\Asdmin\\Desktop\\ThucTap\\InternFetch\\BackEnd\\InternBA\\obj\\project.nuget.cache : After parsing a value an unexpected character was encountered: \". Path 'expectedPackageFiles[209]', line 218, position 4."
+      "message": "Problem reading the cache file C:\\Users\\Asdmin\\Desktop\\ThucTap\\InternFetch\\BackEnd\\InternBA\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
     }
   ]
 }

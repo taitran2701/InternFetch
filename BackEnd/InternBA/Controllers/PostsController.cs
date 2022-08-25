@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using InternBA;
 using InternBA.Models;
+using InternBA.Infrastructure.Data;
+using InternBA.ViewModels;
 
 namespace InternBA.Controllers
 {
@@ -23,13 +25,13 @@ namespace InternBA.Controllers
 
         // GET: api/Posts
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Post>>> GetPosts()
-        {            
-          if (_context.Posts == null)
-          {
-              return NotFound();
-          }
-            return await _context.Posts.ToListAsync();
+        public async Task<ActionResult<List<Post>>> GetPosts()
+        {
+            if (_context.Posts == null)
+            {
+                return NotFound();
+            }
+            return await _context.Posts.Where(r => r.DeleteAt == null).ToListAsync();
         }
 
         // GET: api/Posts/5
@@ -53,14 +55,19 @@ namespace InternBA.Controllers
         // PUT: api/Posts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPost(Guid id, Post post)
+        public async Task<ActionResult<Post>> PutPost(Guid id, PostViewModel post)
         {
             if (id != post.ID)
             {
                 return BadRequest();
             }
-
-            _context.Entry(post).State = EntityState.Modified;
+            var result = _context.Posts.Find(id);
+            result.ID = post.ID;
+            result.Content = post.Content;
+            result.Reaction = post.Reaction;
+            result.AttachmentID = post.AttachmentID;
+            result.UpdatedDate = DateTime.UtcNow;
+            _context.Entry(result).State = EntityState.Modified;
 
             try
             {
@@ -78,27 +85,36 @@ namespace InternBA.Controllers
                 }
             }
 
-            return NoContent();
+            return result;
         }
 
         // POST: api/Posts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Post>> PostPost(Post post)
+        public async Task<ActionResult<List<Post>>> AddPost(PostViewModel post)
         {
-          if (_context.Posts == null)
-          {
-              return Problem("Entity set 'InternBADBContext.Posts'  is null.");
-          }
-            _context.Posts.Add(post);
+            if (_context.Posts == null)
+            {
+                return Problem("Entity set 'InternBADBContext.Posts'  is null.");
+            }
+            var pst = new Post()
+            {
+                ID = post.ID,
+                Content = post.Content,
+                Reaction = post.Reaction,
+                AttachmentID = post.AttachmentID,
+            };
+            _context.Posts.Add(pst);
             await _context.SaveChangesAsync();
+
+            await _context.Posts.ToListAsync();
 
             return CreatedAtAction("GetPost", new { id = post.ID }, post);
         }
 
         // DELETE: api/Posts/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePost(Guid id)
+        public async Task<ActionResult<IEnumerable<Post>>> DeletePost(Guid id)
         {
             if (_context.Posts == null)
             {
@@ -109,11 +125,12 @@ namespace InternBA.Controllers
             {
                 return NotFound();
             }
+            post.DeleteAt = DateTime.UtcNow;
 
-            _context.Posts.Remove(post);
-            await _context.SaveChangesAsync();
+/*            _context.Posts.Remove(post);
+*/            await _context.SaveChangesAsync();
 
-            return NoContent();
+            return await _context.Posts.Where(p=>p.DeleteAt != null).ToListAsync();
         }
 
         private bool PostExists(Guid id)

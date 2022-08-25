@@ -7,9 +7,7 @@ namespace InternBA.EntityConfigs
     {
         public void Configure(EntityTypeBuilder<Room> builder)
         {
-            builder.HasKey(r => r.Id);
-            builder.HasMany(r => r.User);
-            
+            builder.HasKey(r => r.ID);
         }
     }
 }

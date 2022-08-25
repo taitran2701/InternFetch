@@ -1,20 +1,12 @@
-using FluentValidation.AspNetCore;
-using InternBA;
 using InternBA.Extensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Serilog;
 using System.Reflection;
-using System.Text;
-
-using InternBA;
-using InternBA.Models;
-using Microsoft.EntityFrameworkCore;
+using InternBA.Infrastructure.Data;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 // Add services to the container.
 
@@ -37,6 +29,7 @@ builder.Services.AddControllers()
         options.ImplicitlyValidateRootCollectionElements = true;
         options.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
     });
+
 
 //JWT
 

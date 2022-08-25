@@ -1,15 +1,12 @@
-﻿using InternBA.Interface;
+﻿using InternBA.Interfaces;
 namespace InternBA.Models
 {
-    public class Category : IBaseEntity
+    public class Category : BaseEntity
     {
-        public Guid ID { get; set; }
+        
         public string Images { get; set; }
         public string Video { get; set; }
 
-        public Attachment Attachment { get; set; }
-        public bool? IsDeleted { get ; set ; }
-        public DateTime CreatedDate { get ; set; }
-        public DateTime? UpdatedDate { get ; set; }
+        public virtual ICollection<Attachment> Attachments { get; set; }
     }
 }

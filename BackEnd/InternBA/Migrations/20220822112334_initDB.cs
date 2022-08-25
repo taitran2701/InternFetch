@@ -17,7 +17,7 @@ namespace InternBA.Migrations
                     Content = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    DeleteAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Reaction = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CommentID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -35,7 +35,7 @@ namespace InternBA.Migrations
                     ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PostID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PostID1 = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Category = table.Column<int>(type: "int", nullable: false)
+                    CategoryID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -59,7 +59,8 @@ namespace InternBA.Migrations
                     PostID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true)
+                    DeleteAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+
                 },
                 constraints: table =>
                 {
@@ -80,9 +81,9 @@ namespace InternBA.Migrations
                     Images = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Video = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     AttachmentID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeleteAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     PostID = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
@@ -108,9 +109,9 @@ namespace InternBA.Migrations
                     ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeleteAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     PostID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CommentID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
