@@ -45,17 +45,6 @@
           "buildTransitive/netcoreapp3.0/EntityFramework.targets": {}
         }
       },
-      "FluentValidation/11.2.0": {
-        "type": "package",
-        "compile": {
-          "lib/net6.0/FluentValidation.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/FluentValidation.dll": {
-            "related": ".xml"
-          }
       "FluentAssertions/6.7.0": {
         "type": "package",
         "dependencies": {
@@ -75,7 +64,6 @@
         },
         "runtime": {
           "lib/net6.0/FluentValidation.dll": {}
- 
         }
       },
       "FluentValidation.AspNetCore/11.2.1": {
@@ -85,20 +73,10 @@
           "FluentValidation.DependencyInjectionExtensions": "11.2.0"
         },
         "compile": {
-          "lib/net6.0/FluentValidation.AspNetCore.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/FluentValidation.AspNetCore.dll": {
-            "related": ".xml"
-          }
-
           "lib/net6.0/FluentValidation.AspNetCore.dll": {}
         },
         "runtime": {
           "lib/net6.0/FluentValidation.AspNetCore.dll": {}
- 319528553a93b277a672a78c119ba334b834d3fe
         },
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
@@ -111,14 +89,6 @@
           "Microsoft.Extensions.Dependencyinjection.Abstractions": "2.1.0"
         },
         "compile": {
-          "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.dll": {
-            "related": ".xml"
-          }
           "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.dll": {}
         },
         "runtime": {
@@ -2217,13 +2187,13 @@
           "lib/netstandard1.3/Serilog.Sinks.RollingFile.dll": {}
         }
       },
-      "Swashbuckle.AspNetCore/6.2.3": {
+      "Swashbuckle.AspNetCore/6.3.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.ApiDescription.Server": "3.0.0",
-          "Swashbuckle.AspNetCore.Swagger": "6.2.3",
-          "Swashbuckle.AspNetCore.SwaggerGen": "6.2.3",
-          "Swashbuckle.AspNetCore.SwaggerUI": "6.2.3"
+          "Swashbuckle.AspNetCore.Swagger": "6.3.0",
+          "Swashbuckle.AspNetCore.SwaggerGen": "6.3.0",
+          "Swashbuckle.AspNetCore.SwaggerUI": "6.3.0"
         },
         "build": {
           "build/Swashbuckle.AspNetCore.props": {}
@@ -2268,7 +2238,7 @@
           "lib/net6.0/Swashbuckle.AspNetCore.SwaggerGen.dll": {}
         }
       },
-      "Swashbuckle.AspNetCore.SwaggerUI/6.2.3": {
+      "Swashbuckle.AspNetCore.SwaggerUI/6.3.0": {
         "type": "package",
         "compile": {
           "lib/net6.0/Swashbuckle.AspNetCore.SwaggerUI.dll": {}
@@ -3919,61 +3889,6 @@
         "lib/netstandard2.1/FluentAssertions.dll",
         "lib/netstandard2.1/FluentAssertions.pdb",
         "lib/netstandard2.1/FluentAssertions.xml"
-    "FluentValidation/11.2.0": {
-      "sha512": "KV1YBM8T4plLKmShjxfmHMF6X1lDuXgyqE+t8NYNxb7jmMbPnA3u30RsuXAf2NYMv0TBCUQguI2Z6W17c/Dh1A==",
-      "type": "package",
-      "path": "fluentvalidation/11.2.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "fluent-validation-icon.png",
-        "fluentvalidation.11.2.0.nupkg.sha512",
-        "fluentvalidation.nuspec",
-        "lib/net5.0/FluentValidation.dll",
-        "lib/net5.0/FluentValidation.xml",
-        "lib/net6.0/FluentValidation.dll",
-        "lib/net6.0/FluentValidation.xml",
-        "lib/netstandard2.0/FluentValidation.dll",
-        "lib/netstandard2.0/FluentValidation.xml",
-        "lib/netstandard2.1/FluentValidation.dll",
-        "lib/netstandard2.1/FluentValidation.xml"
-      ]
-    },
-    "FluentValidation.AspNetCore/11.2.1": {
-      "sha512": "vtwfqQkQkM1UjG2V7+3TJrhqpnnBR3ciQSufj3M2wim85BaHpC+GG6cUGlzP14NvLhi1RL5ejlpQdFok6ILIpw==",
-      "type": "package",
-      "path": "fluentvalidation.aspnetcore/11.2.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "fluent-validation-icon.png",
-        "fluentvalidation.aspnetcore.11.2.1.nupkg.sha512",
-        "fluentvalidation.aspnetcore.nuspec",
-        "lib/net5.0/FluentValidation.AspNetCore.dll",
-        "lib/net5.0/FluentValidation.AspNetCore.xml",
-        "lib/net6.0/FluentValidation.AspNetCore.dll",
-        "lib/net6.0/FluentValidation.AspNetCore.xml",
-        "lib/netcoreapp3.1/FluentValidation.AspNetCore.dll",
-        "lib/netcoreapp3.1/FluentValidation.AspNetCore.xml"
-      ]
-    },
-    "FluentValidation.DependencyInjectionExtensions/11.2.0": {
-      "sha512": "55xipVg5TvAvnod7QqOw5ewMp2FpZ42iwKsJ4iAoxtlXD33CtdKm7h1JDPTE5aD1ODLEqfaUijqqCqO4f5Wx9Q==",
-      "type": "package",
-      "path": "fluentvalidation.dependencyinjectionextensions/11.2.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "fluent-validation-icon.png",
-        "fluentvalidation.dependencyinjectionextensions.11.2.0.nupkg.sha512",
-        "fluentvalidation.dependencyinjectionextensions.nuspec",
-        "lib/netstandard2.0/FluentValidation.DependencyInjectionExtensions.dll",
-        "lib/netstandard2.0/FluentValidation.DependencyInjectionExtensions.xml",
-        "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.dll",
-        "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.xml"
       ]
     },
     "FluentValidation/11.2.0": {
@@ -7188,15 +7103,15 @@
         "serilog.sinks.rollingfile.nuspec"
       ]
     },
-    "Swashbuckle.AspNetCore/6.2.3": {
-      "sha512": "cnzQDn0Le+hInsw2SYwlOhOCPXpYi/szcvnyqZJ12v+QyrLBwAmWXBg6RIyHB18s/mLeywC+Rg2O9ndz0IUNYQ==",
+    "Swashbuckle.AspNetCore/6.3.0": {
+      "sha512": "3TAV6JqsJF2F5e5d/tiQuW/TlzKXB/n2IcL5QR1FP8ArmLhmPkpeHiLZ3+1YnJ5840/X5ApvpRRJpM9809IjTg==",
       "type": "package",
-      "path": "swashbuckle.aspnetcore/6.2.3",
+      "path": "swashbuckle.aspnetcore/6.3.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "build/Swashbuckle.AspNetCore.props",
-        "swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+        "swashbuckle.aspnetcore.6.3.0.nupkg.sha512",
         "swashbuckle.aspnetcore.nuspec"
       ]
     },
@@ -7269,10 +7184,10 @@
         "swashbuckle.aspnetcore.swaggergen.nuspec"
       ]
     },
-    "Swashbuckle.AspNetCore.SwaggerUI/6.2.3": {
-      "sha512": "bCRI87uKJVb4G+KURWm8LQrL64St04dEFZcF6gIM67Zc0Sr/N47EO83ybLMYOvfNdO1DCv8xwPcrz9J/VEhQ5g==",
+    "Swashbuckle.AspNetCore.SwaggerUI/6.3.0": {
+      "sha512": "OmVLGzyeNBFUAx6E/bqrZW4uxfv9q2MtegYzeHv5Dj8N34ry8104d6OcyRIV4BhwHBSFD1rMvDlPciguFMtQ5w==",
       "type": "package",
-      "path": "swashbuckle.aspnetcore.swaggerui/6.2.3",
+      "path": "swashbuckle.aspnetcore.swaggerui/6.3.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -7288,7 +7203,7 @@
         "lib/netstandard2.0/Swashbuckle.AspNetCore.SwaggerUI.dll",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.SwaggerUI.pdb",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.SwaggerUI.xml",
-        "swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512",
+        "swashbuckle.aspnetcore.swaggerui.6.3.0.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
     },
@@ -11621,7 +11536,6 @@
       "EntityFramework >= 6.4.4",
       "FluentAssertions >= 6.7.0",
       "FluentValidation >= 11.2.0",
- 319528553a93b277a672a78c119ba334b834d3fe
       "FluentValidation.AspNetCore >= 11.2.1",
       "MediatR >= 10.0.1",
       "MediatR.Extensions.Microsoft.DependencyInjection >= 10.0.1",
@@ -11637,7 +11551,7 @@
       "Serilog >= 2.11.0",
       "Serilog.Extensions.Logging.File >= 3.0.0",
       "Serilog.Settings.Configuration >= 3.3.0",
-      "Swashbuckle.AspNetCore >= 6.2.3",
+      "Swashbuckle.AspNetCore >= 6.3.0",
       "Swashbuckle.AspNetCore.Annotations >= 6.4.0",
       "Swashbuckle.AspNetCore.Swagger >= 6.4.0",
       "ZendeskApi_v2 >= 3.12.0"
@@ -11760,7 +11674,7 @@
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
-            "version": "[6.2.3, )"
+            "version": "[6.3.0, )"
           },
           "Swashbuckle.AspNetCore.Annotations": {
             "target": "Package",
@@ -11796,6 +11710,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\Asdmin\\Desktop\\ThucTap\\InternFetch\\BackEnd\\InternBA\\obj\\project.nuget.cache : After parsing a value an unexpected character was encountered: \". Path 'expectedPackageFiles[212]', line 223, position 4."
+    }
+  ]
 }
-    
