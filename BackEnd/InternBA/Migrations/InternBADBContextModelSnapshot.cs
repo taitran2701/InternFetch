@@ -214,7 +214,7 @@ namespace InternBA.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("ID")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(0);
 
