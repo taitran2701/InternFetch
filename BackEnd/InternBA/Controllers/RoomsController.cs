@@ -138,9 +138,5 @@ namespace InternBA.Controllers
             return Ok(await mediator.Send(command));
         }
 
-        private bool RoomExists(Guid id)
-        {
-            return (_context.Rooms?.Any(e => e.ID == id)).GetValueOrDefault();
-        }
     }
 }
