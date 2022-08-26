@@ -31,7 +31,7 @@ namespace InternBA.Controllers
           {
               return NotFound();
           }
-            return await _context.Attachments.ToListAsync();
+            return await _context.Attachments.Where(a=>a.DeleteAt == null).ToListAsync();
         }
 
         // GET: api/Attachments/5
@@ -55,19 +55,18 @@ namespace InternBA.Controllers
         // PUT: api/Attachments/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult<Attachment>> PutAttachment(Guid id, AttachmentViewModel attachment)
+        public async Task<ActionResult<Attachment>> PutAttachment(Guid id, AttachmentViewModel updateAttachment)
         {
-            if (id != attachment.ID)
+            if (id != updateAttachment.ID)
             {
                 return BadRequest();
             }
 
             var result = _context.Attachments.Find(id);
-            result.ID = attachment.ID;
-            result.PostID = attachment.PostID;
 
-
-            _context.Entry(attachment).State = EntityState.Modified;
+            result.CategoryId = updateAttachment.CategoryID;
+            
+            _context.Entry(result).State = EntityState.Modified;
 
             try
             {
@@ -91,20 +90,27 @@ namespace InternBA.Controllers
         // POST: api/Attachments
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Attachment>> PostAttachment(AttachmentViewModel attachment)
+        public async Task<ActionResult<List<Attachment>>> PostAttachment(AttachmentViewModel attachment)
         {
           if (_context.Attachments == null)
           {
               return Problem("Entity set 'InternBADBContext.Attachments'  is null.");
           }
 
-            var at = new Attachment()
+            var newAttach = new Attachment()
             {
-                ID = attachment.ID,
+                ID = new Guid(),
                 PostID = attachment.PostID,
+                CategoryId = attachment.CategoryID,
             };
-            _context.Attachments.Add(at);
+
+            _context.Attachments.Add(newAttach);
+
+            _context.Attachments.Add(newAttach);
+
             await _context.SaveChangesAsync();
+
+            await _context.Attachments.ToListAsync();
 
             return CreatedAtAction("GetAttachment", new { id = attachment.ID }, attachment);
         }
@@ -123,10 +129,12 @@ namespace InternBA.Controllers
                 return NotFound();
             }
 
-            _context.Attachments.Remove(attachment);
+            attachment.DeleteAt = DateTime.UtcNow;
+            //_context.Attachments.Remove(attachment);
+
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return _context.Attachments.Where(x => x.ID == attachment.ID).ToList();
         }
 
         private bool AttachmentExists(Guid id)

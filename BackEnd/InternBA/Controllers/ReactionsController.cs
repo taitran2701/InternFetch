@@ -27,10 +27,10 @@ namespace InternBA.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Reaction>>> GetReactions()
         {
-          if (_context.Reactions == null)
-          {
-              return NotFound();
-          }
+            if (_context.Reactions == null)
+            {
+                return NotFound();
+            }
             return await _context.Reactions.Where(r => r.DeleteAt == null).ToListAsync();
         }
 
@@ -38,10 +38,10 @@ namespace InternBA.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Reaction>> GetReaction(Guid id)
         {
-          if (_context.Reactions == null)
-          {
-              return NotFound();
-          }
+            if (_context.Reactions == null)
+            {
+                return NotFound();
+            }
             var reaction = await _context.Reactions.FindAsync(id);
 
             if (reaction == null)
@@ -55,19 +55,18 @@ namespace InternBA.Controllers
         // PUT: api/Reactions/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult<Reaction>> PutReaction(Guid id, ReactionViewModel reaction)
+        public async Task<ActionResult<Reaction>> PutReaction(Guid id, ReactionViewModel updateReaction)
         {
-            if (id != reaction.ID)
+            if (id != updateReaction.ID)
             {
                 return BadRequest();
             }
 
             var result = _context.Reactions.Find(id);
-            result.ID = reaction.ID;    
-            result.Expression = reaction.Expression;
-            result.CommentID=reaction.CommentID;
-            result.PostID = reaction.PostID;
-            _context.Entry(reaction).State = EntityState.Modified;
+
+            result.Expression = updateReaction.Expression;
+
+            _context.Entry(result).State = EntityState.Modified;
 
             try
             {
@@ -91,23 +90,25 @@ namespace InternBA.Controllers
         // POST: api/Reactions
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Reaction>> PostReaction(ReactionViewModel reaction)
+        public async Task<ActionResult<List<Reaction>>> PostReaction(ReactionViewModel newReaction)
         {
-          if (_context.Reactions == null)
-          {
-              return Problem("Entity set 'InternBADBContext.Reactions'  is null.");
-          }
-            var react = new Reaction()
+            if (_context.Reactions == null)
             {
-                ID = reaction.ID,
-                Expression = reaction.Expression,
-                CommentID = reaction.CommentID,
-                PostID = reaction.PostID,
+                return Problem("Entity set 'InternBADBContext.Reactions'  is null.");
+            }
+            var newReact = new Reaction()
+            {
+                ID = new Guid(),
+                Expression = newReaction.Expression,
+                CreatedDate = DateTime.UtcNow,
             };
-            _context.Reactions.Add(react);
+            _context.Reactions.Add(newReact);
+
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetReaction", new { id = reaction.ID }, reaction);
+            await _context.Reactions.ToListAsync();
+
+            return CreatedAtAction("GetReaction", new { id = newReaction.ID }, newReaction);
         }
 
         // DELETE: api/Reactions/5
@@ -124,10 +125,10 @@ namespace InternBA.Controllers
                 return NotFound();
             }
             reaction.DeleteAt = DateTime.UtcNow;
-/*            _context.Reactions.Remove(reaction);
-*/            await _context.SaveChangesAsync();
+            //_context.Reactions.Remove(reaction);
+            await _context.SaveChangesAsync();
 
-            return await _context.Reactions.Where(r=>r.DeleteAt != null).ToListAsync();
+            return await _context.Reactions.Where(r => r.DeleteAt != null).ToListAsync();
         }
 
         private bool ReactionExists(Guid id)

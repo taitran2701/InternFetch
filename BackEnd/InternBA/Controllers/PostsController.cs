@@ -89,7 +89,7 @@ namespace InternBA.Controllers
         // POST: api/Posts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<List<Post>>> AddPost(PostViewModel post)
+        public async Task<ActionResult<List<Post>>> PostPost(PostViewModel post)
         {
             if (_context.Posts == null)
             {
@@ -99,9 +99,12 @@ namespace InternBA.Controllers
             {
                 ID = new Guid(),
                 UserID = post.UserId,
-                Content = post.Content
+                Content = post.Content,
+                CreatedDate = DateTime.UtcNow,
             };
+
             _context.Posts.Add(newPost);
+
             await _context.SaveChangesAsync();
 
             await _context.Posts.ToListAsync();

@@ -25,23 +25,23 @@ namespace InternBA.Controllers
 
         // GET: api/Comments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Comment>>> GetComments()
+        public async Task<ActionResult<List<Comment>>> GetComments()
         {
-          if (_context.Comments == null)
-          {
-              return NotFound();
-          }
-            return await _context.Comments.Where(c => c.DeleteAt != null).ToListAsync();
+            if (_context.Comments == null)
+            {
+                return NotFound();
+            }
+            return await _context.Comments.Where(c => c.DeleteAt == null).ToListAsync();
         }
 
         // GET: api/Comments/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Comment>> GetComment(Guid id)
         {
-          if (_context.Comments == null)
-          {
-              return NotFound();
-          }
+            if (_context.Comments == null)
+            {
+                return NotFound();
+            }
             var comment = await _context.Comments.FindAsync(id);
 
             if (comment == null)
@@ -55,20 +55,17 @@ namespace InternBA.Controllers
         // PUT: api/Comments/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult<Comment>> PutComment(Guid id, CommentViewModel comment)
+        public async Task<ActionResult<Comment>> PutComment(Guid id, CommentViewModel updateComment)
         {
-            if (id != comment.ID)
+            if (id != updateComment.ID)
             {
                 return BadRequest();
             }
 
             var result = _context.Comments.Find(id);
-            result.ID = comment.ID;
-            result.UserID = comment.UserID;
-            result.Content = comment.Content;
-            result.ReactionID = comment.ReactionID;
-            result.PostID = comment.PostID;
-            _context.Entry(comment).State = EntityState.Modified;
+            result.Content = updateComment.Content;
+            result.UpdatedDate = DateTime.UtcNow;
+            _context.Entry(result).State = EntityState.Modified;
 
             try
             {
@@ -94,22 +91,23 @@ namespace InternBA.Controllers
         [HttpPost]
         public async Task<ActionResult<Comment>> PostComment(CommentViewModel comment)
         {
-          if (_context.Comments == null)
-          {
-              return Problem("Entity set 'InternBADBContext.Comments'  is null.");
-          }
-            var cmt = new Comment()
+            if (_context.Comments == null)
             {
-                ID = comment.ID,
+                return Problem("Entity set 'InternBADBContext.Comments'  is null.");
+            }
+            var newComment = new Comment()
+            {
                 UserID = comment.UserID,
                 Content = comment.Content,
-                ReactionID = comment.ReactionID,
                 PostID = comment.PostID,
+                CreatedDate = DateTime.UtcNow,
             };
-            _context.Comments.Add(cmt);
+            _context.Comments.Add(newComment);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetComment", new { id = comment.ID }, comment);
+            await _context.Comments.ToListAsync();
+
+            return CreatedAtAction("GetComment", new { id = newComment.ID }, comment);
         }
 
         // DELETE: api/Comments/5
@@ -126,8 +124,9 @@ namespace InternBA.Controllers
                 return NotFound();
             }
             comment.DeleteAt = DateTime.UtcNow;
-/*            _context.Comments.Remove(comment);
-*/            await _context.SaveChangesAsync();
+            /*            _context.Comments.Remove(comment);
+            */
+            await _context.SaveChangesAsync();
 
             return await _context.Comments.Where(r => r.DeleteAt != null).ToListAsync();
 
