@@ -226,12 +226,5 @@
     "C:\\Users\\Asdmin\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\Asdmin\\.nuget\\packages\\zendeskapi_v2\\3.12.0\\zendeskapi_v2.3.12.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\Asdmin\\Desktop\\ThucTap\\InternFetch\\BackEnd\\InternBA\\obj\\project.nuget.cache : After parsing a value an unexpected character was encountered: \". Path 'expectedPackageFiles[212]', line 223, position 4."
-    }
-  ]
+  "logs": []
 }

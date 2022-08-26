@@ -6,7 +6,7 @@ namespace InternBA.Models
     {
         public string Content { get; set; }       
 
-        public Guid UserID { get; set; }
+        public Guid? UserID { get; set; }
         public User User { get; set; }
 
         public Guid? Reaction { get; set; }

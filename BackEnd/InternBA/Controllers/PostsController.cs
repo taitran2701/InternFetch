@@ -38,10 +38,10 @@ namespace InternBA.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Post>> GetPost(Guid id)
         {
-          if (_context.Posts == null)
-          {
-              return NotFound();
-          }
+            if (_context.Posts == null)
+            {
+                return NotFound();
+            }
             var post = await _context.Posts.FindAsync(id);
 
             if (post == null)
@@ -55,17 +55,15 @@ namespace InternBA.Controllers
         // PUT: api/Posts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult<Post>> PutPost(Guid id, PostViewModel post)
+        public async Task<ActionResult<Post>> PutPost(Guid id, PutViewModel updatePost)
         {
-            if (id != post.ID)
+            if (id != updatePost.ID)
             {
                 return BadRequest();
             }
             var result = _context.Posts.Find(id);
-            result.ID = post.ID;
-            result.Content = post.Content;
-            result.Reaction = post.Reaction;
-            result.AttachmentID = post.AttachmentID;
+            result.Content = updatePost.Content;
+            //result.UserID = post.UserId;
             result.UpdatedDate = DateTime.UtcNow;
             _context.Entry(result).State = EntityState.Modified;
 
@@ -97,19 +95,18 @@ namespace InternBA.Controllers
             {
                 return Problem("Entity set 'InternBADBContext.Posts'  is null.");
             }
-            var pst = new Post()
+            var newPost = new Post()
             {
-                ID = post.ID,
-                Content = post.Content,
-                Reaction = post.Reaction,
-                AttachmentID = post.AttachmentID,
+                ID = new Guid(),
+                UserID = post.UserId,
+                Content = post.Content
             };
-            _context.Posts.Add(pst);
+            _context.Posts.Add(newPost);
             await _context.SaveChangesAsync();
 
             await _context.Posts.ToListAsync();
 
-            return CreatedAtAction("GetPost", new { id = post.ID }, post);
+            return CreatedAtAction("GetPost", new { id = newPost.ID }, post);
         }
 
         // DELETE: api/Posts/5
@@ -127,10 +124,10 @@ namespace InternBA.Controllers
             }
             post.DeleteAt = DateTime.UtcNow;
 
-/*            _context.Posts.Remove(post);
-*/            await _context.SaveChangesAsync();
+            //_context.Posts.Remove(post);
+            await _context.SaveChangesAsync();
 
-            return await _context.Posts.Where(p=>p.DeleteAt != null).ToListAsync();
+            return await _context.Posts.Where(p => p.DeleteAt != null).ToListAsync();
         }
 
         private bool PostExists(Guid id)
