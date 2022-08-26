@@ -16,3 +16,5 @@ BackEnd/InternBA/.vs/InternBA/v17/.suo
 FrontEnd/internba/node_modules/.bin/escodegen
 FrontEnd/internba/node_modules/.bin/esgenerate.ps1
 node_modulesnode_modules
+BackEnd/InternBA/obj/Debug/net6.0/InternBA.assets.cache
+BackEnd/InternBA/obj/Debug/net6.0/InternBA.GeneratedMSBuildEditorConfig.editorconfig
