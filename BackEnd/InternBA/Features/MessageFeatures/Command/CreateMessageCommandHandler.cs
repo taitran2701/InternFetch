@@ -15,8 +15,9 @@ namespace InternBA.Features.MessageFeatures.Command
         {
             var message = new Message();
             message.ID = request.ID;
-            message.UserId = request.UserID;
-            message.Content = request.content;
+            message.UserId = request.UserId;
+            message.Content = request.Content;
+            message.RoomId = request.RoomId;
             message.CreatedDate = DateTime.UtcNow;
 
             _context.Messages.Add(message);

@@ -32,7 +32,8 @@ builder.Services.AddControllers()
         options.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
     });
 
-
+//CORS
+builder.Services.AddCors();
 //JWT
 
 
@@ -52,6 +53,13 @@ app.UseAuthorization();
 app.MapControllers();
 
 //logging
-
+//Cors
+app.UseCors(builder =>
+{
+    builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader();
+});
 
 app.Run();
