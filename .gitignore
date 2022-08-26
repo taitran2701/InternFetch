@@ -54,3 +54,9 @@ msbuild.wrn
 
 # Visual Studio 2015
 .vs/
+BackEnd/InternBA/obj/project.nuget.cache
+BackEnd/InternBA/obj/project.assets.json
+BackEnd/InternBA/obj/InternBA.csproj.nuget.g.props
+BackEnd/InternBA/obj/InternBA.csproj.nuget.dgspec.json
+BackEnd/InternBA/obj/Debug/net6.0/InternBA.csproj.AssemblyReference.cache
+BackEnd/InternBA/obj/Debug/net6.0/InternBA.assets.cache
