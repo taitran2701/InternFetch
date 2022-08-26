@@ -4,6 +4,7 @@ using InternBA.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternBA.Migrations
 {
     [DbContext(typeof(InternBADBContext))]
-    partial class InternBADBContextModelSnapshot : ModelSnapshot
+    [Migration("20220824104941_TestMigration1")]
+    partial class TestMigration1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,28 +30,18 @@ namespace InternBA.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CategoryId")
-                        .IsRequired()
+                    b.Property<Guid>("CategoryID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeleteAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("PostID")
-                        .IsRequired()
+                    b.Property<Guid>("PostID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<Guid>("PostID1")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("PostID");
+                    b.HasIndex("PostID1");
 
                     b.ToTable("Attachments");
                 });
@@ -58,6 +50,9 @@ namespace InternBA.Migrations
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AttachmentID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
@@ -71,6 +66,9 @@ namespace InternBA.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<Guid?>("PostID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
@@ -80,6 +78,10 @@ namespace InternBA.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("AttachmentID");
+
+                    b.HasIndex("PostID");
 
                     b.ToTable("Categories");
                 });
@@ -102,25 +104,21 @@ namespace InternBA.Migrations
                     b.Property<DateTime?>("DeleteAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("PostID")
-                        .IsRequired()
+                    b.Property<Guid>("PostID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ReactionID")
+                    b.Property<Guid>("ReactionID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("UserID")
-                        .IsRequired()
+                    b.Property<Guid>("UserID")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ID");
 
                     b.HasIndex("PostID");
-
-                    b.HasIndex("UserID");
 
                     b.ToTable("Comments");
                 });
@@ -132,6 +130,9 @@ namespace InternBA.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("AttachmentID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CommentID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Content")
@@ -167,8 +168,7 @@ namespace InternBA.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CommentID")
-                        .IsRequired()
+                    b.Property<Guid>("CommentID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
@@ -183,12 +183,14 @@ namespace InternBA.Migrations
                         .HasColumnType("nvarchar(500)")
                         .HasColumnName("Type");
 
-                    b.Property<Guid?>("PostID")
-                        .IsRequired()
+                    b.Property<Guid>("PostID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UserID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ID");
 
@@ -206,20 +208,6 @@ namespace InternBA.Migrations
 
                     b.Property<Guid>("RoomId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeleteAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("ID")
-                        .HasColumnType("uniqueidentifier");
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(0);
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("UserId", "RoomId");
 
@@ -266,7 +254,7 @@ namespace InternBA.Migrations
 
             modelBuilder.Entity("Room", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -285,20 +273,29 @@ namespace InternBA.Migrations
                     b.Property<Guid>("User2")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("UserID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("UserID");
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("Rooms");
                 });
 
+            modelBuilder.Entity("RoomUser", b =>
+                {
+                    b.Property<Guid>("RoomId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("RoomId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RoomUser");
+                });
+
             modelBuilder.Entity("User", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -320,6 +317,9 @@ namespace InternBA.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("PostID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
@@ -329,28 +329,35 @@ namespace InternBA.Migrations
                         .HasColumnType("nvarchar(150)")
                         .HasColumnName("Username");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("InternBA.Models.Attachment", b =>
                 {
-                    b.HasOne("InternBA.Models.Category", "Category")
-                        .WithMany("Attachments")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("InternBA.Models.Post", "Post")
-                        .WithMany("Attachments")
-                        .HasForeignKey("PostID")
+                        .WithMany()
+                        .HasForeignKey("PostID1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Category");
 
                     b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("InternBA.Models.Category", b =>
+                {
+                    b.HasOne("InternBA.Models.Attachment", "Attachment")
+                        .WithMany("Categories")
+                        .HasForeignKey("AttachmentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("InternBA.Models.Post", null)
+                        .WithMany("Categories")
+                        .HasForeignKey("PostID");
+
+                    b.Navigation("Attachment");
                 });
 
             modelBuilder.Entity("InternBA.Models.Comment", b =>
@@ -361,15 +368,7 @@ namespace InternBA.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("User", "User")
-                        .WithMany("Comments")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Post");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("InternBA.Models.Post", b =>
@@ -405,13 +404,13 @@ namespace InternBA.Migrations
             modelBuilder.Entity("InternBA.Models.UserRoom", b =>
                 {
                     b.HasOne("Room", "Room")
-                        .WithMany("UserRooms")
+                        .WithMany()
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("User", "User")
-                        .WithMany("UserRooms")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -432,16 +431,24 @@ namespace InternBA.Migrations
                     b.Navigation("Room");
                 });
 
-            modelBuilder.Entity("Room", b =>
+            modelBuilder.Entity("RoomUser", b =>
                 {
+                    b.HasOne("Room", null)
+                        .WithMany()
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("User", null)
-                        .WithMany("Room")
-                        .HasForeignKey("UserID");
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("InternBA.Models.Category", b =>
+            modelBuilder.Entity("InternBA.Models.Attachment", b =>
                 {
-                    b.Navigation("Attachments");
+                    b.Navigation("Categories");
                 });
 
             modelBuilder.Entity("InternBA.Models.Comment", b =>
@@ -451,27 +458,16 @@ namespace InternBA.Migrations
 
             modelBuilder.Entity("InternBA.Models.Post", b =>
                 {
-                    b.Navigation("Attachments");
+                    b.Navigation("Categories");
 
                     b.Navigation("Comments");
 
                     b.Navigation("Reactions");
                 });
 
-            modelBuilder.Entity("Room", b =>
-                {
-                    b.Navigation("UserRooms");
-                });
-
             modelBuilder.Entity("User", b =>
                 {
-                    b.Navigation("Comments");
-
                     b.Navigation("Posts");
-
-                    b.Navigation("Room");
-
-                    b.Navigation("UserRooms");
                 });
 #pragma warning restore 612, 618
         }

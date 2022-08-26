@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\InternFetch\\BackEnd\\InternBA\\InternBA.csproj": {}
+    "C:\\Users\\Asdmin\\Desktop\\ThucTap\\InternFetch\\BackEnd\\InternBA\\InternBA.csproj": {}
   },
   "projects": {
-    "D:\\InternFetch\\BackEnd\\InternBA\\InternBA.csproj": {
+    "C:\\Users\\Asdmin\\Desktop\\ThucTap\\InternFetch\\BackEnd\\InternBA\\InternBA.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\InternFetch\\BackEnd\\InternBA\\InternBA.csproj",
+        "projectUniqueName": "C:\\Users\\Asdmin\\Desktop\\ThucTap\\InternFetch\\BackEnd\\InternBA\\InternBA.csproj",
         "projectName": "InternBA",
-        "projectPath": "D:\\InternFetch\\BackEnd\\InternBA\\InternBA.csproj",
-        "packagesPath": "C:\\Users\\nvdun\\.nuget\\packages\\",
-        "outputPath": "D:\\InternFetch\\BackEnd\\InternBA\\obj\\",
+        "projectPath": "C:\\Users\\Asdmin\\Desktop\\ThucTap\\InternFetch\\BackEnd\\InternBA\\InternBA.csproj",
+        "packagesPath": "C:\\Users\\Asdmin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Asdmin\\Desktop\\ThucTap\\InternFetch\\BackEnd\\InternBA\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\nvdun\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Asdmin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -44,6 +44,14 @@
               "target": "Package",
               "version": "[6.4.4, )"
             },
+            "FluentAssertions": {
+              "target": "Package",
+              "version": "[6.7.0, )"
+            },
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.2.0, )"
+            },
             "FluentValidation.AspNetCore": {
               "target": "Package",
               "version": "[11.2.1, )"
@@ -60,9 +68,15 @@
               "target": "Package",
               "version": "[6.0.8, )"
             },
+<<<<<<< HEAD
             "Microsoft.AspNetCore.Cors": {
               "target": "Package",
               "version": "[2.2.0, )"
+=======
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.8, )"
+>>>>>>> 49b308a2426dae6edb40b33f0dd80820ca970eb1
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -84,6 +98,14 @@
               "target": "Package",
               "version": "[6.0.8, )"
             },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.Extensions.Configuration.FileExtensions": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[6.0.8, )"
@@ -102,7 +124,19 @@
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[6.2.3, )"
+              "version": "[6.3.0, )"
+            },
+            "Swashbuckle.AspNetCore.Annotations": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            },
+            "Swashbuckle.AspNetCore.Swagger": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            },
+            "ZendeskApi_v2": {
+              "target": "Package",
+              "version": "[3.12.0, )"
             }
           },
           "imports": [
@@ -111,8 +145,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -124,7 +157,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

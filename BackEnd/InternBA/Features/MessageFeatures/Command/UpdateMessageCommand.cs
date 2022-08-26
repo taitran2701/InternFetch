@@ -28,6 +28,7 @@ namespace InternBA.Features.MessageFeatures.Command
                 message.UserId = request.UserID;
                 message.Content = request.Content;
                 message.UpdatedDate = DateTime.UtcNow;
+                return null;
 
                 _context.Entry(message).State = EntityState.Modified;
                 await _context.SaveChangesAsync();

@@ -12,6 +12,7 @@ BackEnd/InternBA/obj/Debug/net6.0/InternBA.assets.cache
 BackEnd/InternBA/obj/Release/net6.0/InternBA.GlobalUsings.g.cs
 BackEnd/InternBA/appsettings.json
 BackEnd/InternBA/.vs/InternBA/v17/.suo
+
 FrontEnd/internba/node_modules/.bin/escodegen
 FrontEnd/internba/node_modules/.bin/esgenerate.ps1
-node_modules
+node_modulesnode_modules

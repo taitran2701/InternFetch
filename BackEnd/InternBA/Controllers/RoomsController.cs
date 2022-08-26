@@ -137,5 +137,6 @@ namespace InternBA.Controllers
             //return await _context.Rooms.Where(r => r.DeleteAt != null).ToListAsync();
             return Ok(await mediator.Send(command));
         }
+
     }
 }
