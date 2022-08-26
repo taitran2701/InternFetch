@@ -4,8 +4,8 @@
     "\\BackEnd",
     "\\BackEnd\\InternBA",
     "\\BackEnd\\InternBA\\Controllers",
+    "\\BackEnd\\InternBA\\EntityConfigs",
     "\\BackEnd\\InternBA\\Models"
   ],
-  "SelectedNode": "\\BackEnd\\InternBA\\Controllers\\MessagesController.cs",
   "PreviewInSolutionExplorer": false
 }
