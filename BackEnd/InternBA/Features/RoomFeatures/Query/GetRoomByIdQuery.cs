@@ -19,7 +19,7 @@ namespace InternBA.Features.RoomFeatures.Query
             public async Task<Room> Handle(GetRoomByIdQuery request, CancellationToken cancellationToken)
             {
                 var room = await _context.Rooms.FindAsync(request.ID);
-                if (room == null || room.DeleteAt != null) return default;
+                if (room == null) return default;
                 return room;
             }
         }

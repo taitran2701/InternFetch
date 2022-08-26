@@ -58,21 +58,6 @@ namespace InternBA.Controllers
         [HttpPost]
         public async Task<ActionResult<Room>> PostRoom(CreateRoomCommand command)
         {
-
-            //if (_context.Rooms == null)
-            //{
-            //    return Problem("Entity set 'InternBADBContext.Rooms'  is null.");
-            //}
-            //var rm = new Room()
-            //{
-            //    Id = room.Id,
-            //    User1 = room.User1,
-            //    User2 = room.User2
-            //};
-            //_context.Rooms.Add(rm);
-            //await _context.SaveChangesAsync();
-
-            //return CreatedAtAction("GetRoom", new { id = room.Id }, room);  
             return Ok(await mediator.Send(command));
         }
 
@@ -80,20 +65,6 @@ namespace InternBA.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<IEnumerable<Room>>> DeleteRoom(Guid id, DeleteRoomByIdCommand command)
         {
-            //if (_context.Rooms == null)
-            //{
-            //    return NotFound();
-            //}
-            //var room = await _context.Rooms.FindAsync(id);
-            //if (room == null)
-            //{
-            //    return NotFound();
-            //}
-            //room.DeleteAt = DateTime.UtcNow;
-            ////_context.Rooms.Remove(room);
-            //await _context.SaveChangesAsync();
-
-            //return await _context.Rooms.Where(r => r.DeleteAt != null).ToListAsync();
             return Ok(await mediator.Send(command));
         }
 
