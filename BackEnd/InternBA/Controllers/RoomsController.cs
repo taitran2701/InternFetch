@@ -31,31 +31,14 @@ namespace InternBA.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
         {
-            //if (_context.Rooms == null)
-            //{
-            //    return NotFound();
-            //}
-            //return await _context.Rooms.Where(r => r.DeleteAt == null).ToListAsync();
             return Ok(await mediator.Send(new GetAllRoomsQuery()));
         }
 
         // GET: api/Rooms/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Room>> GetRoom([FromQuery]GetRoomByIdQuery query)
+        public async Task<ActionResult<Room>> GetRoom(Guid id)
         {
-            //if (_context.Rooms == null)
-            //{
-            //    return NotFound();
-            //}
-            //var room = await _context.Rooms.FindAsync(id);
-
-            //if (room == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //return room;
-            return Ok(await mediator.Send(query));
+            return Ok(await mediator.Send(new GetRoomByIdQuery()));
         }
 
         // PUT: api/Rooms/5
@@ -67,30 +50,6 @@ namespace InternBA.Controllers
             {
                 return BadRequest();
             }
-            //var result = _context.Rooms.Find(id);
-            //result.Id = room.Id;
-            //result.User1 = room.User1;
-            //result.User2 = room.User2;
-            //result.UpdatedDate = DateTime.UtcNow;
-            //_context.Entry(result).State = EntityState.Modified;
-
-            //try
-            //{
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!RoomExists(id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
-
-            //return result;
             return Ok(await mediator.Send(command));
         }
 

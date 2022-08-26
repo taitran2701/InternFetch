@@ -26,25 +26,6 @@ namespace InternBA.Migrations
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
-            migrationBuilder.AddColumn<DateTime>(
-                name: "DeleteAt",
-                table: "UserRoom",
-                type: "datetime2",
-                nullable: true);
-
-            migrationBuilder.AddColumn<Guid>(
-                name: "ID",
-                table: "UserRoom",
-                type: "uniqueidentifier",
-                nullable: false,
-                defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "UpdatedDate",
-                table: "UserRoom",
-                type: "datetime2",
-                nullable: true);
-
             migrationBuilder.AddColumn<Guid>(
                 name: "UserID",
                 table: "Rooms",
@@ -76,18 +57,6 @@ namespace InternBA.Migrations
 
             migrationBuilder.DropColumn(
                 name: "CreatedDate",
-                table: "UserRoom");
-
-            migrationBuilder.DropColumn(
-                name: "DeleteAt",
-                table: "UserRoom");
-
-            migrationBuilder.DropColumn(
-                name: "ID",
-                table: "UserRoom");
-
-            migrationBuilder.DropColumn(
-                name: "UpdatedDate",
                 table: "UserRoom");
 
             migrationBuilder.DropColumn(

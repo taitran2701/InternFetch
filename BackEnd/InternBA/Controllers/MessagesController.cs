@@ -28,37 +28,19 @@ namespace InternBA.Controllers
 
         // GET: api/Messages
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Message>>> GetMessages(GetAllMessagesQuery query)
+        public async Task<ActionResult<IEnumerable<Message>>> GetMessages()
         {
-            //if (_context.Messages == null)
-            //{
-            //    return NotFound();
-            //}
-            //return await _context.Messages.Where(m => m.DeleteAt == null).ToListAsync();
-            return Ok(await mediator.Send(query));
+            return Ok(await mediator.Send(new GetAllMessagesQuery()));
         }
 
         // GET: api/Messages/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Message>> GetMessage([FromQuery]GetMessageByIdQuery query)
+        public async Task<ActionResult<Message>> GetMessage()
         {
-            //if (_context.Messages == null)
-            //{
-            //    return NotFound();
-            //}
-            //var command = await _context.Messages.FindAsync(id);
-
-            //if (command == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //return command;
-            return Ok(await mediator.Send(query));
+            return Ok(await mediator.Send(new GetMessageByIdQuery()));
         }
 
         // PUT: api/Messages/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<ActionResult<Message>> PutMessage(Guid id, UpdateMessageCommand command)
         {
@@ -66,28 +48,6 @@ namespace InternBA.Controllers
             {
                 return BadRequest();
             }
-            //var result = await _context.Messages.FindAsync(id);
-            //result.Content = command.Content;
-            //result.UpdatedDate = DateTime.UtcNow;
-            //_context.Entry(result).State = EntityState.Modified;
-
-            //try
-            //{
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!MessageExists(id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
-
-            //return result;
             return Ok(await mediator.Send(command));
         }
 

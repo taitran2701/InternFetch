@@ -25,9 +25,6 @@ namespace InternBA.Controllers
             this.mediator = mediator;
         }
 
-      ///*  protected IMediator mediator => mediator ??= */HttpContext.RequestServices.GetService<IMediator>();
-        private readonly InternBADBContext _context;
-
         // GET: api/Users
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
@@ -37,7 +34,7 @@ namespace InternBA.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser([FromQuery] GetUserByIdQuery query)
+        public async Task<ActionResult<User>> GetUser(GetUserByIdQuery query)
         {
             return Ok(await mediator.Send(query));
         }

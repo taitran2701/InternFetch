@@ -56,6 +56,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 //logging
+
+
 //Cors
 app.UseCors(builder =>
 {
