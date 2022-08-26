@@ -38,7 +38,7 @@ namespace InternBA.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Room>> GetRoom(Guid id)
         {
-            return Ok(await mediator.Send(new GetRoomByIdQuery()));
+            return Ok(await mediator.Send(new GetRoomByIdQuery(id)));
         }
 
         // PUT: api/Rooms/5
@@ -63,9 +63,9 @@ namespace InternBA.Controllers
 
         // DELETE: api/Rooms/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<IEnumerable<Room>>> DeleteRoom(Guid id, DeleteRoomByIdCommand command)
+        public async Task<ActionResult<IEnumerable<Room>>> DeleteRoom(Guid id)
         {
-            return Ok(await mediator.Send(command));
+            return Ok(await mediator.Send(new DeleteRoomByIdCommand(id)));
         }
 
     }

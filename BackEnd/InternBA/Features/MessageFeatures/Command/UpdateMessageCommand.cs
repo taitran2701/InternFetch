@@ -6,7 +6,7 @@ namespace InternBA.Features.MessageFeatures.Command
 {
     public class UpdateMessageCommand : IRequest<Message>
     {
-        public Guid ID { get; set; }
+        public Guid Id { get; set; }
         public Guid UserID { get; set; }
         public string Content { get; set; }
         public class UpdateMessageCommandHandler : IRequestHandler<UpdateMessageCommand, Message>
@@ -19,12 +19,9 @@ namespace InternBA.Features.MessageFeatures.Command
 
             public async Task<Message> Handle(UpdateMessageCommand request, CancellationToken cancellationToken)
             {
-                var message = await _context.Messages.FindAsync(request.ID);
+                var message = await _context.Messages.FindAsync(request.Id);
 
-                if (message == null)
-                {
-                    return default;
-                }
+                if (message == null) return default;
                 message.UserId = request.UserID;
                 message.Content = request.Content;
                 message.UpdatedDate = DateTime.UtcNow;

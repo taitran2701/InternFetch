@@ -4,9 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternBA.Features.RoomFeatures.Command
 {
-    public class DeleteRoomByIdCommand : IRequest<Room>
+    public record DeleteRoomByIdCommand(Guid id) : IRequest<Room>
     {
-        public Guid ID { get; set; }
 
         public class DeleteRoomByIdCommandHandler : IRequestHandler<DeleteRoomByIdCommand, Room>
         {
@@ -19,7 +18,7 @@ namespace InternBA.Features.RoomFeatures.Command
 
             public async Task<Room> Handle(DeleteRoomByIdCommand request, CancellationToken cancellationToken)
             {
-                var room = await _context.Rooms.FindAsync(request.ID);
+                var room = await _context.Rooms.FindAsync(request.id);
                 if (room == null || room.DeleteAt != null) return default;
 
                 room.DeleteAt = DateTime.UtcNow;

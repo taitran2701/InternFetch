@@ -6,9 +6,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace InternBA.Features.MessageFeatures.Command
 {
-    public class DeleteMessageByIdCommand : IRequest<Message>
+    public record DeleteMessageByIdCommand(Guid id) : IRequest<Message>
     {
-        public Guid ID { get; set; }
         public class DeleteMessageByIdCommandHandler : IRequestHandler<DeleteMessageByIdCommand, Message>
         {
             public readonly InternBADBContext _context;
@@ -19,12 +18,9 @@ namespace InternBA.Features.MessageFeatures.Command
 
             public async Task<Message> Handle(DeleteMessageByIdCommand request, CancellationToken cancellationToken)
             {
-                var message = await _context.Messages.FindAsync(request.ID);
+                var message = await _context.Messages.FindAsync(request.id);
 
-                if(message == null)
-                {
-                    return default;
-                }
+                if (message == null) return default;
 
                 message.DeleteAt = DateTime.UtcNow;
                 _context.Entry(message).State = EntityState.Modified;

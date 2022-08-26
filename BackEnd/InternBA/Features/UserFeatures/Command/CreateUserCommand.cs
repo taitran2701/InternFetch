@@ -4,7 +4,7 @@ using MediatR;
 
 namespace InternBA.Features.UserFeatures.Command
 {
-    public class CreateUserCommand : IRequest<Guid>
+    public class CreateUserCommand : IRequest<User>
     {
         public string Username { get; set; }
         public string Password { get; set; }
@@ -12,7 +12,7 @@ namespace InternBA.Features.UserFeatures.Command
         public string Avater { get; set; }
         public Guid RoomID { get; set; }
 
-        public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
+        public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, User>
         {
             private readonly InternBADBContext _context;
 
@@ -20,7 +20,7 @@ namespace InternBA.Features.UserFeatures.Command
             {
                 _context = context;
             }
-            public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+            public async Task<User> Handle(CreateUserCommand request, CancellationToken cancellationToken)
             {
                 var user = new User();
                 user.Username = request.Username;
@@ -38,7 +38,7 @@ namespace InternBA.Features.UserFeatures.Command
                 
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
-                return user.ID;
+                return user;
             }
         }
     }

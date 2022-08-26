@@ -45,10 +45,6 @@ namespace InternBA.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(Guid id, UpdateUserCommand command)
         {
-            if (id != command.Id)
-            {
-                return BadRequest();
-            }
             return Ok(await mediator.Send(command));
         }
 
@@ -63,15 +59,9 @@ namespace InternBA.Controllers
 
         //DELETE: api/Users/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(Guid id, DeleteUserByIdCommand command)
+        public async Task<IActionResult> DeleteUser(Guid id)
         {
-            return Ok(await mediator.Send(command));
+            return Ok(await mediator.Send(new DeleteUserByIdCommand(id)));
         }
-
-
-        //private bool UserExists(Guid id)
-        //{
-        //    return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
-        //}
     }
 }

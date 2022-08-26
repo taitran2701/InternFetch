@@ -4,10 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternBA.Features.UserFeatures.Command
 {
-    public class DeleteUserByIdCommand : IRequest<Guid>
+    public record DeleteUserByIdCommand(Guid id) : IRequest<User>
     {
-        public Guid Id { get; set; }
-        public class DeleteUserByIdCommandHandler : IRequestHandler<DeleteUserByIdCommand, Guid>
+        public class DeleteUserByIdCommandHandler : IRequestHandler<DeleteUserByIdCommand, User>
         {
             private readonly InternBADBContext context;
 
@@ -16,13 +15,14 @@ namespace InternBA.Features.UserFeatures.Command
                 this.context = context;
             }
 
-            public async Task<Guid> Handle(DeleteUserByIdCommand request, CancellationToken cancellationToken)
+            public async Task<User> Handle(DeleteUserByIdCommand request, CancellationToken cancellationToken)
             {
-                var user = await context.Users.Where(u => u.ID == request.Id).FirstOrDefaultAsync();
+                var user = await context.Users.Where(u => u.ID == request.id).FirstOrDefaultAsync();
                 if (user == null) return default;
                 context.Users.Remove(user);
                 await context.SaveChangesAsync();
-                return user.ID;
+
+                return user;
             }
         }
     }

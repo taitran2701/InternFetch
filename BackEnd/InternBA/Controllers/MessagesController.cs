@@ -30,24 +30,22 @@ namespace InternBA.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Message>>> GetMessages()
         {
-            return Ok(await mediator.Send(new GetAllMessagesQuery()));
+            var query = new GetAllMessagesQuery();
+            return Ok(await mediator.Send(query));
         }
 
         // GET: api/Messages/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Message>> GetMessage()
+        public async Task<ActionResult<Message>> GetMessage(Guid id)
         {
-            return Ok(await mediator.Send(new GetMessageByIdQuery()));
+            var query = new GetMessageByIdQuery(id);
+            return Ok(await mediator.Send(query));
         }
 
         // PUT: api/Messages/5
         [HttpPut("{id}")]
         public async Task<ActionResult<Message>> PutMessage(Guid id, UpdateMessageCommand command)
         {
-            if (id != command.ID)
-            {
-                return BadRequest();
-            }
             return Ok(await mediator.Send(command));
         }
 
@@ -56,42 +54,14 @@ namespace InternBA.Controllers
         [HttpPost]
         public async Task<ActionResult<Message>> PostMessage(CreateMessageCommand command)
         {
-            //if (_context.Messages == null)
-            //{
-            //    return Problem("Entity set 'InternBADBContext.Messages'  is null.");
-            //}
-            //var ms = new Message()
-            //{
-            //    ID = command.ID,
-            //    UserId = command.UserId,
-            //    Content = command.Content,
-            //    CreatedDate = DateTime.UtcNow,
-            //    RoomId = command.RoomId
-            //};
-            //_context.Messages.Add(ms);
-            //await _context.SaveChangesAsync();
-
-            //return CreatedAtAction("GetMessage", new { id = command.ID }, command);
             return Ok(await mediator.Send(command));
         }
 
         // DELETE: api/Messages/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<IEnumerable<Message>>> DeleteMessage(DeleteMessageByIdCommand command)
+        public async Task<ActionResult<IEnumerable<Message>>> DeleteMessage(Guid id)
         {
-            //if (id == )
-            //{
-            //    return NotFound();
-            //}
-            //var command = await _context.Messages.FindAsync(id);
-            //if (command == null)
-            //{
-            //    return NotFound();
-            //}
-            //command.DeleteAt = DateTime.UtcNow;
-            //await _context.SaveChangesAsync();
-
-            //return await _context.Messages.Where(m => m.DeleteAt != null).ToListAsync();
+            var command = new DeleteMessageByIdCommand(id);
             return Ok(await mediator.Send(command));
         }
     }
