@@ -1,5 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import "./index.scss"
 
 export interface IHeaderProps {}
 interface IUser {
@@ -35,18 +37,40 @@ export default function Header(props: IHeaderProps) {
     setUsers(currentUsers);
   };
   return (
-    <div>
       <div>
-        <h1>Intern Fetch</h1>
-        <input onChange={handleSearchChange} />
-        <ul>
-          {users.map((user: IUser) => {
-            return <li key={user.id}>{user.username}</li>;
-          })}
-        </ul>
-        <button>Upload</button>
-        <button>Message</button>
+        <Container fluid="md" className="Header">
+        
+        <h1>Intern Fetch</h1>        
+
+            <form action="" className="search-input">
+              <input onChange={handleSearchChange} className="search-bar" />
+              <span className="border-line"></span>
+              <button className="search-button">Search</button>
+                <ul>
+                  {users.map((user: IUser) => {
+                    return <li key={user.id}>{user.username}</li>;
+                  })}
+                </ul>
+                
+            </form>
+            
+
+
+              <div className="ActButton">
+                <button className="upbutton">Upload</button>
+                <button className="messbutton">Message</button>
+              </div>
+        
+        </Container>
+        
+       <hr />
       </div>
-    </div>
+    
+
+            
+          
+
+
+
   );
 }
