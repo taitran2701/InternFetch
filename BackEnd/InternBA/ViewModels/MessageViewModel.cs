@@ -1,10 +1,9 @@
-﻿namespace InternBA.ViewModels
+﻿namespace InternBA.ViewModels;
+
+public class MessageViewModel
 {
-    public class MessageViewModel
-    {
-        public Guid ID { get; set; }
-        public Guid UserId { get; set; }
-        public string Content { get; set; }
-        public Guid RoomId { get; set; }
-    }
+    public Guid ID { get; set; }
+    public Guid UserId { get; set; }
+    public string Content { get; set; }
+    public Guid RoomId { get; set; }
 }

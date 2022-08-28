@@ -214,7 +214,9 @@ namespace InternBA.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("ID")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnOrder(0);
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -289,6 +291,7 @@ namespace InternBA.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("UserID");
+                    b.HasKey("ID");
 
                     b.ToTable("Rooms");
                 });
