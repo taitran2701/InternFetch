@@ -1,13 +1,15 @@
 ﻿using InternBA.Features.MessageFeatures.Query;
 using InternBA.Infrastructure.Data;
+using InternBA.Models;
+using InternBA.ViewModels;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace InternBA.Features.RoomFeatures.Query
 {
-    public class GetAllRoomsQuery : IRequest<IEnumerable<Room>>
+    public record GetAllRoomsQuery(PageParagram page) : IRequest<PagedList<Room>>
     {
-        public class GetAllMessagesQueryHanler : IRequestHandler<GetAllRoomsQuery, IEnumerable<Room>>
+        public class GetAllMessagesQueryHanler : IRequestHandler<GetAllRoomsQuery, PagedList<Room>>
         {
             private readonly InternBADBContext _context;
             public GetAllMessagesQueryHanler(InternBADBContext context)
@@ -15,9 +17,11 @@ namespace InternBA.Features.RoomFeatures.Query
                 _context = context;
             }
 
-            public async Task<IEnumerable<Room>> Handle(GetAllRoomsQuery request, CancellationToken cancellationToken)
+            public async Task<PagedList<Room>> Handle(GetAllRoomsQuery request, CancellationToken cancellationToken)
             {
-                return await _context.Rooms.Where(room => room.DeleteAt == null).ToListAsync();
+                var rooms = PagedList<Room>.ToPageList(_context.Rooms.ToList().AsQueryable(), request.page.PageNumber, request.page.PageSize);
+
+                return rooms;
             }
         }
     }
