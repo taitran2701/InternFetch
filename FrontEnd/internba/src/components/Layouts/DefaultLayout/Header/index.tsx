@@ -51,26 +51,15 @@ export default function Header(props: IHeaderProps) {
                     return <li key={user.id}>{user.username}</li>;
                   })}
                 </ul>
-                
             </form>
             
-
-
               <div className="ActButton">
                 <button className="upbutton">Upload</button>
                 <button className="messbutton">Message</button>
               </div>
         
-        </Container>
-        
+        </Container>        
        <hr />
       </div>
-    
-
-            
-          
-
-
-
   );
 }
