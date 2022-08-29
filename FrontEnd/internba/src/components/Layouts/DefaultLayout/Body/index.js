@@ -10,17 +10,17 @@ function Body() {
       <Container className="bodypart">
         <Row>
           
-          <Col>
+          <Col xs={2}>
             <Sidebar/>              
           </Col>
           
-          <Col xs={1}> </Col>
+          {/* <Col xs={1}> </Col> */}
 
-          <Col xs={4}>
+          <Col xs={5}>
             <Content/>
           </Col>
 
-          <Col>
+          <Col xs={2}>
            <Sideright/>
           </Col>
 
