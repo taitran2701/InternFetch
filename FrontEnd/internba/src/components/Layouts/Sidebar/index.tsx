@@ -4,7 +4,7 @@ import "./sidebar.scss";
 
 function Siderbar() {
   return (
-    <ul>
+    <ul className="sidebar">
       <li>
         <span>
           <FontAwesomeIcon icon={faUserGroup} />

@@ -1,0 +1,60 @@
+ul.friends {
+  padding: 0;
+}
+div img {
+  border-radius: 4px;
+  width: 100%;
+}
+
+.friends {
+  border-top: 1px solid rgb(14, 13, 13);
+  margin-top: 25px;
+}
+
+.friends > div {
+  display: flex;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+.friends > div:hover {
+  display: flex;
+  margin-top: 10px;
+  background-color: #e5e6eb;
+  border-radius: 5px;
+}
+.friends > div > a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #0f0505;
+  margin: auto 0;
+}
+.friends li img {
+  display: inline-block;
+}
+.friends li {
+  margin-bottom: 10px;
+  display: inline-block;
+}
+.avatar {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  margin-right: 20px;
+}
+.friends img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border-bottom: 1px #ccc;
+  margin-right: 10px;
+}
+.active {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  background-color: rgb(54, 219, 13);
+  top: 0;
+  right: 0;
+}
