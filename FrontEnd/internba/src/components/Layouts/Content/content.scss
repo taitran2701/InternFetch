@@ -15,7 +15,7 @@ div{
 .FeedStatus{
     display: flex;
     justify-content:space-between;
-    padding: 10px 15px 0;
+    padding: 10px 15px;
 }
 .StatusWrapper{
     display: flex;
@@ -120,4 +120,10 @@ div{
     vertical-align: -0.125em;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+}
+
+.EmotionTitle{
+    font-size: 15px;
+    padding-left: 8px;
+    font-weight: 600;
 }
