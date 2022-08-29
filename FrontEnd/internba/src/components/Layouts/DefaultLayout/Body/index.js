@@ -14,8 +14,7 @@ function Body() {
             <Sidebar/>              
           </Col>
           
-          <Col>
-          </Col>
+          <Col xs={1}> </Col>
 
           <Col xs={4}>
             <Content/>

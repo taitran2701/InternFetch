@@ -1,9 +1,17 @@
+import Dropdown from 'react-bootstrap/Dropdown';
+import "./sidebar.scss";
+
+
+
 function Siderbar(){
     return (
         <>
             <ul>
                 <li>
-                    <div> Avatar</div>
+                    
+                    <div> 
+                        <p>Avatar</p>
+                    </div>
                 </li>
                 <li>
                     <div> Ban be</div>
@@ -21,9 +29,17 @@ function Siderbar(){
                     <div> Ki niem</div>
                 </li>
             </ul>
-            <div>
-                
-            </div>
+            <Dropdown>
+                <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                    Xem them
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                </Dropdown.Menu>
+    </Dropdown>
         </>
     )
 }
