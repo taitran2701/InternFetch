@@ -2,34 +2,27 @@ import { Col, Container, Row } from "react-bootstrap";
 import Content from "../../Content";
 import Sidebar from "../../Sidebar";
 import Sideright from "../../Sideright";
-import "./Body.scss"
+import "./Body.scss";
 
 function Body() {
   return (
     <>
       <Container className="bodypart">
         <Row>
-          
           <Col>
-            <Sidebar/>              
+            <Sidebar />
           </Col>
-          
           <Col xs={1}> </Col>
-
-          <Col xs={4}>
-            <Content/>
+          <Col className="content" xs={4}>
+            <Content />
           </Col>
-
           <Col>
-           <Sideright/>
+            <Sideright />
           </Col>
-
         </Row>
-        
-      </Container>      
+      </Container>
     </>
-  )
-  
+  );
 }
 
 export default Body;
