@@ -2,7 +2,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserGroup } from "@fortawesome/free-solid-svg-icons";
 import "./sidebar.scss";
 
-function Siderbar() {
+
+function Sidebar() {
   return (
     <ul className="sidebar">
       <li>
@@ -39,4 +40,4 @@ function Siderbar() {
   );
 }
 
-export default Siderbar;
+export default Sidebar;

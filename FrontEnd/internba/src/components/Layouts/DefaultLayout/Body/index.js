@@ -1,26 +1,25 @@
-import { Col, Container, Row } from "react-bootstrap";
-import Content from "../../Content";
-import Sidebar from "../../Sidebar";
-import Sideright from "../../Sideright";
-import "./Body.scss";
+import Content from "../../../Content";
+import Sidebar from "../../../Sidebar";
+import SideRight from "../../../Sideright";
+import styles from "./Body.module.scss";
 
 function Body() {
   return (
     <>
-      <Container className="bodypart">
-        <Row>
-          <Col>
-            <Sidebar />
-          </Col>
-          <Col xs={1}> </Col>
-          <Col className="content" xs={4}>
-            <Content />
-          </Col>
-          <Col>
-            <Sideright />
-          </Col>
-        </Row>
-      </Container>
+
+      <div className={styles.bodypart}>
+        <div>
+          <Sidebar/>
+          <div className={styles.leftBar}>
+            
+          </div>
+          
+        </div>
+        <div  >
+          <Content/>
+        </div>
+        <div className={styles.Sideright}><SideRight/></div>
+      </div>      
     </>
   );
 }

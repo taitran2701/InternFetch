@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import "./index.scss";
+import styles from "./Header.module.scss";
 import ModalLogin from "../../../modal/login";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 export interface IHeaderProps {}
 
 interface IUser {
@@ -77,43 +77,36 @@ export default function Header(props: IHeaderProps) {
   };
 
   return (
-    <div>
-      <Container fluid="md" className="Header">
-        <h1>Intern Fetch</h1>
 
-        <form action="" className="search-input">
-          <input onChange={handleSearchChange} className="search-bar" />
-          <span className="border-line"></span>
-          <button className="search-button">Search</button>
-          <ul>
-            {users.map((user: IUser) => {
-              return <li key={user.id}>{user.username}</li>;
-            })}
-          </ul>
-        </form>
-
-        <div className="ActButton">
-          <button className="upbutton">Upload</button>
-          {isLogin && <button className="messbutton">Message</button>}
-          {!isLogin ? (
-            <React.Fragment>
-              <button onClick={() => setShow(true)} className="loginButton">
-                Login
-              </button>
-            </React.Fragment>
-          ) : (
-            <button onClick={logout} className="loginButton">
-              Logout
+    <React.Fragment>
+      <div className={styles.Header}>
+        <div className={styles.headIcon}>Intern Fetch</div>
+        <div className={styles.searchBar}>
+          <form action="" className={styles.searchInput}>
+            <input onChange={handleSearchChange} className={styles.searchBox} />
+            <span></span>
+            <button className={styles.searchButton}>
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
-          )}
-          <ModalLogin
-            checkUserLogin={checkUserLogin}
-            onClose={onClose}
-            show={show}
-          />
+            <ul>
+              {users.map((user: IUser) => {
+                return <li key={user.id}>{user.username}</li>;
+              })}
+            </ul>
+          </form>
         </div>
-      </Container>
-      <hr />
-    </div>
+        <div className={styles.actButton}>
+          <button className={styles.button}>Upload</button>
+          <button className={styles.button}>Message</button>
+          <button onClick={() => setShow(true)} className={styles.button}>
+            Login
+          </button>
+          <ModalLogin onClose={() => setShow(false)} show={show} checkUserLogin={function (): void {
+            throw new Error("Function not implemented.");
+          } } />
+        </div>
+        <hr />
+      </div>
+    </React.Fragment>
   );
 }
