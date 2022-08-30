@@ -11,6 +11,8 @@ using InternBA.ViewModels;
 using MediatR;
 using InternBA.Features.MessageFeatures.Query;
 using InternBA.Features.MessageFeatures.Command;
+using InternBA.Features.UserFeatures.Queries;
+using Newtonsoft.Json;
 
 namespace InternBA.Controllers
 {
@@ -28,14 +30,21 @@ namespace InternBA.Controllers
 
         // GET: api/Messages
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Message>>> GetMessages(GetAllMessagesQuery query)
+        public async Task<ActionResult<IEnumerable<Message>>> GetMessages([FromQuery]PageParagram page)
         {
-            //if (_context.Messages == null)
-            //{
-            //    return NotFound();
-            //}
-            //return await _context.Messages.Where(m => m.DeleteAt == null).ToListAsync();
-            return Ok(await mediator.Send(query));
+            var messages = await mediator.Send(new GetAllMessagesQuery(page));
+            var metadata = new
+            {
+                messages.TotalCount,
+                messages.PageSize,
+                messages.CurrentPage,
+                messages.TotalPages,
+                messages.HasNext,
+                messages.HasPrevious
+            };
+
+            HttpContext.Response.Headers.Add("Message-Pagination", JsonConvert.SerializeObject(metadata));
+            return Ok(messages);
         }
 
         // GET: api/Messages/5

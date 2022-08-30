@@ -10,6 +10,9 @@ using MediatR;
 using InternBA.Features.UserFeatures.Queries;
 using InternBA.Features.UserFeatures.Command;
 using InternBA.Infrastructure.Data;
+using InternBA.Models;
+using InternBA.ViewModels;
+using Newtonsoft.Json;
 
 namespace InternBA.Controllers
 {
@@ -25,14 +28,23 @@ namespace InternBA.Controllers
             this.mediator = mediator;
         }
 
-      ///*  protected IMediator mediator => mediator ??= */HttpContext.RequestServices.GetService<IMediator>();
-        private readonly InternBADBContext _context;
-
         // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers([FromQuery]PageParagram pagination)
         {
-            return Ok(await mediator.Send(new GetAllUsersQuery()));
+            var users = await mediator.Send(new GetAllUsersQuery(pagination));
+            var metadata = new
+            {
+                users.TotalCount,
+                users.PageSize,
+                users.CurrentPage,
+                users.TotalPages,
+                users.HasNext,
+                users.HasPrevious
+            };
+
+            HttpContext.Response.Headers.Add("User-Pagination", JsonConvert.SerializeObject(metadata));
+            return Ok(users);
         }
 
         // GET: api/Users/5
@@ -65,7 +77,7 @@ namespace InternBA.Controllers
 
         //DELETE: api/Users/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(Guid id, DeleteUserByIdCommand command)
+        public async Task<IActionResult> DeleteUser([FromQuery]DeleteUserByIdCommand command)
         {
             return Ok(await mediator.Send(command));
         }

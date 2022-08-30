@@ -11,6 +11,7 @@ using InternBA.ViewModels;
 using MediatR;
 using InternBA.Features.RoomFeatures.Query;
 using InternBA.Features.RoomFeatures.Command;
+using Newtonsoft.Json;
 
 namespace InternBA.Controllers
 {
@@ -29,14 +30,21 @@ namespace InternBA.Controllers
 
         // GET: api/Rooms
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
+        public async Task<ActionResult<IEnumerable<Room>>> GetRooms([FromQuery] PageParagram page)
         {
-            //if (_context.Rooms == null)
-            //{
-            //    return NotFound();
-            //}
-            //return await _context.Rooms.Where(r => r.DeleteAt == null).ToListAsync();
-            return Ok(await mediator.Send(new GetAllRoomsQuery()));
+            var rooms = await mediator.Send(new GetAllRoomsQuery(page));
+            var metadata = new
+            {
+                rooms.TotalCount,
+                rooms.PageSize,
+                rooms.CurrentPage,
+                rooms.TotalPages,
+                rooms.HasNext,
+                rooms.HasPrevious
+            };
+
+            HttpContext.Response.Headers.Add("Room-Pagination", JsonConvert.SerializeObject(metadata));
+            return Ok(rooms);
         }
 
         // GET: api/Rooms/5
