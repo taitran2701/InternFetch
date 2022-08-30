@@ -21,10 +21,19 @@ interface IUser {
   updatedDate: string;
 }
 
+interface IUserLogin {
+  username: string;
+  password: string;
+  email: string;
+  avater: string;
+  id: string;
+}
+
 export default function Header(props: IHeaderProps) {
   const [users, setUsers] = useState<IUser[]>([]);
   const [baseUser, setBaseUser] = useState<IUser[]>([]);
   const [show, setShow] = useState<boolean>(false);
+  const [isLogin, setIsLogin] = useState<boolean>(false);
 
   useEffect(() => {
     fetch("https://localhost:7076/api/Users")
@@ -33,6 +42,30 @@ export default function Header(props: IHeaderProps) {
         setUsers(users);
         setBaseUser(users);
       });
+  }, []);
+
+  const checkUserLogin = () => {
+    const user = JSON.parse(localStorage.getItem("user")!);
+    if (!user) {
+      setIsLogin(false);
+    } else {
+      setIsLogin(user.isLogin);
+    }
+  };
+
+  const logout = () => {
+    const user = JSON.parse(localStorage.getItem("user")!);
+    if (user) {
+      localStorage.removeItem("user");
+      checkUserLogin();
+    }
+  };
+  useEffect(() => {
+    checkUserLogin();
+  }, []);
+
+  const onClose = React.useCallback(() => {
+    setShow(false);
   }, []);
 
   const handleSearchChange = (e: any) => {
@@ -61,11 +94,23 @@ export default function Header(props: IHeaderProps) {
 
         <div className="ActButton">
           <button className="upbutton">Upload</button>
-          <button className="messbutton">Message</button>
-          <button onClick={() => setShow(true)} className="loginButton">
-            Login
-          </button>
-          <ModalLogin onClose={() => setShow(false)} show={show} />
+          {isLogin && <button className="messbutton">Message</button>}
+          {!isLogin ? (
+            <React.Fragment>
+              <button onClick={() => setShow(true)} className="loginButton">
+                Login
+              </button>
+            </React.Fragment>
+          ) : (
+            <button onClick={logout} className="loginButton">
+              Logout
+            </button>
+          )}
+          <ModalLogin
+            checkUserLogin={checkUserLogin}
+            onClose={onClose}
+            show={show}
+          />
         </div>
       </Container>
       <hr />

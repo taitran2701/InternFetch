@@ -47,6 +47,15 @@ namespace InternBA.Controllers
             return Ok(users);
         }
 
+       // GET: username and password
+        [HttpPost]
+        [Route("login")]
+        public async Task<ActionResult<UserViewModel>> GetUserByUserName(LoginInformation login)
+        {
+            var user = await mediator.Send(new GetUserByUserNameQuery(login));
+            return Ok(user);
+        }
+
         // GET: api/Users/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser([FromQuery] GetUserByIdQuery query)
