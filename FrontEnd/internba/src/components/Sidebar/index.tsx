@@ -3,7 +3,7 @@ import "./sidebar.scss";
 
 
 
-function Siderbar(){
+function Sidebar(){
     return (
         <>
             <ul>
@@ -44,4 +44,4 @@ function Siderbar(){
     )
 }
 
-export default Siderbar;
+export default Sidebar;
