@@ -1,0 +1,103 @@
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.modelContent {
+  width: 500px;
+  background-color: #fff;
+}
+
+.modalHeader,
+.modalFooter {
+  padding: 10px;
+}
+
+.modalHeader {
+}
+
+.modalTitle {
+  margin: 0;
+}
+
+.modalBody {
+  padding: 10px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  input {
+    height: 50px;
+    border-radius: 6px;
+    border: 1px solid #dddfe2;
+    font-size: 18px;
+    padding-left: 20px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width: 80%;
+  }
+}
+
+.modalFooter {
+}
+
+.button {
+}
+
+.btnLogin {
+  height: 50px;
+  border-radius: 6px;
+  border: none;
+  background-color: #1775ee;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: all 0.2s;
+  width: 80%;
+}
+
+.loginForgot {
+  text-align: center;
+  color: #1775ee;
+  margin-top: 16px;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.btnNewAccount {
+  align-self: center;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  background-color: #42b72a;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0 16px;
+  transition: all 0.2s;
+  width: 70%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  &:hover {
+    opacity: 0.8;
+  }
+}

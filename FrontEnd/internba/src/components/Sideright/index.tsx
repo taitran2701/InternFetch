@@ -1,10 +1,54 @@
-function Sideright(){
-    return (
-        <>
-        
-            <h2>Sideright part</h2>
-        </>
-    )
-}
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserGroup } from "@fortawesome/free-solid-svg-icons";
+import styles from "./index.module.scss";
 
-export default Sideright;
+import * as React from "react";
+
+export interface ISideRightProps {}
+
+export default function SideRight(props: ISideRightProps) {
+  return (
+    <div>
+      <div>
+        <img src="https://www.w3schools.com/css/paris.jpg" alt="" />
+      </div>
+      <ul className={styles.friends}>
+        <div>
+          <div className={styles.avatar}>
+            <img src="https://www.w3schools.com/css/paris.jpg" alt="" />
+            <div className={styles.active}></div>
+          </div>
+          <a href="#">Xuan Loi</a>
+        </div>
+        <div>
+          <div className={styles.avatar}>
+            <img src="https://www.w3schools.com/css/paris.jpg" alt="" />
+            <div className={styles.active}></div>
+          </div>
+          <a href="#">Xuan Loi</a>
+        </div>
+        <div>
+          <div className={styles.avatar}>
+            <img src="https://www.w3schools.com/css/paris.jpg" alt="" />
+            <div className={styles.active}></div>
+          </div>
+          <a href="#">Xuan Loi</a>
+        </div>
+        <div>
+          <div className={styles.avatar}>
+            <img src="https://www.w3schools.com/css/paris.jpg" alt="" />
+            <div className={styles.active}></div>
+          </div>
+          <a href="#">Xuan Loi</a>
+        </div>
+        <div>
+          <div className={styles.avatar}>
+            <img src="https://www.w3schools.com/css/paris.jpg" alt="" />
+            <div className={styles.active}></div>
+          </div>
+          <a href="#">Xuan Loi</a>
+        </div>
+      </ul>
+    </div>
+  );
+}

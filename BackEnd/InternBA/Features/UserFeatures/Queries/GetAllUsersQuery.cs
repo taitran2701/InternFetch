@@ -1,12 +1,16 @@
 ﻿using InternBA.Infrastructure.Data;
+using InternBA.Models;
+using InternBA.ViewModels;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Reflection.PortableExecutable;
 
 namespace InternBA.Features.UserFeatures.Queries
 {
-    public class GetAllUsersQuery : IRequest<IEnumerable<User>>
+    public record GetAllUsersQuery(PageParagram pagination) : IRequest<PagedList<User>>
     {
-        public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, IEnumerable<User>>
+        public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, PagedList<User>>
         {
             private readonly InternBADBContext context;
 
@@ -15,17 +19,11 @@ namespace InternBA.Features.UserFeatures.Queries
                 this.context = context;
             }
 
-            public async Task<IEnumerable<User>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
+            public  async Task<PagedList<User>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
             {
-                Console.WriteLine("Xin chao");
-                var users = await context.Users.ToListAsync();
-                
-                if (users == null)
-                {
-                    return null;
-                }
+                var users = PagedList<User>.ToPageList(context.Users.ToList().AsQueryable(), request.pagination.PageNumber, request.pagination.PageSize);
 
-                return users.AsReadOnly();
+                return users;
             }
         }
     }
