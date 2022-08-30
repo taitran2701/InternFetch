@@ -53,7 +53,7 @@ export default function ModalLogin(props: IModalLoginProps) {
 
   if (!props.show) return null;
   return (
-    <div className={styles.modal}>
+    <div className={styles.modal} onClick={onClose}>
       <div className={styles.modelContent} onClick={(e) => e.stopPropagation()}>
         <div className={styles.modalHeader}>
           <h3 className={styles.logoLogin}>Intern Fetch</h3>
