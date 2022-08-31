@@ -6,20 +6,19 @@ import styles from "./Body.module.scss";
 function Body() {
   return (
     <>
-
       <div className={styles.bodypart}>
         <div>
-          <Sidebar/>
           <div className={styles.leftBar}>
-            
+            <Sidebar />
           </div>
-          
         </div>
-        <div  >
-          <Content/>
+        <div className={styles.Content}>
+          <Content />
         </div>
-        <div className={styles.Sideright}><SideRight/></div>
-      </div>      
+        <div className={styles.Sideright}>
+          <SideRight />
+        </div>
+      </div>
     </>
   );
 }
