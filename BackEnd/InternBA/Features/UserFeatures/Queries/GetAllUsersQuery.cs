@@ -21,14 +21,16 @@ namespace InternBA.Features.UserFeatures.Queries
 
             public async Task<PagedList<User>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
             {
-                //var list = await context.Users.Include(user => user.UserRooms)
-                //    .ThenInclude(userRoom => userRoom.Room)
-                //    .ToListAsync();
-                //var hashset = new HashSet<Room>(list);
-                //foreach (var item in list)
-                //{
-                //    Console.WriteLine(item.Room['user2']);
-                //}
+                var list = context.UserRoom.Include(userRoom => userRoom.User);
+                
+                foreach (var item in list)
+                {
+                    var user = item.User;
+                    if (user != null)
+                    {
+                        Console.WriteLine($"{user.Username} {user.ID}");
+                    }
+                }
                 var users = PagedList<User>.ToPageList(context.Users.ToList().AsQueryable(), request.pagination.PageNumber, request.pagination.PageSize);
 
                 return users;

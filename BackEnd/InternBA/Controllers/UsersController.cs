@@ -90,6 +90,13 @@ namespace InternBA.Controllers
             return Ok(await mediator.Send(command));
         }
 
+        [HttpPost]
+        [Route("account")]
+        public async Task<ActionResult<User>> PostUserAccount(CreateUserAccountCommand command)
+        {
+            return Ok(await mediator.Send(command));
+        }
+
 
         //DELETE: api/Users/5
         [HttpDelete("{id}")]

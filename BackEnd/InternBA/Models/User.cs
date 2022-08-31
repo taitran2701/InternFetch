@@ -7,8 +7,8 @@ public class User: BaseEntity
 {
     public string Username { get; set; }
     public string Password { get; set; }
-    public string Email { get; set; }
-    public string Avater { get; set; }
+    public string? Email { get; set; }
+    public string? Avater { get; set; }
 
     public ICollection<Comment> Comments { get; set; }  
 
