@@ -68,10 +68,8 @@ const PostModal = (props: { show: any }) => {
           </div>
         </div>
 
-        <div className={modal.footer}>
-          <button className={add.addButton}>
-            <span>Post</span>
-          </button>
+        <div className={add.footer}>
+          <button className={add.button}>Close</button>
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ import News from "./News.module.scss";
 import Comment from "./Comment.module.scss";
 import PostModal from "../modal/postModal/index";
 import AddStatus from "../AddStatus";
-import PostUser from "../postUser";
+import PostUser from "../PostUser";
 import PostEmotion from "../PostEmotion";
 import PostAction from "../PostAction";
 import PostComment from "../PostComment";
