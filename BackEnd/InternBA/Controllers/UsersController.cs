@@ -46,8 +46,15 @@ namespace InternBA.Controllers
             HttpContext.Response.Headers.Add("User-Pagination", JsonConvert.SerializeObject(metadata));
             return Ok(users);
         }
+        //GET: api/Users/
+        [HttpGet]
+        [Route("search")]
+        public async Task<ActionResult<IEnumerable<User>>> GetUserSearch(string search)
+        {
+            return Ok(await mediator.Send(new GetUserSearchQuery(search)));
+        }
 
-       // GET: username and password
+        // GET: username and password
         [HttpPost]
         [Route("login")]
         public async Task<ActionResult<UserViewModel>> GetUserByUserName(LoginInformation login)
