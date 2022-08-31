@@ -1,0 +1,115 @@
+
+
+.AddNews{
+
+}
+.FeedStatus{
+    display: flex;
+    justify-content:space-between;
+    padding: 10px 15px;
+}
+.StatusWrapper{
+    display: flex;
+    grid: gap 5px;
+    gap: 5px;
+}
+.Avatar img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;  
+}
+.StatusName{
+    font-size: 15px;
+    font-weight: 600;
+    color: #0f0505;
+}
+.StatusTime{
+    color:#b0b3b8;
+    font-size: 13px;
+}
+.StatusMore{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .2s;
+}
+
+
+
+.StatusImage img{
+    width: 100%;
+}
+
+.StatusReaction{
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    justify-content: space-between;
+}
+.Status_emotion{
+    display: flex;
+    align-items: center;
+}
+.Status_emotion img{
+    width: 25px;
+    height: 25px;
+    background-color: #fff;
+}
+.Status_emotion span{
+    color: #65676b;
+    padding-left: 6px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+}
+.Status_comment{
+    color: #65676b;
+    font-size: 15px;
+}
+
+.FeedAction{
+    padding: 0 15px;
+}
+.FeedActionWrapper{
+    padding: 5px 0;
+    border-top: 0.5px solid rgba(0,0,0,.2);
+    border-bottom: 0.5px solid rgba(0,0,0,.2);
+    display: flex;
+    justify-content: space-between;
+}
+.ActionState{
+    flex: 1 1;
+    display: flex;
+    justify-content: center;
+    transition: all .2s;
+    padding: 6px 0;
+    color: #65676b;
+}
+
+.emotionIcon{
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.anticon{
+    display: inline-block;
+    color: inherit;
+    font-style: normal;
+    line-height: 0;
+    text-align: center;
+    text-transform: none;
+    vertical-align: -0.125em;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+.EmotionTitle{
+    font-size: 15px;
+    padding-left: 8px;
+    font-weight: 600;
+}

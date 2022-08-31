@@ -1,0 +1,21 @@
+.bodypart {
+  display: flex;
+  justify-content: center;
+  padding: 12px 14px;
+  height: 100%;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: large;
+  position: relative;
+  margin-left: -204px;
+}
+.Content {
+  max-width: 1000px;
+  position: relative;
+  padding: 12px 20px;
+}
+
+.Sideright {
+  position: fixed;
+  right: 0;
+  max-width: 300px;
+}
