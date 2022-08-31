@@ -8,7 +8,7 @@ export interface ISideRightProps {}
 
 export default function SideRight(props: ISideRightProps) {
   return (
-    <div>
+    <div className={styles.sidebarRight}>
       <div>
         <img src="https://www.w3schools.com/css/paris.jpg" alt="" />
       </div>

@@ -9,7 +9,7 @@ import AddStatus from "../AddStatus";
 function Content() {
   const [show, setShow] = useState(false);
   return (
-    <Fragment>
+    <div>
       <div className={Card.newsCard}>
         <AddStatus />
       </div>
@@ -148,7 +148,7 @@ function Content() {
           </div>
         </div>
       </div>
-    </Fragment>
+    </div>
   );
 }
 export default Content;
