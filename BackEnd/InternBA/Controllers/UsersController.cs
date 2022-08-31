@@ -82,6 +82,13 @@ namespace InternBA.Controllers
             return Ok(await mediator.Send(command));
         }
 
+        [HttpPut]
+        [Route("password")]
+        public async Task<IActionResult> PutUserForgotPassword(UpdateUserPasswordCommand command)
+        {
+            return Ok(await mediator.Send(command));
+        }
+
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
