@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import Content from "../../../Content";
 import Sidebar from "../../../Sidebar";
 import SideRight from "../../../Sideright";
-import styles from "./Body.module.scss";
+import styles from "./index.module.scss";
 
 function Body() {
   return (

@@ -8,12 +8,15 @@ function AddStatus() {
     <React.Fragment>
       <div className={styles.feedWrapper}>
         <img
-          src="https://lh3.googleusercontent.com/a/AItbvmkWzx51cEWuN7GcyaMaW1dmhWLEfHKtbal8Tclg=s96-c"
+          src="https://www.pngitem.com/pimgs/m/338-3388366_meme-for-steam-avatars-hd-png-download.png"
           alt=""
         />
-        <button onClick={() => setShow(true)}>What's on your mind ?</button>
-        <PostModal show={show} />
+        <React.Fragment>
+          <button onClick={() => setShow(true)}>What's on your mind ?</button>
+          <PostModal show={show} />
+        </React.Fragment>
       </div>
+
       <div className={styles.feed}>
         <div className={styles.feedAction}>
           <div className={styles.item}>
