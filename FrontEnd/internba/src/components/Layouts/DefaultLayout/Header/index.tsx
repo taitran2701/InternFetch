@@ -104,6 +104,23 @@ export default function Header(props: IHeaderProps) {
           <ModalLogin onClose={() => setShow(false)} show={show} checkUserLogin={function (): void {
             throw new Error("Function not implemented.");
           } } />
+          {isLogin && <button className={styles.button}>Message</button>}
+          {!isLogin ? (
+            <React.Fragment>
+              <button onClick={() => setShow(true)} className={styles.button}>
+                Login
+              </button>
+            </React.Fragment>
+          ) : (
+            <button onClick={logout} className={styles.button}>
+              Logout
+            </button>
+          )}
+            <ModalLogin
+            checkUserLogin={checkUserLogin}
+            onClose={onClose}
+            show={show}
+          />    
         </div>
         <hr />
       </div>
