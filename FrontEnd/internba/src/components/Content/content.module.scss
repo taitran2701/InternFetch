@@ -1,13 +1,7 @@
 
-.newsCard{
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
-    margin-bottom: 15px;
-}
 
 .AddNews{
-    
+
 }
 .FeedStatus{
     display: flex;
@@ -43,14 +37,9 @@
     justify-content: center;
     transition: all .2s;
 }
-.StatusDescription{
-    padding: 0 15px 10px;
-    font-size: 15px;
-}
 
-.StatusImage{
-    margin-bottom: -5px;
-}
+
+
 .StatusImage img{
     width: 100%;
 }

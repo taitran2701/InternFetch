@@ -77,7 +77,6 @@ export default function Header(props: IHeaderProps) {
   };
 
   return (
-<<<<<<< HEAD
     <React.Fragment>
       <div className={styles.Header}>
         <div className={styles.headIcon}>Intern Fetch</div>
@@ -96,48 +95,23 @@ export default function Header(props: IHeaderProps) {
           </form>
         </div>
         <div className={styles.actButton}>
-          <button className={styles.button}>Upload</button>
-          <button className={styles.button}>Message</button>
-          <button onClick={() => setShow(true)} className={styles.button}>
-            Login
-          </button>
-          <ModalLogin onClose={() => setShow(false)} show={show} />
-=======
-    <div>
-      <Container fluid="md" className="Header">
-        <h1>Intern Fetch</h1>
-
-        <form action="" className="search-input">
-          <input onChange={handleSearchChange} className="search-bar" />
-          <span className="border-line"></span>
-          <button className="search-button">Search</button>
-          <ul>
-            {users.map((user: IUser) => {
-              return <li key={user.id}>{user.username}</li>;
-            })}
-          </ul>
-        </form>
-
-        <div className="ActButton">
-          <button className="upbutton">Upload</button>
-          {isLogin && <button className="messbutton">Message</button>}
+          {isLogin && <button className={styles.button}>Message</button>}
           {!isLogin ? (
             <React.Fragment>
-              <button onClick={() => setShow(true)} className="loginButton">
+              <button onClick={() => setShow(true)} className={styles.button}>
                 Login
               </button>
             </React.Fragment>
           ) : (
-            <button onClick={logout} className="loginButton">
+            <button onClick={logout} className={styles.button}>
               Logout
             </button>
           )}
-          <ModalLogin
+            <ModalLogin
             checkUserLogin={checkUserLogin}
             onClose={onClose}
             show={show}
-          />
->>>>>>> origin/features/02-3/loginmodal
+          />    
         </div>
         <hr />
       </div>
