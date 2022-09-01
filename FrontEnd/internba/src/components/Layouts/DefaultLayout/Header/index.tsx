@@ -106,7 +106,8 @@ export default function Header(props: IHeaderProps) {
   }, []);
 
   const handleSearchChange = (e: any) => {
-    fetch("")
+    debugger;
+    fetch(`${process.env.SEARCH}`)
       .then((res) => res.json())
       .then((users) => setUsers(users));
   };
