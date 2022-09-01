@@ -69,7 +69,7 @@ const PostModal = (props: { show: any }) => {
         </div>
 
         <div className={add.footer}>
-          <button className={add.button}>Close</button>
+          <button className={add.button}>Post</button>
         </div>
       </div>
     </div>
