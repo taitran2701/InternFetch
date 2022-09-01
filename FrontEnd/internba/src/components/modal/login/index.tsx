@@ -5,6 +5,8 @@ export interface IModalLoginProps {
   show: boolean;
   onClose: () => void;
   checkUserLogin: () => void;
+  children: React.ReactNode;
+  title: string;
 }
 
 interface IUser {
@@ -16,7 +18,7 @@ interface IUser {
 }
 
 export default function ModalLogin(props: IModalLoginProps) {
-  const { onClose, checkUserLogin } = props;
+  const { onClose, checkUserLogin, children, title } = props;
   const [userName, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [userLogin, setUserLogin] = useState<IUser>();
@@ -56,10 +58,10 @@ export default function ModalLogin(props: IModalLoginProps) {
     <div className={styles.modal} onClick={onClose}>
       <div className={styles.modelContent} onClick={(e) => e.stopPropagation()}>
         <div className={styles.modalHeader}>
-          <h3 className={styles.logoLogin}>Intern Fetch</h3>
+          <h3 className={styles.logoLogin}>{title}</h3>
         </div>
         <div className={styles.modalBody}>
-          <input
+          {/* <input
             placeholder="username"
             value={userName}
             type="text"
@@ -75,7 +77,8 @@ export default function ModalLogin(props: IModalLoginProps) {
           />
           <button onClick={handleLogin} className={styles.btnLogin}>
             Log In
-          </button>
+          </button> */}
+          <div>{children}</div>
           <a href="#" className={styles.loginForgot}>
             Forgot Password?
           </a>

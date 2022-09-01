@@ -19,8 +19,18 @@ namespace InternBA.Features.UserFeatures.Queries
                 this.context = context;
             }
 
-            public  async Task<PagedList<User>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
+            public async Task<PagedList<User>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
             {
+                var list = context.UserRoom.Include(userRoom => userRoom.User);
+                
+                foreach (var item in list)
+                {
+                    var user = item.User;
+                    if (user != null)
+                    {
+                        Console.WriteLine($"{user.Username} {user.ID}");
+                    }
+                }
                 var users = PagedList<User>.ToPageList(context.Users.ToList().AsQueryable(), request.pagination.PageNumber, request.pagination.PageSize);
 
                 return users;

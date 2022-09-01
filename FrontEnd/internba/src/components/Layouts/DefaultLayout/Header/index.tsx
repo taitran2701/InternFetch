@@ -4,6 +4,7 @@ import styles from "./Header.module.scss";
 import ModalLogin from "../../../modal/login";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import Modal from "../../../common/modal";
 export interface IHeaderProps {}
 
 interface IUser {
@@ -32,8 +33,14 @@ interface IUserLogin {
 export default function Header(props: IHeaderProps) {
   const [users, setUsers] = useState<IUser[]>([]);
   const [baseUser, setBaseUser] = useState<IUser[]>([]);
+
   const [show, setShow] = useState<boolean>(false);
   const [isLogin, setIsLogin] = useState<boolean>(false);
+  const [userName, setUserName] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [rePassword, setRePassword] = useState<string>("");
+  const [userLogin, setUserLogin] = useState<IUser>();
+  const [numberAction, setNumberAction] = useState<number>(1);
 
   useEffect(() => {
     fetch("https://localhost:7076/api/Users")
@@ -53,6 +60,36 @@ export default function Header(props: IHeaderProps) {
     }
   };
 
+  const handleLogin = () => {
+    fetch("https://localhost:7076/api/Users/login", {
+      method: "POST",
+      body: JSON.stringify({
+        Username: userName,
+        Password: password,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((user) => {
+        setUserLogin(user);
+        setUserName("");
+        setPassword("");
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            userName: user.username,
+            isLogin: true,
+          })
+        );
+        checkUserLogin();
+        onClose();
+      });
+  };
+
   const logout = () => {
     const user = JSON.parse(localStorage.getItem("user")!);
     if (user) {
@@ -69,15 +106,12 @@ export default function Header(props: IHeaderProps) {
   }, []);
 
   const handleSearchChange = (e: any) => {
-    let currentUsers = [...baseUser];
-    currentUsers = baseUser.filter((user: IUser) =>
-      user.username.includes(e.target.value)
-    );
-    setUsers(currentUsers);
+    fetch("")
+      .then((res) => res.json())
+      .then((users) => setUsers(users));
   };
 
   return (
-
     <React.Fragment>
       <div className={styles.Header}>
         <div className={styles.headIcon}>Intern Fetch</div>
@@ -96,7 +130,6 @@ export default function Header(props: IHeaderProps) {
           </form>
         </div>
         <div className={styles.actButton}>
-          <button className={styles.button}>Message</button>          
           {isLogin && <button className={styles.button}>Message</button>}
           {!isLogin ? (
             <React.Fragment>
@@ -109,11 +142,121 @@ export default function Header(props: IHeaderProps) {
               Logout
             </button>
           )}
-            <ModalLogin
-            checkUserLogin={checkUserLogin}
-            onClose={onClose}
+          <Modal
+            title="Intern Fetch"
             show={show}
-          />    
+            onClose={() => {
+              setShow(false);
+              setNumberAction(1);
+            }}
+            checkUserLogin={checkUserLogin}
+          >
+            {numberAction === 1 && (
+              <>
+                <input
+                  placeholder="username"
+                  value={userName}
+                  type="text"
+                  onChange={(e) => setUserName(e.target.value)}
+                  className={styles.loginInput}
+                />
+                <input
+                  placeholder="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="text"
+                  className={styles.loginInput}
+                />
+                <button onClick={handleLogin} className={styles.btnLogin}>
+                  Log In
+                </button>
+                <a
+                  onClick={() => setNumberAction(3)}
+                  className={styles.loginForgot}
+                >
+                  Forgot Password?
+                </a>
+                <button
+                  onClick={() => setNumberAction(2)}
+                  className={styles.btnNewAccount}
+                >
+                  Create new account
+                </button>
+              </>
+            )}
+            {numberAction === 2 && (
+              <>
+                <input
+                  placeholder="username"
+                  value={userName}
+                  type="text"
+                  onChange={(e) => setUserName(e.target.value)}
+                  className={styles.loginInput}
+                />
+                <input
+                  placeholder="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="text"
+                  className={styles.loginInput}
+                />
+                <input
+                  placeholder="Confirm password"
+                  value={rePassword}
+                  onChange={(e) => setRePassword(e.target.value)}
+                  type="text"
+                  className={styles.loginInput}
+                />
+                <button onClick={handleLogin} className={styles.btnLogin}>
+                  Create new account
+                </button>
+                <a
+                  onClick={() => setNumberAction(3)}
+                  className={styles.loginForgot}
+                >
+                  Forgot Password?
+                </a>
+                <button
+                  onClick={() => setNumberAction(1)}
+                  className={styles.btnNewAccount}
+                >
+                  Log In
+                </button>
+              </>
+            )}
+
+            {numberAction === 3 && (
+              <>
+                <input
+                  placeholder="username"
+                  value={userName}
+                  type="text"
+                  onChange={(e) => setUserName(e.target.value)}
+                  className={styles.loginInput}
+                />
+                <input
+                  placeholder="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="text"
+                  className={styles.loginInput}
+                />
+                <input
+                  placeholder="Confirm password"
+                  value={rePassword}
+                  onChange={(e) => setRePassword(e.target.value)}
+                  type="text"
+                  className={styles.loginInput}
+                />
+                <button
+                  onClick={() => setNumberAction(1)}
+                  className={styles.btnNewAccount}
+                >
+                  Reset Password
+                </button>
+              </>
+            )}
+          </Modal>
         </div>
         <hr />
       </div>
