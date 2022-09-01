@@ -145,24 +145,21 @@ export default function Header(props: IHeaderProps) {
     setShow(false);
   }, []);
 
-  const handleSearchChange = (e: any) => {
-    setSearch(e.target.value);
-
-    fetch(`${process.env.SEARCH}`, {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    fetch(`https://localhost:7076/api/Users/search?search=${e.target.value}`, {
       method: "GET",
-      body: JSON.stringify({
-        search: search,
-      }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
     })
       .then((res) => {
-        console.log(process.env.SEARCH);
-
         return res.json();
       })
-      .then((users) => setUsers(users));
+      .then((users) => {
+        setSearch("");
+        return setUsers(users);
+      });
+    console.log(users);
   };
 
   const hanldeResetPassword = () => {
@@ -200,12 +197,22 @@ export default function Header(props: IHeaderProps) {
       <div className={styles.Header}>
         <div className={styles.headIcon}>Intern Fetch</div>
         <div className={styles.searchBar}>
-          <form action="" className={styles.searchInput}>
-            <input
-              onChange={(e) => handleSearchChange}
-              className={styles.searchBox}
-            />
-            <span></span>
+          <form className={styles.searchInput}>
+            <div className={styles.dropdown}>
+              <input
+                onChange={handleSearchChange}
+                className={styles.searchBox}
+                placeholder="Username..."
+              />
+              {
+                <div className={styles.dropdownContent}>
+                  <a>Hello</a>
+                  {users?.map((user: IUser) => {
+                    return <a key={user.id}>{user.username}</a>;
+                  })}
+                </div>
+              }
+            </div>
             <button className={styles.searchButton}>
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>

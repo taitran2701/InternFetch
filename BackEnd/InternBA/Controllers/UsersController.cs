@@ -54,6 +54,13 @@ namespace InternBA.Controllers
             return Ok(await mediator.Send(new GetUserSearchQuery(search)));
         }
 
+        //GET: api/Users/
+        [HttpGet]
+        [Route("friend")]
+        public async Task<ActionResult<IEnumerable<User>>> GetUserFriends(string username)
+        {
+            return Ok(await mediator.Send(new GetUserFriendQuery(username)));
+        }
         // GET: username and password
         [HttpPost]
         [Route("login")]
