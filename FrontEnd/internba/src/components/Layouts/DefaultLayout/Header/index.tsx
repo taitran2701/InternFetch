@@ -40,8 +40,8 @@ export default function Header(props: IHeaderProps) {
   const [password, setPassword] = useState<string>("");
   const [rePassword, setRePassword] = useState<string>("");
   const [userLogin, setUserLogin] = useState<IUser>();
-  const [isCreateAccount, setIsCreateAccount] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>("");
+  const [numberAction, setNumberAction] = useState<number>(1);
+
   useEffect(() => {
     fetch("https://localhost:7076/api/Users")
       .then((res) => res.json())
@@ -147,10 +147,13 @@ export default function Header(props: IHeaderProps) {
           <Modal
             title="Intern Fetch"
             show={show}
-            onClose={() => setShow(false)}
+            onClose={() => {
+              setShow(false);
+              setNumberAction(1);
+            }}
             checkUserLogin={checkUserLogin}
           >
-            {!isCreateAccount ? (
+            {numberAction === 1 && (
               <>
                 <input
                   placeholder="username"
@@ -169,17 +172,21 @@ export default function Header(props: IHeaderProps) {
                 <button onClick={handleLogin} className={styles.btnLogin}>
                   Log In
                 </button>
-                <a href="#" className={styles.loginForgot}>
+                <a
+                  onClick={() => setNumberAction(3)}
+                  className={styles.loginForgot}
+                >
                   Forgot Password?
                 </a>
                 <button
-                  onClick={() => setIsCreateAccount(true)}
+                  onClick={() => setNumberAction(2)}
                   className={styles.btnNewAccount}
                 >
                   Create new account
                 </button>
               </>
-            ) : (
+            )}
+            {numberAction === 2 && (
               <>
                 <input
                   placeholder="username"
@@ -198,28 +205,56 @@ export default function Header(props: IHeaderProps) {
                 <input
                   placeholder="Confirm password"
                   value={rePassword}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => setRePassword(e.target.value)}
                   type="text"
-                  className={styles.loginInput}
-                />
-                <input
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  type="email"
                   className={styles.loginInput}
                 />
                 <button onClick={handleLogin} className={styles.btnLogin}>
                   Create new account
                 </button>
-                <a href="#" className={styles.loginForgot}>
+                <a
+                  onClick={() => setNumberAction(3)}
+                  className={styles.loginForgot}
+                >
                   Forgot Password?
                 </a>
                 <button
-                  onClick={() => setIsCreateAccount(true)}
+                  onClick={() => setNumberAction(1)}
                   className={styles.btnNewAccount}
                 >
                   Log In
+                </button>
+              </>
+            )}
+
+            {numberAction === 3 && (
+              <>
+                <input
+                  placeholder="username"
+                  value={userName}
+                  type="text"
+                  onChange={(e) => setUserName(e.target.value)}
+                  className={styles.loginInput}
+                />
+                <input
+                  placeholder="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="text"
+                  className={styles.loginInput}
+                />
+                <input
+                  placeholder="Confirm password"
+                  value={rePassword}
+                  onChange={(e) => setRePassword(e.target.value)}
+                  type="text"
+                  className={styles.loginInput}
+                />
+                <button
+                  onClick={() => setNumberAction(1)}
+                  className={styles.btnNewAccount}
+                >
+                  Reset Password
                 </button>
               </>
             )}
