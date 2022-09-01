@@ -72,7 +72,7 @@ namespace InternBA.Controllers
 
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<IActionResult> PutUser(Guid id, UpdateUserCommand command)
         {
             if (id != command.Id)
@@ -82,10 +82,24 @@ namespace InternBA.Controllers
             return Ok(await mediator.Send(command));
         }
 
+        [HttpPut]
+        [Route("password")]
+        public async Task<IActionResult> PutUserForgotPassword(UpdateUserPasswordCommand command)
+        {
+            return Ok(await mediator.Send(command));
+        }
+
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(CreateUserCommand command)
+        {
+            return Ok(await mediator.Send(command));
+        }
+
+        [HttpPost]
+        [Route("account")]
+        public async Task<ActionResult<User>> PostUserAccount(CreateUserAccountCommand command)
         {
             return Ok(await mediator.Send(command));
         }

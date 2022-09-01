@@ -4,13 +4,19 @@ using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using InternBA.Infrastructure.Data;
 using FluentValidation.AspNetCore;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var config = builder.Configuration;
 // Add services to the container.
 
-builder.Services.AddControllers();
+//Config cycle detected
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+    });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
