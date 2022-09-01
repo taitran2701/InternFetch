@@ -106,11 +106,9 @@ export default function Header(props: IHeaderProps) {
   }, []);
 
   const handleSearchChange = (e: any) => {
-    let currentUsers = [...baseUser];
-    currentUsers = baseUser.filter((user: IUser) =>
-      user.username.includes(e.target.value)
-    );
-    setUsers(currentUsers);
+    fetch("")
+      .then((res) => res.json())
+      .then((users) => setUsers(users));
   };
 
   return (
