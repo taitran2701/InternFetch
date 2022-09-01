@@ -33,7 +33,7 @@ interface IUserLogin {
 export default function Header(props: IHeaderProps) {
   const [users, setUsers] = useState<IUser[]>([]);
   const [baseUser, setBaseUser] = useState<IUser[]>([]);
-
+  const [search, setSearch] = useState<string>("");
   const [show, setShow] = useState<boolean>(false);
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>("");
@@ -42,14 +42,14 @@ export default function Header(props: IHeaderProps) {
   const [userLogin, setUserLogin] = useState<IUser>();
   const [numberAction, setNumberAction] = useState<number>(1);
 
-  useEffect(() => {
-    fetch("https://localhost:7076/api/Users")
-      .then((res) => res.json())
-      .then((users) => {
-        setUsers(users);
-        setBaseUser(users);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("https://localhost:7076/api/Users")
+  //     .then((res) => res.json())
+  //     .then((users) => {
+  //       setUsers(users);
+  //       setBaseUser(users);
+  //     });
+  // }, []);
 
   const checkUserLogin = () => {
     const user = JSON.parse(localStorage.getItem("user")!);
@@ -57,6 +57,45 @@ export default function Header(props: IHeaderProps) {
       setIsLogin(false);
     } else {
       setIsLogin(user.isLogin);
+    }
+  };
+
+  const checkPassword = () => {
+    if (password !== rePassword) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const handleCreateNewAccount = () => {
+    if (!checkPassword) {
+      setNumberAction(2);
+    } else {
+      fetch(`https://localhost:7076/api/Users/account`, {
+        method: "POST",
+        body: JSON.stringify({
+          userAccountViewModel: {
+            username: userName,
+            password: password,
+          },
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((user) => {
+          setUserLogin(user);
+          setUserName("");
+          setPassword("");
+          setRePassword("");
+          setNumberAction(1);
+          // checkUserLogin();
+          // onClose();
+        });
     }
   };
 
@@ -97,6 +136,7 @@ export default function Header(props: IHeaderProps) {
       checkUserLogin();
     }
   };
+
   useEffect(() => {
     checkUserLogin();
   }, []);
@@ -106,28 +146,74 @@ export default function Header(props: IHeaderProps) {
   }, []);
 
   const handleSearchChange = (e: any) => {
-    debugger;
-    fetch(`${process.env.SEARCH}`)
-      .then((res) => res.json())
+    setSearch(e.target.value);
+
+    fetch(`${process.env.SEARCH}`, {
+      method: "GET",
+      body: JSON.stringify({
+        search: search,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((res) => {
+        console.log(process.env.SEARCH);
+
+        return res.json();
+      })
       .then((users) => setUsers(users));
   };
 
+  const hanldeResetPassword = () => {
+    if (!checkPassword) {
+      setNumberAction(3);
+    } else {
+      fetch(`https://localhost:7076/api/Users/password`, {
+        method: "PUT",
+        body: JSON.stringify({
+          userFogotPasswordViewModel: {
+            username: userName,
+            password: password,
+          },
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((user) => {
+          setUserLogin(user);
+          setUserName("");
+          setPassword("");
+          setRePassword("");
+          setNumberAction(1);
+          // checkUserLogin();
+          // onClose();
+        });
+    }
+  };
   return (
     <React.Fragment>
       <div className={styles.Header}>
         <div className={styles.headIcon}>Intern Fetch</div>
         <div className={styles.searchBar}>
           <form action="" className={styles.searchInput}>
-            <input onChange={handleSearchChange} className={styles.searchBox} />
+            <input
+              onChange={(e) => handleSearchChange}
+              className={styles.searchBox}
+            />
             <span></span>
             <button className={styles.searchButton}>
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
-            <ul>
+            {/* <ul>
               {users.map((user: IUser) => {
                 return <li key={user.id}>{user.username}</li>;
               })}
-            </ul>
+            </ul> */}
           </form>
         </div>
         <div className={styles.actButton}>
@@ -208,7 +294,10 @@ export default function Header(props: IHeaderProps) {
                   type="text"
                   className={styles.loginInput}
                 />
-                <button onClick={handleLogin} className={styles.btnLogin}>
+                <button
+                  onClick={handleCreateNewAccount}
+                  className={styles.btnLogin}
+                >
                   Create new account
                 </button>
                 <a
@@ -250,7 +339,7 @@ export default function Header(props: IHeaderProps) {
                   className={styles.loginInput}
                 />
                 <button
-                  onClick={() => setNumberAction(1)}
+                  onClick={hanldeResetPassword}
                   className={styles.btnNewAccount}
                 >
                   Reset Password

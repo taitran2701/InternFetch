@@ -14,6 +14,7 @@ namespace InternBA.Features.UserFeatures.Command
         public async Task<Guid> Handle(CreateUserAccountCommand request, CancellationToken cancellationToken)
         {
             var user = new User();
+            user.ID = new Guid();
             user.Username = request.userAccountViewModel.Username;
             user.Password = request.userAccountViewModel.Password;
             user.CreatedDate = DateTime.UtcNow;

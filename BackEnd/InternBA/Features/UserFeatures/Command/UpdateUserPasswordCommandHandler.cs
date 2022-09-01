@@ -12,7 +12,7 @@ namespace InternBA.Features.UserFeatures.Command
 
         public async Task<Guid> Handle(UpdateUserPasswordCommand request, CancellationToken cancellationToken)
         {
-            var user = context.Users.Where(u => u.ID == request.userFogotPasswordViewModel.Id).FirstOrDefault();
+            var user = context.Users.Where(u => u.Username == request.userFogotPasswordViewModel.Username).FirstOrDefault();
 
             if (user == null) return default;
 

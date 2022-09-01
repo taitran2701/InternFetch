@@ -7,7 +7,6 @@ namespace InternBA.Features.UserFeatures.Command
 {
     public record CreateUserAccountCommand(UserAccountViewModel userAccountViewModel) : IRequest<Guid>
     {
-
         
     }
 }
