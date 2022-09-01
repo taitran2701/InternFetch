@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import PostModal from "../modal/postModal";
+import CreatePost from "../modal/postModal";
 import styles from "./index.module.scss";
 
 function AddStatus() {
@@ -16,7 +16,7 @@ function AddStatus() {
           onClick={() => setShow(true)}
           placeholder="What's on your mind?"
         />
-        <PostModal show={show} />
+        <CreatePost show={show} onClose={() => setShow(false)} />
       </div>
 
       <div className={styles.feed}>

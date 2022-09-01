@@ -1,12 +1,15 @@
 import modal from "./index.module.scss";
 import add from "./addStatusModal.module.scss";
 
-const PostModal = (props: { show: any }) => {
-  if (!props.show) {
-    return null;
-  }
+export interface IPost {
+  show: boolean;
+  onClose: () => void;
+}
+export default function CreatePost(props: IPost) {
+  const { onClose } = props;
+  if (!props.show) return null;
   return (
-    <div className={modal.modal}>
+    <div className={modal.modal} onClick={onClose}>
       <div className={modal.content}>
         <div className={add.header}>
           <span> Create Post</span>
@@ -69,11 +72,9 @@ const PostModal = (props: { show: any }) => {
         </div>
 
         <div className={add.footer}>
-          <button className={add.button}>Post</button>
+          <button className={add.button}>Close</button>
         </div>
       </div>
     </div>
   );
-};
-
-export default PostModal;
+}
