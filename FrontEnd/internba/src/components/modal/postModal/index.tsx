@@ -1,21 +1,54 @@
 import modal from "./index.module.scss";
 import add from "./addStatusModal.module.scss";
+import { useState } from "react";
+import Content from "../../Content";
 
-export interface IPost {
+export interface ICreatePost {
   show: boolean;
   onClose: () => void;
+  content: string;
 }
-export default function CreatePost(props: IPost) {
+
+interface IPost {
+  content: string;
+}
+
+export default function CreatePost(props: ICreatePost) {
   const { onClose } = props;
+  const [Content, setContent] = useState("");
+  //const [post,setPost] =useState("");
+  const addPosts = async (content: string) => {
+    await fetch("https://localhost:7076/api/Posts", {
+      method: "POST",
+      body: JSON.stringify({
+        content: Content,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setPosts((posts: any) => [data, ...posts]);
+        setContent("");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    addPosts(Content);
+  };
   if (!props.show) return null;
   return (
-    <div className={modal.modal} onClick={onClose}>
+    <div className={modal.modal}>
       <div className={modal.content}>
         <div className={add.header}>
           <span> Create Post</span>
-          <button className={add.closeButton}></button>
+          <button className={add.closeButton} onClick={onClose}></button>
         </div>
-        <div className={add.body}>
+        <div className={add.body} onSubmit={handleSubmit}>
           <div className={add.user}>
             <img
               className={add.avatar}
@@ -28,6 +61,8 @@ export default function CreatePost(props: IPost) {
             </div>
           </div>
           <textarea
+            value={Content}
+            onChange={(e) => setContent(e.target.value)}
             placeholder="What's on your mind?"
             className={add.textArea}
             spellCheck="false"
@@ -72,9 +107,14 @@ export default function CreatePost(props: IPost) {
         </div>
 
         <div className={add.footer}>
-          <button className={add.button}>Close</button>
+          <button className={add.button} type="submit">
+            Post
+          </button>
         </div>
       </div>
     </div>
   );
+}
+function setPosts(arg0: (posts: any) => any[]) {
+  throw new Error("Function not implemented.");
 }

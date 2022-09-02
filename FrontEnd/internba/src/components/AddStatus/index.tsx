@@ -16,7 +16,7 @@ function AddStatus() {
           onClick={() => setShow(true)}
           placeholder="What's on your mind?"
         />
-        <CreatePost show={show} onClose={() => setShow(false)} />
+        <CreatePost show={show} onClose={() => setShow(false)} content={""} />
       </div>
 
       <div className={styles.feed}>
