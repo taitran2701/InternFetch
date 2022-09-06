@@ -21,6 +21,7 @@ export default function ModalLogin(props: IModalLoginProps) {
   const { onClose, checkUserLogin, children, title } = props;
   const [userName, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [id, setUserId] = useState<string>("");
   const [userLogin, setUserLogin] = useState<IUser>();
 
   const handleLogin = () => {
@@ -29,6 +30,7 @@ export default function ModalLogin(props: IModalLoginProps) {
       body: JSON.stringify({
         Username: userName,
         Password: password,
+        userId: id,
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -43,13 +45,14 @@ export default function ModalLogin(props: IModalLoginProps) {
         setUserLogin(user);
         setUserName("");
         setPassword("");
+        setUserId("");
 
         localStorage.setItem(
           "user",
           JSON.stringify({
             userName: user.username,
             isLogin: true,
-            userId: user.id,
+            userId: id,
           })
         );
         checkUserLogin();
@@ -65,7 +68,7 @@ export default function ModalLogin(props: IModalLoginProps) {
           <h3 className={styles.logoLogin}>{title}</h3>
         </div>
         <div className={styles.modalBody}>
-          {/* <input
+          <input
             placeholder="username"
             value={userName}
             type="text"
@@ -81,7 +84,7 @@ export default function ModalLogin(props: IModalLoginProps) {
           />
           <button onClick={handleLogin} className={styles.btnLogin}>
             Log In
-          </button> */}
+          </button>
           <div>{children}</div>
           <a href="#" className={styles.loginForgot}>
             Forgot Password?

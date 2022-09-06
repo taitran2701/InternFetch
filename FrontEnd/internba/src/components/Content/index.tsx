@@ -18,18 +18,14 @@ function Content() {
   }
   const [show, setShow] = useState(false);
   const [posts, setPosts] = useState([]);
-  const [userId, setUserId] = useState<String>("");
+  const [userId, setUserId] = useState<string>("");
   useEffect(() => {
     fetch("https://localhost:7076/api/Posts")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         setPosts(data);
-        localStorage.getItem(
-          JSON.stringify({
-            userId: userId,
-          })
-        );
+        localStorage.getItem(userId);
       })
       .catch((err) => {
         console.log(err.message);

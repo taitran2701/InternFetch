@@ -109,7 +109,11 @@ export default function CreatePost(props: ICreatePost) {
         </div>
 
         <div className={add.footer}>
-          <button className={add.button} type="submit" onClick={handleSubmit}>
+          <button
+            className={add.createButton}
+            type="submit"
+            onClick={handleSubmit}
+          >
             Post
           </button>
         </div>
