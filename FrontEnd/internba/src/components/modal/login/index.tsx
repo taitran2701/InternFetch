@@ -38,14 +38,18 @@ export default function ModalLogin(props: IModalLoginProps) {
         return res.json();
       })
       .then((user) => {
+        console.log(user);
+
         setUserLogin(user);
         setUserName("");
         setPassword("");
+
         localStorage.setItem(
           "user",
           JSON.stringify({
             userName: user.username,
             isLogin: true,
+            userId: user.id,
           })
         );
         checkUserLogin();

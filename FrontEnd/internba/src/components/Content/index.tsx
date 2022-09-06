@@ -8,8 +8,13 @@ import PostUser from "../PostUser";
 import PostEmotion from "../PostEmotion";
 import PostAction from "../PostAction";
 import PostComment from "../PostComment";
+import { idText } from "typescript";
 
 function Content() {
+  interface IPost {
+    id: string;
+    content: string;
+  }
   const [show, setShow] = useState(false);
   const [posts, setPosts] = useState([]);
   useEffect(() => {
@@ -23,15 +28,34 @@ function Content() {
         console.log(err.message);
       });
   }, []);
+
+  //Delete
+  const deletePost = async (id: string) => {
+    await fetch(`https://localhost:7076/api/Posts/${id}`, {
+      method: "DELETE",
+    }).then((response) => {
+      if (response.status === 200) {
+        setPosts(
+          posts.filter((post: IPost) => {
+            return post.id !== id;
+          })
+        );
+      } else {
+        return;
+      }
+    });
+  };
   return (
     <React.Fragment>
       <div className="posts-container">
-        {posts.map((post)=>{
-          return(
-            <div className="post-card" >
-              <p className="post-content" {post.content}></p>
+        {posts.map((post: IPost) => {
+          return (
+            <div className="post-card" key={post.id}>
+              <p className="post-content">{post.content}</p>
               <div className="button">
-                <div className="delete-btn">Delete</div>
+                <div className="delete-btn" onClick={() => deletePost(post.id)}>
+                  Delete
+                </div>
               </div>
             </div>
           );

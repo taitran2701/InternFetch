@@ -15,13 +15,15 @@ interface IPost {
 
 export default function CreatePost(props: ICreatePost) {
   const { onClose } = props;
-  const [Content, setContent] = useState("");
-  //const [post,setPost] =useState("");
+  const [content, setContent] = useState<string>("");
+  const [userId, setUserId] = useState<string>("");
+  const [post, setPosts] = useState("");
   const addPosts = async (content: string) => {
     await fetch("https://localhost:7076/api/Posts", {
       method: "POST",
       body: JSON.stringify({
-        content: Content,
+        content: "string",
+        userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -29,8 +31,8 @@ export default function CreatePost(props: ICreatePost) {
     })
       .then((response) => response.json())
       .then((data) => {
-        setPosts((posts: any) => [data, ...posts]);
-        setContent("");
+        setPosts(data);
+        setContent(content);
       })
       .catch((err) => {
         console.log(err.message);
@@ -38,7 +40,8 @@ export default function CreatePost(props: ICreatePost) {
   };
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    addPosts(Content);
+    addPosts(content);
+    onClose();
   };
   if (!props.show) return null;
   return (
@@ -48,7 +51,7 @@ export default function CreatePost(props: ICreatePost) {
           <span> Create Post</span>
           <button className={add.closeButton} onClick={onClose}></button>
         </div>
-        <div className={add.body} onSubmit={handleSubmit}>
+        <div className={add.body}>
           <div className={add.user}>
             <img
               className={add.avatar}
@@ -61,7 +64,7 @@ export default function CreatePost(props: ICreatePost) {
             </div>
           </div>
           <textarea
-            value={Content}
+            value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="What's on your mind?"
             className={add.textArea}
@@ -107,14 +110,11 @@ export default function CreatePost(props: ICreatePost) {
         </div>
 
         <div className={add.footer}>
-          <button className={add.button} type="submit">
+          <button className={add.button} type="submit" onClick={handleSubmit}>
             Post
           </button>
         </div>
       </div>
     </div>
   );
-}
-function setPosts(arg0: (posts: any) => any[]) {
-  throw new Error("Function not implemented.");
 }
