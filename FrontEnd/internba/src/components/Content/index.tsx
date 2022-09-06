@@ -14,15 +14,22 @@ function Content() {
   interface IPost {
     id: string;
     content: string;
+    userId: string;
   }
   const [show, setShow] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [userId, setUserId] = useState<String>("");
   useEffect(() => {
     fetch("https://localhost:7076/api/Posts")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         setPosts(data);
+        localStorage.getItem(
+          JSON.stringify({
+            userId: userId,
+          })
+        );
       })
       .catch((err) => {
         console.log(err.message);
@@ -51,6 +58,7 @@ function Content() {
         {posts.map((post: IPost) => {
           return (
             <div className="post-card" key={post.id}>
+              <div className="post-userID">{post.userId}</div>
               <p className="post-content">{post.content}</p>
               <div className="button">
                 <div className="delete-btn" onClick={() => deletePost(post.id)}>

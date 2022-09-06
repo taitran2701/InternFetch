@@ -17,13 +17,12 @@ export default function CreatePost(props: ICreatePost) {
   const { onClose } = props;
   const [content, setContent] = useState<string>("");
   const [userId, setUserId] = useState<string>("");
-  const [post, setPosts] = useState("");
+  const [posts, setPosts] = useState<string>("");
   const addPosts = async (content: string) => {
     await fetch("https://localhost:7076/api/Posts", {
       method: "POST",
       body: JSON.stringify({
-        content: "string",
-        userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        content: content,
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
