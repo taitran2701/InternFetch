@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import PostModal from "../modal/postModal";
+import CreatePost from "../modal/postModal";
 import styles from "./index.module.scss";
 
 function AddStatus() {
@@ -11,10 +11,12 @@ function AddStatus() {
           src="https://www.pngitem.com/pimgs/m/338-3388366_meme-for-steam-avatars-hd-png-download.png"
           alt=""
         />
-        <React.Fragment>
-          <button onClick={() => setShow(true)}>What's on your mind ?</button>
-          <PostModal show={show} />
-        </React.Fragment>
+        <input
+          type="text"
+          onClick={() => setShow(true)}
+          placeholder="What's on your mind?"
+        />
+        <CreatePost show={show} onClose={() => setShow(false)} content={""} />
       </div>
 
       <div className={styles.feed}>

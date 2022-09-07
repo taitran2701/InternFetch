@@ -1,0 +1,41 @@
+.newsUser {
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.userWrapper {
+  display: flex;
+  grid-gap: 5px;
+  gap: 5px;
+}
+
+.userAvatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.userName {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f0505;
+}
+
+.userTime {
+  color: #b0b3b8;
+  font-size: 13px;
+}
+
+.userMore {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}/*# sourceMappingURL=index.module.css.map */
