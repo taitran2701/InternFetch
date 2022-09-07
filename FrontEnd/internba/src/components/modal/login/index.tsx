@@ -21,7 +21,6 @@ export default function ModalLogin(props: IModalLoginProps) {
   const { onClose, checkUserLogin, children, title } = props;
   const [userName, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [id, setUserId] = useState<string>("");
   const [userLogin, setUserLogin] = useState<IUser>();
 
   const handleLogin = () => {
@@ -30,7 +29,6 @@ export default function ModalLogin(props: IModalLoginProps) {
       body: JSON.stringify({
         Username: userName,
         Password: password,
-        userId: id,
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -45,16 +43,15 @@ export default function ModalLogin(props: IModalLoginProps) {
         setUserLogin(user);
         setUserName("");
         setPassword("");
-        setUserId("");
 
-        localStorage.setItem(
-          "user",
-          JSON.stringify({
-            userName: user.username,
-            isLogin: true,
-            userId: id,
-          })
-        );
+        // localStorage.setItem(
+        //   "user",
+        //   JSON.stringify({
+        //     userName: user.username,
+        //     isLogin: true,
+        //     userId: user.id,
+        //   })
+        // );
         checkUserLogin();
         onClose();
       });

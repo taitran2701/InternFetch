@@ -1,0 +1,22 @@
+.addComment {
+  display: flex;
+  align-items: center;
+}
+.addComment img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.commentInput {
+  width: 100%;
+  border-radius: 15px;
+  border: none;
+  font-size: 15px;
+  padding-left: 10px;
+  background: #f0f2f5;
+  margin-left: 12px;
+  line-height: 15px;
+  height: 36px;
+}

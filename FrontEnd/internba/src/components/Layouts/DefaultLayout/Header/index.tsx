@@ -83,6 +83,7 @@ export default function Header(props: IHeaderProps) {
           JSON.stringify({
             userName: user.username,
             isLogin: true,
+            userId: user.id,
           })
         );
         checkUserLogin();

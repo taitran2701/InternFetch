@@ -1,33 +1,37 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Card from "./Card.module.scss";
 import News from "./News.module.scss";
-import Comment from "./Comment.module.scss";
-import PostModal from "../modal/postModal/index";
 import AddStatus from "../AddStatus";
 import PostUser from "../PostUser";
 import PostEmotion from "../PostEmotion";
 import PostAction from "../PostAction";
 import PostComment from "../PostComment";
-import { idText } from "typescript";
+import AddComment from "../AddComment";
 
-function Content() {
+export default function Content() {
   interface IPost {
     id: string;
     content: string;
     userId: string;
   }
+
   const [show, setShow] = useState(false);
   const [posts, setPosts] = useState([]);
-  const [userId, setUserId] = useState<string>("");
+  const [user, setUser] = useState<{ userId: string }>();
+
   useEffect(() => {
     fetch("https://localhost:7076/api/Posts")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         setPosts(data);
-        localStorage.getItem(userId);
+        // const user = localStorage.getItem("user");
+        // if (user) {
+        //   setUser(JSON.parse(user));
+        // }
       })
       .catch((err) => {
+        ("");
         console.log(err.message);
       });
   }, []);
@@ -50,26 +54,47 @@ function Content() {
   };
   return (
     <React.Fragment>
-      <div className="posts-container">
-        {posts.map((post: IPost) => {
-          return (
-            <div className="post-card" key={post.id}>
-              <div className="post-userID">{post.userId}</div>
-              <p className="post-content">{post.content}</p>
-              <div className="button">
-                <div className="delete-btn" onClick={() => deletePost(post.id)}>
-                  Delete
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
       <div>
         <div className={Card.newsCard}>
           <AddStatus />
         </div>
+
+        <div className={Card.newsCard}>
+          <PostUser />
+          {posts.map((post: IPost) => {
+            return (
+              <div>
+                <div className={News.newsDescription}>{post.content}</div>
+                <div className={News.newsImage}>
+                  {/* <p>{user?.userId}</p> */}
+                </div>
+                <div className={News.newsEmotion}>
+                  <PostEmotion />
+                </div>
+
+                <div className={News.feedAction}>
+                  <PostAction />
+                </div>
+
+                <div className={News.feedComment}>
+                  <PostComment />
+                  <div className={News.addComment}>
+                    <AddComment />
+                  </div>
+                </div>
+                <div className={Card.deleteButton}>
+                  <div
+                    className="delete-btn"
+                    onClick={() => deletePost(post.id)}
+                  >
+                    Delete
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
         <div className={Card.newsCard}>
           <PostUser />
           <div className={News.newsDescription}>
@@ -109,4 +134,3 @@ function Content() {
     </React.Fragment>
   );
 }
-export default Content;
