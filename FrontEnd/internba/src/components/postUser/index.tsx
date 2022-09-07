@@ -13,7 +13,6 @@ function PostUser() {
     const user = localStorage.getItem("user");
     if (user) {
       setUserName(JSON.parse(user));
-      console.log(user);
     }
   }, []);
 

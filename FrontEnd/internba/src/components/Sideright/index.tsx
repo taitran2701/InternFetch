@@ -3,6 +3,7 @@ import { faUserGroup } from "@fortawesome/free-solid-svg-icons";
 import styles from "./index.module.scss";
 
 import * as React from "react";
+import { useEffect, useState } from "react";
 
 export interface ISideRightProps {}
 
@@ -21,22 +22,36 @@ interface IUser {
   updatedDate: string;
 }
 export default function SideRight(props: ISideRightProps) {
-  const [friends, setFriends] = React.useState<IUser[]>([]);
+  const [friends, setFriends] = useState<IUser[]>([]);
+  const [user, setUser] = useState<{ userName: string }>();
+  const [username, setUserName] = useState<string>("");
 
-  React.useEffect(() => {
-    fetch(`https://localhost:7076/api/Users/search?search=${e.target.value}`, {
+  useEffect(() => {
+    fetch(`https://localhost:7076/api/Users/friend?username=test`, {
       method: "GET",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
     })
       .then((res) => {
+        debugger;
         return res.json();
       })
       .then((friends) => {
+        debugger;
         return setFriends(friends);
+      })
+      .catch((error) => {
+        console.log(error);
       });
+
+    const user = localStorage.getItem("user");
+    if (user) {
+      setUser(JSON.parse(user));
+      setUserName(JSON.parse(user)?.userName);
+    }
   }, []);
+
   return (
     <div className={styles.sidebarRight}>
       <div>
