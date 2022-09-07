@@ -38,16 +38,20 @@ export default function ModalLogin(props: IModalLoginProps) {
         return res.json();
       })
       .then((user) => {
+        console.log(user);
+
         setUserLogin(user);
         setUserName("");
         setPassword("");
-        localStorage.setItem(
-          "user",
-          JSON.stringify({
-            userName: user.username,
-            isLogin: true,
-          })
-        );
+
+        // localStorage.setItem(
+        //   "user",
+        //   JSON.stringify({
+        //     userName: user.username,
+        //     isLogin: true,
+        //     userId: user.id,
+        //   })
+        // );
         checkUserLogin();
         onClose();
       });
@@ -61,7 +65,7 @@ export default function ModalLogin(props: IModalLoginProps) {
           <h3 className={styles.logoLogin}>{title}</h3>
         </div>
         <div className={styles.modalBody}>
-          {/* <input
+          <input
             placeholder="username"
             value={userName}
             type="text"
@@ -77,7 +81,7 @@ export default function ModalLogin(props: IModalLoginProps) {
           />
           <button onClick={handleLogin} className={styles.btnLogin}>
             Log In
-          </button> */}
+          </button>
           <div>{children}</div>
           <a href="#" className={styles.loginForgot}>
             Forgot Password?

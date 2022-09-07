@@ -1,0 +1,31 @@
+.sidebar {
+  list-style-type: none;
+  width: 100%;
+  background-color: #f0f2f5;
+  padding: 0;
+  height: 100%;
+}
+
+li {
+  display: block;
+}
+
+li:hover {
+  background-color: #e5e6eb;
+  color: #0f0505;
+  width: 100%;
+  border-radius: 5px;
+}
+
+li span {
+  display: inline-block;
+  font-size: 20px;
+  color: #1c87f5;
+  padding: 8px 16px;
+  border-radius: 2px;
+}
+
+li a {
+  text-decoration: none;
+  color: #0f0505;
+}/*# sourceMappingURL=sidebar.css.map */

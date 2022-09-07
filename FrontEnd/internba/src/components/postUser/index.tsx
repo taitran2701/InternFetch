@@ -1,7 +1,22 @@
-import React from "react";
+import { stringify } from "querystring";
+import React, { useEffect, useState } from "react";
 import styles from "./index.module.scss";
 
+interface IUser {
+  userName: string;
+}
+
 function PostUser() {
+  const [user, setUserName] = useState<{ userName: string }>();
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      setUserName(JSON.parse(user));
+      console.log(user);
+    }
+  }, []);
+
   return (
     <React.Fragment>
       <div className={styles.newsUser}>
@@ -13,7 +28,7 @@ function PostUser() {
             />
           </div>
           <div>
-            <div className={styles.userName}>Tai Tran</div>
+            <div className={styles.userName}>{user?.userName}</div>
             <div className={styles.userTime}>12 hours ago</div>
           </div>
         </div>

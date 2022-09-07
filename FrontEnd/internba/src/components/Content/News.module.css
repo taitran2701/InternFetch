@@ -1,0 +1,52 @@
+.newsDescription {
+  padding: 0 15px 10px;
+  font-size: 15px;
+}
+
+.newsImage {
+  margin-bottom: -5px;
+}
+
+.newsImage img {
+  width: 100%;
+}
+
+.newsEmotion {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  justify-content: space-between;
+}
+
+.feedAction {
+  padding: 0 15px;
+}
+
+.feedComment {
+  padding: 10px 15px;
+}
+
+.addComment {
+  display: flex;
+  align-items: center;
+}
+
+.addComment img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.commentInput {
+  width: 100%;
+  border-radius: 15px;
+  border: none;
+  font-size: 15px;
+  padding-left: 10px;
+  background: #f0f2f5;
+  margin-left: 12px;
+  line-height: 15px;
+  height: 36px;
+}/*# sourceMappingURL=News.module.css.map */
