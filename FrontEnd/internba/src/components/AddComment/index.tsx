@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./index.module.scss";
 
-function AddComment() {
+export default function AddComment() {
+  const [user, setUserName] = useState<{ userId: string }>();
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      setUserName(JSON.parse(user));
+    }
+  }, []);
   return (
     <React.Fragment>
       <img
@@ -14,7 +22,7 @@ function AddComment() {
         placeholder="Write a public comment"
         className={styles.commentInput}
       />
+      <p>{user?.userId}</p>
     </React.Fragment>
   );
 }
-export default AddComment;

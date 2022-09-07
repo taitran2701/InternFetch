@@ -8,7 +8,7 @@ import PostAction from "../PostAction";
 import PostComment from "../PostComment";
 import AddComment from "../AddComment";
 
-export default function Content() {
+export default function Content(this: any) {
   interface IPost {
     id: string;
     content: string;
@@ -17,6 +17,7 @@ export default function Content() {
 
   const [show, setShow] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [postId, setPostId] = useState([]);
   const [user, setUser] = useState<{ userId: string }>();
 
   useEffect(() => {
@@ -25,10 +26,6 @@ export default function Content() {
       .then((data) => {
         console.log(data);
         setPosts(data);
-        // const user = localStorage.getItem("user");
-        // if (user) {
-        //   setUser(JSON.parse(user));
-        // }
       })
       .catch((err) => {
         ("");
@@ -64,6 +61,7 @@ export default function Content() {
           {posts.map((post: IPost) => {
             return (
               <div>
+                {/* <div>{post.id} </div> */}
                 <div className={News.newsDescription}>{post.content}</div>
                 <div className={News.newsImage}>
                   {/* <p>{user?.userId}</p> */}
