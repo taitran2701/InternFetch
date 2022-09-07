@@ -1,0 +1,39 @@
+.feedActionWrapper {
+  padding: 5px 0;
+  border-top: 0.5px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+}
+
+.action {
+  flex: 1 1;
+  display: flex;
+  justify-content: center;
+  transition: all 0.2s;
+  padding: 6px 0;
+  color: #65676b;
+}
+
+.emotionIcon {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.anticon {
+  display: inline-block;
+  color: inherit;
+  font-style: normal;
+  line-height: 0;
+  text-align: center;
+  text-transform: none;
+  vertical-align: -0.125em;
+  text-rendering: optimizeLegibility;
+}
+
+.emotionTitle {
+  font-size: 15px;
+  padding-left: 8px;
+  font-weight: 600;
+}/*# sourceMappingURL=index.module.css.map */
