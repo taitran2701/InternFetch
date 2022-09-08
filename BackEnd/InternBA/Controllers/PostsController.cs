@@ -63,7 +63,7 @@ namespace InternBA.Controllers
             }
             var result = _context.Posts.Find(id);
             result.Content = updatePost.Content;
-            //result.UserID = post.UserId;
+            result.UserID = updatePost.UserID;
             result.UpdatedDate = DateTime.UtcNow;
             _context.Entry(result).State = EntityState.Modified;
 

@@ -27,18 +27,16 @@ export default function SideRight(props: ISideRightProps) {
   const [username, setUserName] = useState<string>("");
 
   useEffect(() => {
-    fetch(`https://localhost:7076/api/Users/friend?username=test`, {
+    fetch(`https://localhost:7076/api/Users/friend?username=${username}`, {
       method: "GET",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
     })
       .then((res) => {
-        debugger;
         return res.json();
       })
       .then((friends) => {
-        debugger;
         return setFriends(friends);
       })
       .catch((error) => {

@@ -1,28 +1,75 @@
 import React, { useEffect, useState } from "react";
 import styles from "./index.module.scss";
 
-export default function AddComment() {
+interface IPost {
+  postComment: {
+    id: string;
+    content: string;
+    userId: string;
+  };
+}
+
+function AddComment(props: IPost) {
   const [user, setUserName] = useState<{ userId: string }>();
+  const [comments, setCommments] = useState<string>("");
+  const [content, setContent] = useState<string>("");
+  const [posts, setPosts] = useState([]);
+  const [userId, setUserId] = useState<string>("");
 
   useEffect(() => {
     const user = localStorage.getItem("user");
     if (user) {
-      setUserName(JSON.parse(user));
+      setUserId(JSON.parse(user)?.userId);
     }
-  }, []);
+  });
+
+  const addComment = () => {
+    fetch("https://localhost:7076/api/Comments", {
+      method: "POST",
+      body: JSON.stringify({
+        content,
+        userId: userId,
+        postId: props.postComment.id,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setCommments(data);
+        setContent(content);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+  const handleSubmit = (e: any) => {
+    if (e.key === "Enter") {
+      addComment();
+      setContent("");
+    }
+  };
+
+  // useEffect(() => {
+  //   const user = localStorage.getItem("user");
+  //   if (user) {
+  //     setUserName(JSON.parse(user));
+  //     const tenTK = JSON.parse(user)?.userName;
+  //     const userId = JSON.parse(user)?.userId;
+  //   }
+  // }, []);
   return (
     <React.Fragment>
-      <img
-        src="https://scontent.fsgn5-6.fna.fbcdn.net/v/t39.30808-6/300376547_5491598224258453_7351247412124304056_n.jpg?stp=dst-jpg_s851x315&_nc_cat=108&ccb=1-7&_nc_sid=dbeb18&_nc_ohc=n6ZxL-YpVwMAX-9WE82&_nc_ht=scontent.fsgn5-6.fna&oh=00_AT-SZy5SSMfyG54liZf8KiXdOgajE2k_A994fgC35z0K6A&oe=63125470"
-        alt=""
-      />
-
       <input
-        type="text"
-        placeholder="Write a public comment"
+        onKeyDown={handleSubmit}
         className={styles.commentInput}
+        type="text"
+        placeholder="Write a public comment "
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
       />
-      <p>{user?.userId}</p>
     </React.Fragment>
   );
 }
+export default AddComment;

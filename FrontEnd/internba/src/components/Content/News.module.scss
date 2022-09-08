@@ -1,3 +1,14 @@
+.addComment {
+  display: flex;
+  align-items: center;
+}
+.addComment img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .newsDescription {
   padding: 0 15px 10px;
   font-size: 15px;

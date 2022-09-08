@@ -1,6 +1,6 @@
 import modal from "./index.module.scss";
 import add from "./addStatusModal.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Content from "../../Content";
 import AddPic from "../imageModal";
 import AddVid from "../videoModal";
@@ -9,6 +9,7 @@ export interface ICreatePost {
   show: boolean;
   onClose: () => void;
   content: string;
+  userId: string;
 }
 
 export default function CreatePost(props: ICreatePost) {
@@ -17,11 +18,21 @@ export default function CreatePost(props: ICreatePost) {
   const [content, setContent] = useState<string>("");
   const [userId, setUserId] = useState<string>("");
   const [posts, setPosts] = useState<string>("");
-  const addPosts = (content: string) => {
+  const [user, setUser] = useState<{ userId: string }>();
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      setUserId(JSON.parse(user)?.userId);
+    }
+  });
+
+  const addPosts = () => {
     fetch("https://localhost:7076/api/Posts", {
       method: "POST",
       body: JSON.stringify({
-        content: content,
+        content,
+        userId: userId,
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -38,7 +49,7 @@ export default function CreatePost(props: ICreatePost) {
   };
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    addPosts(content);
+    addPosts();
     onClose();
   };
   if (!props.show) return null;

@@ -64,6 +64,7 @@ namespace InternBA.Controllers
 
             var result = _context.Comments.Find(id);
             result.Content = updateComment.Content;
+            result.ID = updateComment.ID;
             result.UpdatedDate = DateTime.UtcNow;
             _context.Entry(result).State = EntityState.Modified;
 
@@ -136,5 +137,18 @@ namespace InternBA.Controllers
         {
             return (_context.Comments?.Any(e => e.ID == id)).GetValueOrDefault();
         }
+
+        //Get COmment with filterS
+        [HttpGet]
+        [Route("filter")]
+        public async Task<ActionResult<List<Comment>>> GetCommentsWithFilter(Guid postID)
+        {
+            if (_context.Comments == null)
+            {
+                return NotFound();
+            }
+            return await _context.Comments.Where(c => c.DeleteAt != null|| c.PostID==postID).ToListAsync();
+        }
+
     }
 }

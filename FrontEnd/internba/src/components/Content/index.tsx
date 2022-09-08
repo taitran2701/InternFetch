@@ -17,15 +17,15 @@ export default function Content(this: any) {
 
   const [show, setShow] = useState(false);
   const [posts, setPosts] = useState([]);
-  const [postId, setPostId] = useState([]);
+  const [postId, setPostId] = useState<string>("");
   const [user, setUser] = useState<{ userId: string }>();
 
   useEffect(() => {
     fetch("https://localhost:7076/api/Posts")
       .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setPosts(data);
+      .then((posts) => {
+        console.log(posts);
+        setPosts(posts);
       })
       .catch((err) => {
         ("");
@@ -60,7 +60,7 @@ export default function Content(this: any) {
           <PostUser />
           {posts.map((post: IPost) => {
             return (
-              <div>
+              <div style={{ marginBottom: "20px" }}>
                 {/* <div>{post.id} </div> */}
                 <div className={News.newsDescription}>{post.content}</div>
                 <div className={News.newsImage}>
@@ -77,7 +77,12 @@ export default function Content(this: any) {
                 <div className={News.feedComment}>
                   <PostComment />
                   <div className={News.addComment}>
-                    <AddComment />
+                    <img
+                      src="../../../public/asset/avatar/testavatar.png"
+                      alt=""
+                    />
+
+                    <AddComment postComment={post} />
                   </div>
                 </div>
                 <div className={Card.deleteButton}>
