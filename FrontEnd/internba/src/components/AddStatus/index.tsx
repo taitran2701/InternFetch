@@ -21,6 +21,7 @@ function AddStatus() {
           onClose={() => setShow(false)}
           content={""}
           userId={""}
+          id={""}
         />
       </div>
 

@@ -100,6 +100,8 @@ namespace InternBA.Controllers
             {
                 ID = new Guid(),
                 Expression = newReaction.Expression,
+                PostID = newReaction.PostID,
+                
                 CreatedDate = DateTime.UtcNow,
             };
             _context.Reactions.Add(newReact);

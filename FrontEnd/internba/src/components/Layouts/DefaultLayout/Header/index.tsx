@@ -41,6 +41,7 @@ export default function Header(props: IHeaderProps) {
   const [rePassword, setRePassword] = useState<string>("");
   const [userLogin, setUserLogin] = useState<IUser>();
   const [numberAction, setNumberAction] = useState<number>(1);
+  const [filter, setFilter] = useState("");
 
   // useEffect(() => {
   //   fetch("https://localhost:7076/api/Users")
@@ -157,7 +158,7 @@ export default function Header(props: IHeaderProps) {
         return res.json();
       })
       .then((users) => {
-        setSearch("");
+        // setSearch("");
         return setUsers(users);
       });
     console.log(users);

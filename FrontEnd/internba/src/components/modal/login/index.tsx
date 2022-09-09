@@ -44,14 +44,14 @@ export default function ModalLogin(props: IModalLoginProps) {
         setUserName("");
         setPassword("");
 
-        // localStorage.setItem(
-        //   "user",
-        //   JSON.stringify({
-        //     userName: user.username,
-        //     isLogin: true,
-        //     userId: user.id,
-        //   })
-        // );
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            userName: user.username,
+            isLogin: true,
+            userId: user.id,
+          })
+        );
         checkUserLogin();
         onClose();
       });

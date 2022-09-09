@@ -5,6 +5,7 @@
         public Guid ID { get; set; }
         public string Expression { get; set; }
         public Guid? PostID { get; set; }
+        public Guid? UserID { get; set; }
         public Guid? CommentID { get; set; }
     }
 }

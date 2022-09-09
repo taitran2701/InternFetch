@@ -147,7 +147,7 @@ namespace InternBA.Controllers
             {
                 return NotFound();
             }
-            return await _context.Comments.Where(c => c.DeleteAt != null|| c.PostID==postID).ToListAsync();
+            return await _context.Comments.Where(c=> c.PostID==postID && c.DeleteAt == null).OrderBy(c=>c.CreatedDate).ToListAsync();
         }
 
     }

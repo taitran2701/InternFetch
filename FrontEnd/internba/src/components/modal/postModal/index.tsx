@@ -10,6 +10,7 @@ export interface ICreatePost {
   onClose: () => void;
   content: string;
   userId: string;
+  id: string;
 }
 
 export default function CreatePost(props: ICreatePost) {
@@ -18,6 +19,7 @@ export default function CreatePost(props: ICreatePost) {
   const [content, setContent] = useState<string>("");
   const [userId, setUserId] = useState<string>("");
   const [posts, setPosts] = useState<string>("");
+  const [id, setPostId] = useState<string>("");
   const [user, setUser] = useState<{ userId: string }>();
 
   useEffect(() => {
@@ -39,9 +41,16 @@ export default function CreatePost(props: ICreatePost) {
       },
     })
       .then((response) => response.json())
-      .then((data) => {
-        setPosts(data);
+      .then((post) => {
+        setPosts(post);
         setContent(content);
+
+        localStorage.setItem(
+          "post",
+          JSON.stringify({
+            postId: post.id,
+          })
+        );
       })
       .catch((err) => {
         console.log(err.message);
