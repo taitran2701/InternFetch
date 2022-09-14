@@ -42,6 +42,7 @@ export default function Header(props: IHeaderProps) {
   const [userLogin, setUserLogin] = useState<IUser>();
   const [numberAction, setNumberAction] = useState<number>(1);
   const [filter, setFilter] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   // useEffect(() => {
   //   fetch("https://localhost:7076/api/Users")

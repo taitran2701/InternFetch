@@ -9,6 +9,9 @@ using InternBA;
 using InternBA.Models;
 using InternBA.Infrastructure.Data;
 using InternBA.ViewModels;
+using Newtonsoft.Json;
+using InternBA.Features.UserFeatures.Queries;
+using InternBA.Features.UserFeatures.Command;
 
 namespace InternBA.Controllers
 {
@@ -16,138 +19,76 @@ namespace InternBA.Controllers
     [ApiController]
     public class CommentsController : ControllerBase
     {
-        private readonly InternBADBContext _context;
+        private readonly IMediator mediator;
 
-        public CommentsController(InternBADBContext context)
+        public CommentsController(IMediator mediator)
         {
-            _context = context;
+            this.mediator = mediator;
         }
 
         // GET: api/Comments
         [HttpGet]
-        public async Task<ActionResult<List<Comment>>> GetComments()
+        public async Task<ActionResult<IEnumerable<Comment>>> GetComments([FromQuery]PageParagram pagination)
         {
-            if (_context.Comments == null)
+            var comments = await mediator.Send(new GetAllCommentsQuery(pagination));
+            var metadata = new
             {
-                return NotFound();
-            }
-            return await _context.Comments.Where(c => c.DeleteAt == null).ToListAsync();
+                comments.TotalCount,
+                comments.PageSize,
+                comments.CurrentPage,
+                comments.TotalPages,
+                comments.HasNext,
+                comments.HasPrevious,
+            };
+
+            HttpContext.Response.Headers.Add("Comment-Pagination", JsonConvert.SerializeObject(metadata));
+            return Ok(comments);
         }
 
         // GET: api/Comments/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Comment>> GetComment(Guid id)
+        public async Task<ActionResult<Comment>> GetComment([FromQuery] GetCommentByIdQuery query)
         {
-            if (_context.Comments == null)
-            {
-                return NotFound();
-            }
-            var comment = await _context.Comments.FindAsync(id);
-
-            if (comment == null)
-            {
-                return NotFound();
-            }
-
-            return comment;
+          
+            return Ok(await mediator.Send(query));
         }
 
         // PUT: api/Comments/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult<Comment>> PutComment(Guid id, CommentViewModel updateComment)
+        public async Task<IActionResult> PutComment(Guid id, UpdateCommentCommand command)
         {
-            if (id != updateComment.ID)
+            if (id != command.Id)
             {
                 return BadRequest();
-            }
+            }                       
 
-            var result = _context.Comments.Find(id);
-            result.Content = updateComment.Content;
-            result.ID = updateComment.ID;
-            result.UpdatedDate = DateTime.UtcNow;
-            _context.Entry(result).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CommentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return result;
+            return Ok(await mediator.Send(command));
         }
 
         // POST: api/Comments
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Comment>> PostComment(CommentViewModel comment)
+        public async Task<ActionResult<Comment>> PostComment(CreateCommentCommand command)
         {
-            if (_context.Comments == null)
-            {
-                return Problem("Entity set 'InternBADBContext.Comments'  is null.");
-            }
-            var newComment = new Comment()
-            {
-                UserID = comment.UserID,
-                Content = comment.Content,
-                PostID = comment.PostID,
-                CreatedDate = DateTime.UtcNow,
-            };
-            _context.Comments.Add(newComment);
-            await _context.SaveChangesAsync();
-
-            await _context.Comments.ToListAsync();
-
-            return CreatedAtAction("GetComment", new { id = newComment.ID }, comment);
+            return Ok(await mediator.Send(command));
         }
 
         // DELETE: api/Comments/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<IEnumerable<Comment>>> DeleteComment(Guid id)
+        public async Task<IActionResult> DeleteComment([FromQuery] DeleteCommentByIdCommand command)
         {
-            if (_context.Comments == null)
-            {
-                return NotFound();
-            }
-            var comment = await _context.Comments.FindAsync(id);
-            if (comment == null)
-            {
-                return NotFound();
-            }
-            comment.DeleteAt = DateTime.UtcNow;
-            /*            _context.Comments.Remove(comment);
-            */
-            await _context.SaveChangesAsync();
-
-            return await _context.Comments.Where(r => r.DeleteAt != null).ToListAsync();
+            return Ok(await mediator.Send(command));
 
         }
-
-        private bool CommentExists(Guid id)
-        {
-            return (_context.Comments?.Any(e => e.ID == id)).GetValueOrDefault();
-        }
+       
 
         //Get COmment with filterS
         [HttpGet]
         [Route("filter")]
-        public async Task<ActionResult<List<Comment>>> GetCommentsWithFilter(Guid postID)
+        public async Task<ActionResult<Comment>> GetCommentsWithFilter([FromQuery] GetCommnetByFilterQuery query)
         {
-            if (_context.Comments == null)
-            {
-                return NotFound();
-            }
-            return await _context.Comments.Where(c=> c.PostID==postID && c.DeleteAt == null).OrderBy(c=>c.CreatedDate).ToListAsync();
+            return Ok(await mediator.Send(query));
         }
 
     }

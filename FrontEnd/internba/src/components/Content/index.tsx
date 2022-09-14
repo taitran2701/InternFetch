@@ -8,6 +8,8 @@ import PostAction from "../PostAction";
 import PostComment from "../PostComment";
 import AddComment from "../AddComment";
 import UpComment from "../PostComment";
+import Modal from "../common/modal";
+import UpdatePost from "../modal/updatepostmodal";
 
 export default function Content(this: any) {
   interface IPost {
@@ -20,6 +22,7 @@ export default function Content(this: any) {
   const [posts, setPosts] = useState([]);
   const [postId, setPostId] = useState<string>("");
   const [user, setUser] = useState<{ userId: string }>();
+  const [updatepost, setUpdatePost] = useState<string>();
 
   useEffect(() => {
     fetch("https://localhost:7076/api/Posts")
@@ -35,8 +38,8 @@ export default function Content(this: any) {
   }, []);
 
   //Delete
-  const deletePost = async (id: string) => {
-    await fetch(`https://localhost:7076/api/Posts/${id}`, {
+  const deletePost = (id: string) => {
+    fetch(`https://localhost:7076/api/Posts?id=${id}`, {
       method: "DELETE",
     }).then((response) => {
       if (response.status === 200) {
@@ -50,6 +53,7 @@ export default function Content(this: any) {
       }
     });
   };
+
   return (
     <React.Fragment>
       <div>
@@ -75,12 +79,20 @@ export default function Content(this: any) {
                   <AddComment postComment={post} />
                 </div>
                 <div className={Card.deleteButton}>
-                  <div
+                  <button
                     className="delete-btn"
                     onClick={() => deletePost(post.id)}
                   >
                     Delete
-                  </div>
+                  </button>
+                  <button onClick={() => setShow(true)} className="update-btn">
+                    Update
+                  </button>
+                  <UpdatePost
+                    show={show}
+                    onClose={() => setShow(false)}
+                    id={post.id}
+                  />
                 </div>
               </div>
             );

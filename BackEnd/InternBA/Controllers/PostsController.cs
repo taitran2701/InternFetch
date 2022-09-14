@@ -9,6 +9,9 @@ using InternBA;
 using InternBA.Models;
 using InternBA.Infrastructure.Data;
 using InternBA.ViewModels;
+using Newtonsoft.Json;
+using InternBA.Features.UserFeatures.Queries;
+using InternBA.Features.UserFeatures.Command;
 
 namespace InternBA.Controllers
 {
@@ -16,126 +19,65 @@ namespace InternBA.Controllers
     [ApiController]
     public class PostsController : ControllerBase
     {
-        private readonly InternBADBContext _context;
+        private readonly IMediator mediator;
 
-        public PostsController(InternBADBContext context)
+        public PostsController(IMediator mediator)
         {
-            _context = context;
+            this.mediator = mediator;
         }
 
         // GET: api/Posts
         [HttpGet]
-        public async Task<ActionResult<List<Post>>> GetPosts()
+        public async Task<ActionResult<IEnumerable<Post>>> GetPosts([FromQuery]PageParagram pagination)
         {
-            if (_context.Posts == null)
+            var posts = await mediator.Send(new GetAllPostsQuery(pagination));
+            var metadata = new
             {
-                return NotFound();
-            }
-            return await _context.Posts.Where(r => r.DeleteAt == null).ToListAsync();
+                posts.TotalCount,
+                posts.PageSize,
+                posts.CurrentPage,
+                posts.TotalPages,
+                posts.HasNext,
+                posts.HasPrevious,
+            };
+
+            HttpContext.Response.Headers.Add("Post-Pagination", JsonConvert.SerializeObject(metadata));
+            return Ok(posts);
         }
 
         // GET: api/Posts/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Post>> GetPost(Guid id)
+        public async Task<ActionResult<Post>> GetPost([FromQuery] GetPostByIdQuery query)
         {
-            if (_context.Posts == null)
-            {
-                return NotFound();
-            }
-            var post = await _context.Posts.FindAsync(id);
-
-            if (post == null)
-            {
-                return NotFound();
-            }
-
-            return post;
+            return Ok(await mediator.Send(query));
         }
 
         // PUT: api/Posts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult<Post>> PutPost(Guid id, PutViewModel updatePost)
+        public async Task<ActionResult<Post>> PutPost(Guid id, UpdatePostCommand command)
         {
-            if (id != updatePost.ID)
+            if (id != command.Id)
             {
                 return BadRequest();
             }
-            var result = _context.Posts.Find(id);
-            result.Content = updatePost.Content;
-            result.UserID = updatePost.UserID;
-            result.UpdatedDate = DateTime.UtcNow;
-            _context.Entry(result).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PostExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return result;
+            
+            return Ok(await mediator.Send(command));
         }
 
         // POST: api/Posts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<List<Post>>> PostPost(PostViewModel post)
+        public async Task<ActionResult<Post>> PostPost(CreatedPostCommand command)
         {
-            if (_context.Posts == null)
-            {
-                return Problem("Entity set 'InternBADBContext.Posts'  is null.");
-            }
-            var newPost = new Post()
-            {
-                ID = new Guid(),
-                UserID = post.UserId,
-                Content = post.Content,
-                CreatedDate = DateTime.UtcNow,
-            };
-
-            _context.Posts.Add(newPost);
-
-            await _context.SaveChangesAsync();
-
-            await _context.Posts.ToListAsync();
-
-            return CreatedAtAction("GetPost", new { id = newPost.ID }, post);
+            return Ok(await mediator.Send(command));
         }
 
         // DELETE: api/Posts/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<IEnumerable<Post>>> DeletePost(Guid id)
+        [HttpDelete]
+        public async Task<IActionResult> DeletePost([FromQuery]DeletePostByIdCommand command)
         {
-            if (_context.Posts == null)
-            {
-                return NotFound();
-            }
-            var post = await _context.Posts.FindAsync(id);
-            if (post == null)
-            {
-                return NotFound();
-            }
-            post.DeleteAt = DateTime.UtcNow;
-
-            //_context.Posts.Remove(post);
-            await _context.SaveChangesAsync();
-
-            return await _context.Posts.Where(p => p.DeleteAt != null).ToListAsync();
-        }
-
-        private bool PostExists(Guid id)
-        {
-            return (_context.Posts?.Any(e => e.ID == id)).GetValueOrDefault();
+            return Ok(await mediator.Send(command));
         }
     }
 }

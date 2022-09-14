@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using InternBA.Infrastructure.Data;
 using InternBA.Models;
 using InternBA.ViewModels;
+using Newtonsoft.Json;
+using InternBA.Features.UserFeatures.Queries;
+using InternBA.Features.UserFeatures.Command;
 
 namespace InternBA.Controllers
 {
@@ -15,125 +18,66 @@ namespace InternBA.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly InternBADBContext _context;
+        private readonly IMediator mediator;
 
-        public CategoriesController(InternBADBContext context)
+        public CategoriesController(IMediator meidator)
         {
-            _context = context;
+            this.mediator = mediator;
         }
 
         // GET: api/Categories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategories([FromQuery]PageParagram pagination)
         {
-          if (_context.Categories == null)
-          {
-              return NotFound();
-          }
-            return await _context.Categories.Where(c => c.DeleteAt == null).ToListAsync();
+            var categories = await mediator.Send(new GetAllCategoriesQuery(pagination));
+            var metadata = new
+            {
+                categories.TotalCount,
+                categories.PageSize,
+                categories.CurrentPage,
+                categories.TotalPages,
+                categories.HasNext,
+                categories.HasPrevious,
+            };
+            HttpContext.Response.Headers.Add("Category-Pagination",JsonConvert.SerializeObject(metadata));
+            return Ok(categories);
         }
 
         // GET: api/Categories/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> GetCategory(Guid id)
+        public async Task<ActionResult<Category>> GetCategory([FromQuery] GetCategoryByIdQuery query)
         {
-          if (_context.Categories == null)
-          {
-              return NotFound();
-          }
-            var category = await _context.Categories.FindAsync(id);
-
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            return category;
+         return  Ok(await mediator.Send(query));
         }
 
         // PUT: api/Categories/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult<Category>> PutCategory(Guid id, CateViewModel category)
+        public async Task<IActionResult> PutCategory(Guid id, UpdateCategoryCommand command)
         {
-            if (id != category.ID)
+            if (id != command.Id)
             {
                 return BadRequest();
-            }
+            }          
 
-            var result = _context.Categories.Find(id);
-            
-            result.ID = category.ID;
-            result.Images = category.Image;
-            result.Video = category.Videos;
-            result.UpdatedDate = DateTime.UtcNow;
-            
-            _context.Entry(category).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CategoryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return result;
+            return Ok(await mediator.Send(command));
         }
 
         // POST: api/Categories
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Category>> PostCategory(CateViewModel category)
+        public async Task<ActionResult<Category>> PostCategory(CreateCategoryCommand command)
         {
-          if (_context.Categories == null)
-          {
-              return Problem("Entity set 'InternBADBContext.Categories'  is null.");
-          }
-            var cate = new Category()
-            {
-                ID = category.ID,
-                Images = category.Image,
-                Video = category.Videos,
-            };
-            _context.Categories.Add(cate);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCategory", new { id = category.ID }, category);
+            return Ok(await mediator.Send(command));
         }
 
         // DELETE: api/Categories/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<IEnumerable<Category>>> DeleteCategory(Guid id)
+        public async Task<IActionResult> DeleteCategory([FromQuery]DeleteCategoryByIdCommand command)
         {
-            if (_context.Categories == null)
-            {
-                return NotFound();
-            }
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            category.DeleteAt = DateTime.UtcNow;
-/*            _context.Categories.Remove(category);
-*/            await _context.SaveChangesAsync();
-
-            return await _context.Categories.Where(c => c.DeleteAt != null).ToListAsync();
+            return Ok(await mediator.Send(command));
         }
 
-        private bool CategoryExists(Guid id)
-        {
-            return (_context.Categories?.Any(e => e.ID == id)).GetValueOrDefault();
-        }
+        
     }
 }

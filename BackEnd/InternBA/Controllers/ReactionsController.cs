@@ -9,6 +9,9 @@ using InternBA;
 using InternBA.Models;
 using InternBA.Infrastructure.Data;
 using InternBA.ViewModels;
+using Newtonsoft.Json;
+using InternBA.Features.UserFeatures.Queries;
+using InternBA.Features.UserFeatures.Command;
 
 namespace InternBA.Controllers
 {
@@ -16,126 +19,64 @@ namespace InternBA.Controllers
     [ApiController]
     public class ReactionsController : ControllerBase
     {
-        private readonly InternBADBContext _context;
+        private readonly IMediator mediator;
 
-        public ReactionsController(InternBADBContext context)
+        public ReactionsController(IMediator mediator)
         {
-            _context = context;
+            this.mediator= mediator;
         }
 
         // GET: api/Reactions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Reaction>>> GetReactions()
+        public async Task<ActionResult<IEnumerable<Reaction>>> GetReactions([FromQuery]PageParagram pagination)
         {
-            if (_context.Reactions == null)
+            var reactions = await mediator.Send(new GetAllReactionsQuery(pagination));
+            var metadata = new
             {
-                return NotFound();
-            }
-            return await _context.Reactions.Where(r => r.DeleteAt == null).ToListAsync();
+                reactions.TotalCount,
+                reactions.PageSize,
+                reactions.CurrentPage,
+                reactions.TotalPages,
+                reactions.HasNext,
+                reactions.HasPrevious,
+            };
+            HttpContext.Response.Headers.Add("Reaction-Pagination",JsonConvert.SerializeObject(metadata));
+            return Ok(reactions);
         }
 
         // GET: api/Reactions/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Reaction>> GetReaction(Guid id)
+        public async Task<ActionResult<Reaction>> GetReaction([FromQuery] GetReactionByIdQuery query)
         {
-            if (_context.Reactions == null)
-            {
-                return NotFound();
-            }
-            var reaction = await _context.Reactions.FindAsync(id);
-
-            if (reaction == null)
-            {
-                return NotFound();
-            }
-
-            return reaction;
+            return Ok(await mediator.Send(query));
         }
 
         // PUT: api/Reactions/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult<Reaction>> PutReaction(Guid id, ReactionViewModel updateReaction)
+        public async Task<IActionResult> PutReaction(Guid id, UpdateReactionCommand command)
         {
-            if (id != updateReaction.ID)
+            if (id != command.Id)
             {
                 return BadRequest();
             }
 
-            var result = _context.Reactions.Find(id);
-
-            result.Expression = updateReaction.Expression;
-
-            _context.Entry(result).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ReactionExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return result;
+            return Ok(await mediator.Send(command)) ;
         }
 
         // POST: api/Reactions
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<List<Reaction>>> PostReaction(ReactionViewModel newReaction)
+        public async Task<ActionResult<Reaction>> PostReaction(CreateReactionCommand command)
         {
-            if (_context.Reactions == null)
-            {
-                return Problem("Entity set 'InternBADBContext.Reactions'  is null.");
-            }
-            var newReact = new Reaction()
-            {
-                ID = new Guid(),
-                Expression = newReaction.Expression,
-                PostID = newReaction.PostID,
-                
-                CreatedDate = DateTime.UtcNow,
-            };
-            _context.Reactions.Add(newReact);
-
-            await _context.SaveChangesAsync();
-
-            await _context.Reactions.ToListAsync();
-
-            return CreatedAtAction("GetReaction", new { id = newReaction.ID }, newReaction);
+            return Ok (await mediator.Send(command));
         }
 
         // DELETE: api/Reactions/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<IEnumerable<Reaction>>> DeleteReaction(Guid id)
+        public async Task<IActionResult> DeleteReaction([FromQuery] DeleteReactionByIdCommand command)
         {
-            if (_context.Reactions == null)
-            {
-                return NotFound();
-            }
-            var reaction = await _context.Reactions.FindAsync(id);
-            if (reaction == null)
-            {
-                return NotFound();
-            }
-            reaction.DeleteAt = DateTime.UtcNow;
-            //_context.Reactions.Remove(reaction);
-            await _context.SaveChangesAsync();
-
-            return await _context.Reactions.Where(r => r.DeleteAt != null).ToListAsync();
-        }
-
-        private bool ReactionExists(Guid id)
-        {
-            return (_context.Reactions?.Any(e => e.ID == id)).GetValueOrDefault();
+            return Ok(await mediator.Send(command));
         }
     }
 }

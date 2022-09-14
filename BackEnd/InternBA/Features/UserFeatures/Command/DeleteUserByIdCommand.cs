@@ -19,7 +19,7 @@ namespace InternBA.Features.UserFeatures.Command
             {
                 var user = await context.Users.Where(u => u.ID == request.id).FirstOrDefaultAsync();
                 if (user == null) return default;
-                context.Users.Remove(user);
+                user.DeleteAt = DateTime.UtcNow;
                 await context.SaveChangesAsync();
                 return user.ID;
             }

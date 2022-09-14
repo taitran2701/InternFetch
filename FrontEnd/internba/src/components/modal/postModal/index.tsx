@@ -44,13 +44,6 @@ export default function CreatePost(props: ICreatePost) {
       .then((post) => {
         setPosts(post);
         setContent(content);
-
-        localStorage.setItem(
-          "post",
-          JSON.stringify({
-            postId: post.id,
-          })
-        );
       })
       .catch((err) => {
         console.log(err.message);

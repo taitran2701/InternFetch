@@ -208,8 +208,7 @@ namespace InternBA.Migrations
                     b.Property<Guid>("RoomId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                   
 
                     b.Property<DateTime?>("DeleteAt")
                         .HasColumnType("datetime2");
