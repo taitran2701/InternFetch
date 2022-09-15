@@ -2,19 +2,17 @@ import modal from "./index.module.scss";
 import add from "./addStatusModal.module.scss";
 import { useEffect, useState } from "react";
 import Content from "../../Content";
-import AddPic from "../imageModal";
-import AddVid from "../videoModal";
+import AddAttach from "../attachModal";
 
 export interface ICreatePost {
   show: boolean;
   onClose: () => void;
-  content: string;
-  userId: string;
   id: string;
+  upPost: any;
 }
 
 export default function CreatePost(props: ICreatePost) {
-  const { onClose } = props;
+  const { onClose, upPost } = props;
   const [show, setShow] = useState(false);
   const [content, setContent] = useState<string>("");
   const [userId, setUserId] = useState<string>("");
@@ -44,6 +42,7 @@ export default function CreatePost(props: ICreatePost) {
       .then((post) => {
         setPosts(post);
         setContent(content);
+        upPost();
       })
       .catch((err) => {
         console.log(err.message);
@@ -94,12 +93,20 @@ export default function CreatePost(props: ICreatePost) {
             <div className={add.buttons}>
               <button onClick={() => setShow(true)}>
                 <img src="./../../../..//public/asset/img/Addpic.png" alt="" />
-                <AddPic show={show} onClose={() => setShow(false)} />
+                <AddAttach
+                  show={show}
+                  onClose={() => setShow(false)}
+                  id={props.id}
+                />
               </button>
 
               <button onClick={() => setShow(true)}>
                 <img src="./../../../..//public/asset/img/youtube.png" alt="" />
-                <AddVid show={show} onClose={() => setShow(false)} />
+                <AddAttach
+                  show={show}
+                  onClose={() => setShow(false)}
+                  id={props.id}
+                />
               </button>
               <button>
                 <img

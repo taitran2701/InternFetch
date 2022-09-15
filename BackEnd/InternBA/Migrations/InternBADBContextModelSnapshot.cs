@@ -29,7 +29,6 @@ namespace InternBA.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("CategoryId")
-                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
@@ -39,7 +38,6 @@ namespace InternBA.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("PostID")
-                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -67,19 +65,23 @@ namespace InternBA.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Images")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<Guid?>("PostID")
+                        .IsRequired()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Video")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("PostID");
 
                     b.ToTable("Categories");
                 });
@@ -131,7 +133,7 @@ namespace InternBA.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AttachmentID")
+                    b.Property<Guid?>("CategoryID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Content")
@@ -208,7 +210,8 @@ namespace InternBA.Migrations
                     b.Property<Guid>("RoomId")
                         .HasColumnType("uniqueidentifier");
 
-                   
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeleteAt")
                         .HasColumnType("datetime2");
@@ -333,18 +336,25 @@ namespace InternBA.Migrations
             modelBuilder.Entity("InternBA.Models.Attachment", b =>
                 {
                     b.HasOne("InternBA.Models.Category", "Category")
-                        .WithMany("Attachments")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
 
                     b.HasOne("InternBA.Models.Post", "Post")
-                        .WithMany("Attachments")
+                        .WithMany()
+                        .HasForeignKey("PostID");
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("InternBA.Models.Category", b =>
+                {
+                    b.HasOne("InternBA.Models.Post", "Post")
+                        .WithMany("Categories")
                         .HasForeignKey("PostID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Category");
 
                     b.Navigation("Post");
                 });
@@ -435,11 +445,6 @@ namespace InternBA.Migrations
                         .HasForeignKey("UserID");
                 });
 
-            modelBuilder.Entity("InternBA.Models.Category", b =>
-                {
-                    b.Navigation("Attachments");
-                });
-
             modelBuilder.Entity("InternBA.Models.Comment", b =>
                 {
                     b.Navigation("Reactions");
@@ -447,7 +452,7 @@ namespace InternBA.Migrations
 
             modelBuilder.Entity("InternBA.Models.Post", b =>
                 {
-                    b.Navigation("Attachments");
+                    b.Navigation("Categories");
 
                     b.Navigation("Comments");
 

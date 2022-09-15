@@ -15,7 +15,7 @@ namespace InternBA.Models
         public virtual ICollection<Comment> Comments { get; set; }
 
 
-        public Guid? AttachmentID { get; set; }
-        public virtual ICollection<Attachment> Attachments { get; set; }
+        public Guid? CategoryID { get; set; }
+        public virtual ICollection<Category> Categories { get; set; }
     }
 }

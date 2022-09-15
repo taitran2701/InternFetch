@@ -19,7 +19,7 @@ namespace InternBA.Features.UserFeatures.Queries
 
             public async Task<PagedList<Category>> Handle(GetAllCategoriesQuery request, CancellationToken cancellationToken)
             {
-                var categories = PagedList<Category>.ToPageList(context.Categories.ToList().AsQueryable(),request.pagination.PageNumber, request.pagination.PageSize);
+                var categories = PagedList<Category>.ToPageList(context.Categories.ToList().AsQueryable().Where(c=>c.DeleteAt==null),request.pagination.PageNumber, request.pagination.PageSize);
 
                 return categories;
             }

@@ -20,7 +20,7 @@ namespace InternBA.Controllers
     {
         private readonly IMediator mediator;
 
-        public CategoriesController(IMediator meidator)
+        public CategoriesController(IMediator mediator)
         {
             this.mediator = mediator;
         }
@@ -78,6 +78,13 @@ namespace InternBA.Controllers
             return Ok(await mediator.Send(command));
         }
 
-        
+        //Get Attachment  with filters
+        [HttpGet]
+        [Route("filter")]
+        public async Task<ActionResult<Category>> GetCategoriesWithFilter([FromQuery] GetCategoryByFilterQuery query)
+        {
+            return Ok(await mediator.Send(query));
+        }
+
     }
 }

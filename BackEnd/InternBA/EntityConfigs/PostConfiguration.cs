@@ -18,6 +18,7 @@ namespace InternBA.EntityConfigs
             builder.HasOne(u => u.User)
                 .WithMany(p => p.Posts)
                 .HasForeignKey( u=> u.UserID);
+
             
         }
     }

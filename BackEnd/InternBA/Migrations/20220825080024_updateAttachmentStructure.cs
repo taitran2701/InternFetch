@@ -68,12 +68,7 @@ namespace InternBA.Migrations
                 oldClrType: typeof(Guid),
                 oldType: "uniqueidentifier");
 
-            migrationBuilder.AddColumn<DateTime>(
-                name: "CreatedDate",
-                table: "Attachments",
-                type: "datetime2",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+          
 
             migrationBuilder.AddColumn<DateTime>(
                 name: "DeleteAt",
@@ -153,9 +148,7 @@ namespace InternBA.Migrations
                 name: "IX_Attachments_PostID",
                 table: "Attachments");
 
-            migrationBuilder.DropColumn(
-                name: "CreatedDate",
-                table: "Attachments");
+            
 
             migrationBuilder.DropColumn(
                 name: "DeleteAt",

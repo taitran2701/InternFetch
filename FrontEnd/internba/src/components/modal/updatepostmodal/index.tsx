@@ -6,9 +6,10 @@ export interface IUpdatePost {
   show: boolean;
   onClose: () => void;
   id: string;
+  upPost: any;
 }
 function UpdatePost(props: IUpdatePost) {
-  const { onClose, id } = props;
+  const { onClose, id, upPost } = props;
   const [userId, setUserId] = useState<string>("");
   const [content, setContent] = useState<string>("");
 
@@ -35,6 +36,7 @@ function UpdatePost(props: IUpdatePost) {
       })
       .then((post) => {
         setContent(post.content);
+        upPost();
       })
       .catch((err) => {
         console.log(err.message);
@@ -46,6 +48,7 @@ function UpdatePost(props: IUpdatePost) {
     updatePost();
     onClose();
   };
+
   if (!props.show) {
     return null;
   }
@@ -54,6 +57,16 @@ function UpdatePost(props: IUpdatePost) {
       <div className={styles.content} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
           <h4 className={styles.title}>Update Post</h4>
+        </div>
+        <div className={styles.body}>
+          <input
+            type="text"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
+        </div>
+        <div className={styles.header}>
+          <h4 className={styles.title}>Add Attach</h4>
         </div>
         <div className={styles.body}>
           <input

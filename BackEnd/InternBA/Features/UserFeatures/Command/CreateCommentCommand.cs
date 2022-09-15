@@ -3,14 +3,14 @@ using InternBA.Models;
 
 namespace InternBA.Features.UserFeatures.Command
 {
-    public class CreateCommentCommand : IRequest<Guid>
+    public class CreateCommentCommand : IRequest<Comment>
     {
         public string Content { get; set; }
         public Guid? UserID { get; set; }
         public Guid? PostID { get; set; }
 
 
-        public class CreateCommentCommandHandler : IRequestHandler<CreateCommentCommand, Guid>
+        public class CreateCommentCommandHandler : IRequestHandler<CreateCommentCommand, Comment>
         {
             private readonly InternBADBContext _context;
 
@@ -19,7 +19,7 @@ namespace InternBA.Features.UserFeatures.Command
                 _context = context;
             }
 
-            public async Task<Guid> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
+            public async Task<Comment> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
             {
                 var comment = new Comment();
                 comment.Content = request.Content;
@@ -29,7 +29,7 @@ namespace InternBA.Features.UserFeatures.Command
 
                 _context.Comments.Add(comment);
                 await _context.SaveChangesAsync();
-                return comment.ID;
+                return comment;
             
             }
         }

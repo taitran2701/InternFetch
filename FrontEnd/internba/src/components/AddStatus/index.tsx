@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import CreatePost from "../modal/postModal";
 import styles from "./index.module.scss";
 
-function AddStatus() {
+interface IAddStatus {
+  upPost: any;
+}
+
+function AddStatus(props: IAddStatus) {
+  const { upPost } = props;
   const [show, setShow] = useState(false);
   return (
     <React.Fragment>
@@ -17,10 +22,9 @@ function AddStatus() {
           placeholder="What's on your mind?"
         />
         <CreatePost
+          upPost={upPost}
           show={show}
           onClose={() => setShow(false)}
-          content={""}
-          userId={""}
           id={""}
         />
       </div>

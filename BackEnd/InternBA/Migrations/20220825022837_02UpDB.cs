@@ -19,12 +19,6 @@ namespace InternBA.Migrations
                 table: "Rooms",
                 newName: "ID");
 
-            migrationBuilder.AddColumn<DateTime>(
-                name: "CreatedDate",
-                table: "UserRoom",
-                type: "datetime2",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
             migrationBuilder.AddColumn<DateTime>(
                 name: "DeleteAt",
@@ -74,9 +68,6 @@ namespace InternBA.Migrations
                 name: "IX_Rooms_UserID",
                 table: "Rooms");
 
-            migrationBuilder.DropColumn(
-                name: "CreatedDate",
-                table: "UserRoom");
 
             migrationBuilder.DropColumn(
                 name: "DeleteAt",

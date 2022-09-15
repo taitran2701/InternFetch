@@ -77,9 +77,7 @@ function AddComment(props: IPost) {
     )
       .then((response) => response.json())
       .then((comment) => {
-        debugger;
         setComments(comment);
-        debugger;
       })
       .catch((err) => {
         console.log(err.message);
@@ -97,7 +95,6 @@ function AddComment(props: IPost) {
             return comment.postComment.id !== id;
           })
         );
-        debugger;
       } else {
         return;
       }
