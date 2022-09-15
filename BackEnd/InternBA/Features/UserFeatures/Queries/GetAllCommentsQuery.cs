@@ -17,7 +17,7 @@ namespace InternBA.Features.UserFeatures.Queries
 
             public async Task<PagedList<Comment>> Handle(GetAllCommentsQuery request, CancellationToken cancellationToken)
             {
-                var comments = PagedList<Comment>.ToPageList(context.Comments.ToList().AsQueryable(), request.pagination.PageNumber, request.pagination.PageSize);
+                var comments = PagedList<Comment>.ToPageList(context.Comments.ToList().AsQueryable().Where(c=>c.DeleteAt==null), request.pagination.PageNumber, request.pagination.PageSize);
                 return comments;
 
             }

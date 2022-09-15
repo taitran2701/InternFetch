@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Modal from "../common/modal";
+import UpdateComment from "../modal/updatedcommentmodal";
 import styles from "./index.module.scss";
 
 interface IPost {
@@ -21,6 +23,9 @@ function AddComment(props: IPost) {
   const [comments, setComments] = useState([]);
   const [content, setContent] = useState<string>("");
   const [userId, setUserId] = useState<string>("");
+  const [show, setShow] = useState(false);
+
+  const [selected, setSelected] = useState<any>();
 
   useEffect(() => {
     const user = localStorage.getItem("user");
@@ -29,6 +34,7 @@ function AddComment(props: IPost) {
     }
   });
 
+  //Add comment
   const addComment = () => {
     fetch("https://localhost:7076/api/Comments", {
       method: "POST",
@@ -42,8 +48,9 @@ function AddComment(props: IPost) {
       },
     })
       .then((response) => response.json())
-      .then((comment) => {
-        setComments(comment);
+      .then((comments) => {
+        setComments(comments);
+        debugger;
         setContent(content);
       })
       .catch((err) => {
@@ -58,19 +65,21 @@ function AddComment(props: IPost) {
     }
   };
 
+  //Get with filter
   const handleComment = () => {
     fetch(
-      `https://localhost:7076/api/Comments/filter?postid=${props.postComment.id}`,
+      `https://localhost:7076/api/Comments/filter?ID=${props.postComment.id}`,
       {
-        method: "GET",
         headers: {
           "Content-type": "appication/json;charset=UTF-8",
         },
       }
     )
       .then((response) => response.json())
-      .then((comments) => {
-        setComments(comments);
+      .then((comment) => {
+        debugger;
+        setComments(comment);
+        debugger;
       })
       .catch((err) => {
         console.log(err.message);
@@ -79,7 +88,7 @@ function AddComment(props: IPost) {
 
   //Delete
   const deleteComment = (id: string) => {
-    fetch(`https://localhost:7076/api/Comments/${id}`, {
+    fetch(`https://localhost:7076/api/Comments?id=${id}`, {
       method: "DELETE",
     }).then((response) => {
       if (response.status === 200) {
@@ -88,11 +97,13 @@ function AddComment(props: IPost) {
             return comment.postComment.id !== id;
           })
         );
+        debugger;
       } else {
         return;
       }
     });
   };
+  console.log(comments);
 
   return (
     <React.Fragment>
@@ -130,16 +141,14 @@ function AddComment(props: IPost) {
           alt=""
         />
         <div>
-          {comments.map((comments: IComment) => {
+          {comments.map((comment: IComment, index: number) => {
             return (
-              <React.Fragment>
-                console.log(comments.Content);
+              <React.Fragment key={comment.id}>
                 <div className={styles.commentBox}>
-                  <div className={styles.commentTitle}>{comments.userId}</div>
+                  <div className={styles.commentTitle}>{comment.userId}</div>
                   <div className={styles.commentDescription}>
-                    {comments.content}
+                    {comment.content}
                   </div>
-                  debugger;
                   <div className={`${styles.commentEmotion} ${styles.active}`}>
                     <img
                       src="https://winka-social-network.netlify.app/static/media/likeCount.5d3594a6.svg"
@@ -150,16 +159,34 @@ function AddComment(props: IPost) {
                 </div>
                 <div className={styles.commentReaction}>
                   <span>Like</span>
-                  <span>Reply</span>
-                  <button onClick={() => deleteComment(comments.id)}>
-                    Delete
-                  </button>
+                  <span
+                    onClick={() => {
+                      setSelected(comment);
+                      setShow(true);
+                    }}
+                  >
+                    Update
+                  </span>
+
+                  <span onClick={() => deleteComment(comment.id)}>Delete</span>
                 </div>
               </React.Fragment>
             );
           })}
         </div>
       </div>
+
+      {show ? (
+        <UpdateComment
+          onClose={() => setShow(false)}
+          show={show}
+          id={selected?.id}
+          handleComment={handleComment}
+        />
+      ) : (
+        ""
+      )}
+
       {/* AddComment */}
       <input
         onKeyDown={handleSubmit}

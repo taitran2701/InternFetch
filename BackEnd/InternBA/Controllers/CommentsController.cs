@@ -75,7 +75,7 @@ namespace InternBA.Controllers
         }
 
         // DELETE: api/Comments/5
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteComment([FromQuery] DeleteCommentByIdCommand command)
         {
             return Ok(await mediator.Send(command));
