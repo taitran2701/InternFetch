@@ -78,5 +78,14 @@ namespace InternBA.Controllers
         {
             return Ok(await mediator.Send(command));
         }
+
+        //GET Reaction with filters
+        [HttpGet]
+        [Route("filter")]
+
+        public async Task<ActionResult<Reaction>> GetReactionsWithFilter([FromQuery]GetReactionByFilterQuery query)
+        {
+            return Ok(await mediator.Send(query));
+        }
     }
 }

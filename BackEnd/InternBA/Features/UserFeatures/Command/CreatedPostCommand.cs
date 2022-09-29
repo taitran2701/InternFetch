@@ -3,13 +3,15 @@ using InternBA.Models;
 
 namespace InternBA.Features.UserFeatures.Command
 {
-    public class CreatedPostCommand : IRequest<Guid>
+    public class CreatedPostCommand : IRequest<Post>
     {
-        public string Content { get; set; }
+        public string? Content { get; set; }
+
+        public string? Attachment { get; set; }
 
         public Guid? UserID   { get; set; }
 
-        public class CreatePostCommandHandler : IRequestHandler<CreatedPostCommand, Guid>
+        public class CreatePostCommandHandler : IRequestHandler<CreatedPostCommand, Post>
         {
             private readonly InternBADBContext _context;
 
@@ -18,16 +20,17 @@ namespace InternBA.Features.UserFeatures.Command
                 _context = context;
             }
 
-            public async Task<Guid> Handle(CreatedPostCommand request , CancellationToken cancellationToken)
+            public async Task<Post> Handle(CreatedPostCommand request , CancellationToken cancellationToken)
             {
                 var post = new Post();
-                post.Content = request.Content;
+                if(request.Content != null) { post.Content = request.Content; }
+                if(request.Attachment != null) { post.Attachment = request.Attachment; }
                 post.UserID = request.UserID;
                 post.CreatedDate = DateTime.UtcNow;
 
                 _context.Posts.Add(post);
                 await _context.SaveChangesAsync();
-                return post.ID;
+                return post;
 
             }
 

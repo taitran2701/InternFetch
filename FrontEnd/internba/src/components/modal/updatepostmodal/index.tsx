@@ -7,11 +7,13 @@ export interface IUpdatePost {
   onClose: () => void;
   id: string;
   upPost: any;
+  attachment: string;
 }
 function UpdatePost(props: IUpdatePost) {
   const { onClose, id, upPost } = props;
   const [userId, setUserId] = useState<string>("");
   const [content, setContent] = useState<string>("");
+  const [link, setLink] = useState<string>("");
 
   useEffect(() => {
     const user = localStorage.getItem("user");
@@ -26,6 +28,7 @@ function UpdatePost(props: IUpdatePost) {
       body: JSON.stringify({
         content: content,
         id: id,
+        attachment: link,
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -71,8 +74,8 @@ function UpdatePost(props: IUpdatePost) {
         <div className={styles.body}>
           <input
             type="text"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
+            value={link}
+            onChange={(e) => setLink(e.target.value)}
           />
         </div>
         <div className={styles.footer}>

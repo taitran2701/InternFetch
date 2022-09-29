@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Modal from "../common/modal";
 import UpdateComment from "../modal/updatedcommentmodal";
+import UpComment from "../PostComment";
 import styles from "./index.module.scss";
 
 interface IPost {
@@ -49,9 +50,10 @@ function AddComment(props: IPost) {
     })
       .then((response) => response.json())
       .then((comments) => {
-        setComments(comments);
-        debugger;
+        // setComments(comments);
         setContent(content);
+        handleComment();
+        setContent("");
       })
       .catch((err) => {
         console.log(err.message);
@@ -61,7 +63,6 @@ function AddComment(props: IPost) {
     if ((e.charCode || e.keyCode) === 13) {
       e.preventDefault();
       addComment();
-      setContent("");
     }
   };
 

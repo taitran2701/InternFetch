@@ -11,10 +11,12 @@ import UpComment from "../PostComment";
 import Modal from "../common/modal";
 import UpdatePost from "../modal/updatepostmodal";
 import AddPic from "../modal/attachModal";
-interface IPost {
+import PostBody from "../PostBody";
+export interface IPost {
   id: string;
   content: string;
   userId: string;
+  attachment: string;
 }
 interface IAttach {
   id: string;
@@ -25,10 +27,6 @@ interface IAttach {
 export default function Content(this: any, props: IPost) {
   const [show, setShow] = useState(false);
   const [posts, setPosts] = useState([]);
-  const [postId, setPostId] = useState<string>("");
-  const [user, setUser] = useState<{ userId: string }>();
-  const [updatepost, setUpdatePost] = useState<string>();
-  const [attachs, setAttach] = useState<string>();
 
   const upPost = useCallback(() => {
     fetch("https://localhost:7076/api/Posts")
@@ -45,21 +43,6 @@ export default function Content(this: any, props: IPost) {
   useEffect(() => {
     upPost();
   }, [upPost]);
-
-  const handleAttach = () => {
-    fetch(`https://localhost:7076/api/Categories/filter?ID=${props.id}`, {
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
-    })
-      .then((response) => response.json())
-      .then((attachment) => {
-        setAttach(attachment);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  };
 
   //Delete
   const deletePost = (id: string) => {
@@ -81,7 +64,7 @@ export default function Content(this: any, props: IPost) {
 
   return (
     <React.Fragment>
-      <div>
+      <div style={{ width: "25%" }}>
         <div className={Card.newsCard}>
           <AddStatus upPost={upPost} />
         </div>
@@ -90,46 +73,14 @@ export default function Content(this: any, props: IPost) {
           {posts.map((post: IPost) => {
             return (
               <React.Fragment>
-                <PostUser />
-
-                <div style={{ marginBottom: "20px" }}>
-                  {/* <div>{post.id} </div> */}
-                  <div className={News.newsDescription}>{post.content}</div>
-                  <div className={News.newsImage}></div>
-                  <div className={News.newsEmotion}>
-                    <PostEmotion />
-                  </div>
-
-                  <div className={News.feedAction}>
-                    <AddComment postComment={post} />
-                  </div>
-                  <div className={Card.deleteButton}>
-                    <button
-                      className="delete-btn"
-                      onClick={() => deletePost(post.id)}
-                    >
-                      Delete
-                    </button>
-                    <button
-                      onClick={() => setShow(true)}
-                      className="update-btn"
-                    >
-                      Update
-                    </button>
-                    <UpdatePost
-                      show={show}
-                      onClose={() => setShow(false)}
-                      id={post.id}
-                      upPost={upPost}
-                    />
-                    {/* <button onClick={() => setShow(true)}>Attach</button>
-                  <AddPic
-                    show={show}
-                    onClose={() => setShow(false)}
-                    id={post.id}
-                  /> */}
-                  </div>
-                </div>
+                <PostBody
+                  id={post.id}
+                  content={post.content}
+                  attachment={post.attachment}
+                  userId={undefined}
+                  upPost={upPost}
+                  post={post}
+                />
               </React.Fragment>
             );
           })}

@@ -1,0 +1,33 @@
+.newsDescription {
+  padding: 0 15px 10px;
+  font-size: 15px;
+}
+
+.newsImage {
+  margin-bottom: -5px;
+}
+
+.newsImage img {
+  width: 100%;
+}
+.newsEmotion {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  justify-content: space-between;
+}
+.feedAction {
+  padding: 0 15px;
+}
+.deleteButton {
+  margin-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 20px;
+}
+.deleteButton button {
+  border: 1px solid gray;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+}

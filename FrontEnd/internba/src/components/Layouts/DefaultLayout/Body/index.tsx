@@ -9,7 +9,7 @@ function Body() {
     <Fragment>
       <div className={styles.bodypart}>
         <Sidebar />
-        <Content id={""} content={""} userId={""} />
+        <Content id={""} content={""} userId={""} attachment={""} />
         <SideRight />
       </div>
     </Fragment>

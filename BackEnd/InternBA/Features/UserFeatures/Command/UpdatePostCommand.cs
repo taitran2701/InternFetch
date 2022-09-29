@@ -6,7 +6,9 @@ namespace InternBA.Features.UserFeatures.Command
     public class UpdatePostCommand : IRequest<Post>
     {
         public Guid Id { get; set; }
-        public string Content { get; set; }
+        public string? Content { get; set; }
+
+        public string? Attachment { get; set; }
 
         public class UpdatePostCommandHandler : IRequestHandler<UpdatePostCommand, Post>
             {
@@ -20,7 +22,13 @@ namespace InternBA.Features.UserFeatures.Command
             {
                 var post = context.Posts.Where(p => p.ID == request.Id).FirstOrDefault();
                 if (post == null) return default;
-                post.Content = request.Content;
+                if (request.Content != null)  {
+                    post.Content = request.Content;
+                }
+                if (request.Attachment != null)
+                {
+                    post.Attachment = request.Attachment;
+                }
                 post.UpdatedDate = DateTime.UtcNow;
                 await context.SaveChangesAsync();
                 return post;

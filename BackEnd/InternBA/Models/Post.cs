@@ -4,7 +4,7 @@ namespace InternBA.Models
 {
     public class Post : BaseEntity
     {
-        public string Content { get; set; }       
+        public string? Content { get; set; }       
 
         public Guid? UserID { get; set; }
         public User User { get; set; }
@@ -14,8 +14,6 @@ namespace InternBA.Models
 
         public virtual ICollection<Comment> Comments { get; set; }
 
-
-        public Guid? CategoryID { get; set; }
-        public virtual ICollection<Category> Categories { get; set; }
+        public string? Attachment { get; set; }
     }
 }
