@@ -103,6 +103,32 @@ function AddComment(props: IPost) {
   };
   console.log(comments);
 
+  //Add reaction
+  const addReaction = () => {
+    fetch("https://localhost:7076/api/Reactions", {
+      method: "POST",
+      body: JSON.stringify({
+        expression: "Like",
+        postId: props.postComment.id,
+        userId: userId,
+      }),
+      headers: {
+        "Content-type": "application/json;charset=UTF-8",
+      },
+    })
+      .then((response) => response.json())
+      .then((reactions) => {
+        setContent(content);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+  const handleClickLike = (e: any) => {
+    e.preventDefault();
+    addReaction();
+  };
+
   return (
     <React.Fragment>
       <div className={styles.feedActionWrapper}>
@@ -112,7 +138,9 @@ function AddComment(props: IPost) {
             aria-label="like"
             className={`${styles["emotionIcon"]} ${styles["anticon"]}`}
           ></span>
-          <span className={styles.emotionTitle}>Like</span>
+          <button className={styles.emotionTitle} onClick={handleClickLike}>
+            Like
+          </button>
         </div>
         <div className={styles.action}>
           <span

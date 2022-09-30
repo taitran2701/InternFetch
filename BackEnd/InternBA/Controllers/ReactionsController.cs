@@ -73,7 +73,7 @@ namespace InternBA.Controllers
         }
 
         // DELETE: api/Reactions/5
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteReaction([FromQuery] DeleteReactionByIdCommand command)
         {
             return Ok(await mediator.Send(command));

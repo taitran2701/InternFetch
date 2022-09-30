@@ -1,11 +1,12 @@
 ﻿using InternBA.Infrastructure.Data;
+using InternBA.Models;
 using System.Data.Entity;
 
 namespace InternBA.Features.UserFeatures.Command
 {
-    public record class DeleteReactionByIdCommand(Guid id) : IRequest<Guid>
+    public record class DeleteReactionByIdCommand(Guid id) : IRequest<Reaction>
     {
-        public class DeleteReactionByIdCommandHandler : IRequestHandler<DeleteReactionByIdCommand,Guid>
+        public class DeleteReactionByIdCommandHandler : IRequestHandler<DeleteReactionByIdCommand,Reaction>
         {
             private readonly InternBADBContext context;
 
@@ -14,13 +15,13 @@ namespace InternBA.Features.UserFeatures.Command
                 this.context = context;
             }
 
-            public async Task<Guid> Handle(DeleteReactionByIdCommand request, CancellationToken cancellationToken)
+            public async Task<Reaction> Handle(DeleteReactionByIdCommand request, CancellationToken cancellationToken)
             {
-                var reaction = await context.Reactions.Where(r => r.ID == request.id).FirstOrDefaultAsync();
+                var reaction =  context.Reactions.Where(r => r.ID == request.id).FirstOrDefault();
                 if (reaction == null) return default;
                 context.Reactions.Remove(reaction);
                 await context.SaveChangesAsync();
-                return reaction.ID;
+                return reaction;
             }
         }
     }

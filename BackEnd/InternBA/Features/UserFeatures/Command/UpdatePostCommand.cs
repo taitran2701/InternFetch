@@ -25,7 +25,7 @@ namespace InternBA.Features.UserFeatures.Command
                 if (request.Content != null)  {
                     post.Content = request.Content;
                 }
-                if (request.Attachment != null)
+                else if (request.Attachment != null)
                 {
                     post.Attachment = request.Attachment;
                 }

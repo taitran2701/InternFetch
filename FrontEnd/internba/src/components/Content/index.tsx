@@ -27,6 +27,7 @@ interface IAttach {
 export default function Content(this: any, props: IPost) {
   const [show, setShow] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [userId, setUserId] = useState<string>("");
 
   const upPost = useCallback(() => {
     fetch("https://localhost:7076/api/Posts")
@@ -44,27 +45,16 @@ export default function Content(this: any, props: IPost) {
     upPost();
   }, [upPost]);
 
-  //Delete
-  const deletePost = (id: string) => {
-    fetch(`https://localhost:7076/api/Posts?id=${id}`, {
-      method: "DELETE",
-    }).then((response) => {
-      if (response.status === 200) {
-        setPosts(
-          posts.filter((post: IPost) => {
-            return post.id !== id;
-          })
-        );
-      } else {
-        return;
-      }
-    });
-  };
-  console.log(posts);
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      setUserId(JSON.parse(user)?.userId);
+    }
+  });
 
   return (
     <React.Fragment>
-      <div style={{ width: "25%" }}>
+      <div style={{ width: "35%" }}>
         <div className={Card.newsCard}>
           <AddStatus upPost={upPost} />
         </div>
@@ -77,9 +67,10 @@ export default function Content(this: any, props: IPost) {
                   id={post.id}
                   content={post.content}
                   attachment={post.attachment}
-                  userId={undefined}
+                  userId={post.userId}
                   upPost={upPost}
                   post={post}
+                  count={0}
                 />
               </React.Fragment>
             );

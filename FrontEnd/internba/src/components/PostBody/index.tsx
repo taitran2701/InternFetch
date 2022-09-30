@@ -13,6 +13,7 @@ interface IPostBodyProps {
   userId: any;
   upPost: any;
   post: IPost;
+  count: number;
 }
 export default function PostBody(props: IPostBodyProps) {
   const { id, content, upPost, post, attachment } = props;
@@ -51,16 +52,19 @@ export default function PostBody(props: IPostBodyProps) {
       .then((response) => response.json())
       .then((react) => {
         setReaction(react);
-        console.log(react);
 
         let count = 0;
-        let color = "";
-        if (react.expression === "Like") {
-          count += 1;
+        for (let i = 0; i < react.length; i++) {
+          let x = react[i];
+          for (const key in x) {
+            if (x[key] === "Like") {
+              count++;
+            }
+          }
         }
         setCount(count);
-        setColor(color);
         console.log(count);
+        upReaction();
       })
       .catch((err) => {
         console.log(err.message);
@@ -80,7 +84,7 @@ export default function PostBody(props: IPostBodyProps) {
           <img src={props.attachment} alt="" />
         </div>
         <div className={styles.newsEmotion}>
-          <PostEmotion />
+          <PostEmotion count={count} />
         </div>
 
         <div className={styles.feedAction}>

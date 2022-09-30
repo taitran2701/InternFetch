@@ -6,11 +6,12 @@ interface IPostEmotion {
   count: number;
 }
 
-function PostEmotion() {
+function PostEmotion(props: IPostEmotion) {
+  const { count } = props;
   return (
     <React.Fragment>
       <div className={styles.emotion}>
-        <span></span>
+        <span>{count}</span>
       </div>
       <div className={styles.comment}>7 comments</div>
     </React.Fragment>

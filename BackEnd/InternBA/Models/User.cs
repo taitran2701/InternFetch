@@ -14,6 +14,7 @@ public class User: BaseEntity
 
     public ICollection<Post> Posts { get; set; }
 
+    public ICollection<Reaction> Reactions { get; set; }
 
     public virtual ICollection<Room> Room { get; set; }
     public virtual ICollection<UserRoom> UserRooms { get; set; }
