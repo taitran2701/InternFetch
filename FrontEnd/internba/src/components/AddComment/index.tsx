@@ -50,7 +50,6 @@ function AddComment(props: IPost) {
     })
       .then((response) => response.json())
       .then((comments) => {
-        // setComments(comments);
         setContent(content);
         handleComment();
         setContent("");
@@ -89,17 +88,21 @@ function AddComment(props: IPost) {
   const deleteComment = (id: string) => {
     fetch(`https://localhost:7076/api/Comments?id=${id}`, {
       method: "DELETE",
-    }).then((response) => {
-      if (response.status === 200) {
-        setComments(
-          comments.filter((comment: IPost) => {
-            return comment.postComment.id !== id;
-          })
-        );
-      } else {
-        return;
-      }
-    });
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          setComments(
+            comments.filter((comment: IPost) => {
+              return comment.postComment.id !== id;
+            })
+          );
+        } else {
+          return;
+        }
+      })
+      .then((comment) => {
+        handleComment();
+      });
   };
   console.log(comments);
 

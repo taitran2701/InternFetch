@@ -21,7 +21,6 @@ export default function PostBody(props: IPostBodyProps) {
   const [posts, setPosts] = useState([]);
   const [reaction, setReaction] = useState<string>();
   const [count, setCount] = useState(0);
-  const [color, setColor] = useState<string>();
 
   const [user, setUserName] = useState<{ userName: string }>();
 
@@ -29,17 +28,21 @@ export default function PostBody(props: IPostBodyProps) {
   const deletePost = (id: string) => {
     fetch(`https://localhost:7076/api/Posts?id=${id}`, {
       method: "DELETE",
-    }).then((response) => {
-      if (response.status === 200) {
-        setPosts(
-          posts.filter((post: IPost) => {
-            return post.id !== id;
-          })
-        );
-      } else {
-        return;
-      }
-    });
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          setPosts(
+            posts.filter((post: IPost) => {
+              return post.id !== id;
+            })
+          );
+        } else {
+          return;
+        }
+      })
+      .then((post) => {
+        upPost();
+      });
   };
 
   //Get reaction with filter
