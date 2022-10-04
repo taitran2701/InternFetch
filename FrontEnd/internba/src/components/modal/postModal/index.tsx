@@ -1,8 +1,9 @@
 import modal from "./index.module.scss";
 import add from "./addStatusModal.module.scss";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import Content from "../../Content";
 import AddAttach from "../attachModal";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 export interface ICreatePost {
   show: boolean;
@@ -17,8 +18,8 @@ export default function CreatePost(props: ICreatePost) {
   const [content, setContent] = useState<string>("");
   const [userId, setUserId] = useState<string>("");
   const [posts, setPosts] = useState<string>("");
-  const [id, setPostId] = useState<string>("");
-  const [user, setUser] = useState<{ userId: string }>();
+  const [attachment, setAttachment] = useState<any>("");
+  const [base64, setBase64] = useState<any>("");
 
   useEffect(() => {
     const user = localStorage.getItem("user");
@@ -27,12 +28,33 @@ export default function CreatePost(props: ICreatePost) {
     }
   });
 
+  const onChange = (e: any) => {
+    const files = e.target.files;
+    const file = files[0];
+    getBase64(file);
+  };
+
+  const onLoad = (fileString: SetStateAction<string> | ArrayBuffer | null) => {
+    setBase64(fileString);
+    console.log(fileString);
+    setAttachment(fileString);
+  };
+
+  const getBase64 = (file: Blob) => {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      onLoad(reader.result);
+    };
+  };
+
   const addPosts = () => {
     fetch("https://localhost:7076/api/Posts", {
       method: "POST",
       body: JSON.stringify({
         content,
         userId: userId,
+        attachment,
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -108,18 +130,9 @@ export default function CreatePost(props: ICreatePost) {
                   id={props.id}
                 />
               </button>
-              <button>
-                <img
-                  src="./../../../..//public/asset/img/Addfriend.png"
-                  alt=""
-                />
-              </button>
-              <button>
-                <img
-                  src="./../../../..//public/asset/img/Location.png"
-                  alt=""
-                />
-              </button>
+              <form>
+                <input type="file" onChange={onChange} />
+              </form>
             </div>
           </div>
         </div>

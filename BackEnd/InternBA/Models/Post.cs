@@ -15,5 +15,6 @@ namespace InternBA.Models
         public virtual ICollection<Comment> Comments { get; set; }
 
         public string? Attachment { get; set; }
+
     }
 }

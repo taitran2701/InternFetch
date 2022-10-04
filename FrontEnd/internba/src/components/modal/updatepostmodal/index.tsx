@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import { sortAndDeduplicateDiagnostics } from "typescript";
 import styles from "./index.module.scss";
 
@@ -14,6 +14,10 @@ function UpdatePost(props: IUpdatePost) {
   const [userId, setUserId] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [link, setLink] = useState<string>("");
+  const [file, setFile] = useState<string>();
+  const [Image, setImage] = useState<any>("");
+  const [attachement, setAttachment] = useState<any>("");
+  const [base64, setBase64] = useState<any>("");
 
   useEffect(() => {
     const user = localStorage.getItem("user");
@@ -22,13 +26,33 @@ function UpdatePost(props: IUpdatePost) {
     }
   });
 
+  const onChange = (e: any) => {
+    const files = e.target.files;
+    const file = files[0];
+    getBase64(file);
+  };
+
+  const onLoad = (fileString: SetStateAction<string> | ArrayBuffer | null) => {
+    console.log(fileString);
+    setBase64(fileString);
+    setAttachment(fileString);
+  };
+
+  const getBase64 = (file: Blob) => {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      onLoad(reader.result);
+    };
+  };
+
   const updatePost = () => {
     fetch(`https://localhost:7076/api/Posts/${id}`, {
       method: "PUT",
       body: JSON.stringify({
         content: content,
         id: id,
-        attachment: link,
+        attachment: attachement,
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -49,6 +73,7 @@ function UpdatePost(props: IUpdatePost) {
   const handleUpdate = (e: any) => {
     e.preventDefault();
     updatePost();
+    upPost();
     onClose();
   };
 
@@ -69,14 +94,12 @@ function UpdatePost(props: IUpdatePost) {
           />
         </div>
         <div className={styles.header}>
-          <h4 className={styles.title}>Add Attach</h4>
+          <h4 className={styles.title}>Attachment</h4>
         </div>
         <div className={styles.body}>
-          <input
-            type="text"
-            value={link}
-            onChange={(e) => setLink(e.target.value)}
-          />
+          <form>
+            <input type="file" onChange={onChange} />
+          </form>
         </div>
         <div className={styles.footer}>
           <div>

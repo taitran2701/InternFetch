@@ -28,7 +28,7 @@ namespace InternBA.Controllers
 
         // GET: api/Posts
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Post>>> GetPosts([FromQuery]PageParagram pagination)
+        public async Task<ActionResult<IEnumerable<Post>>> GetPosts([FromQuery] PageParagram pagination)
         {
             var posts = await mediator.Send(new GetAllPostsQuery(pagination));
             var metadata = new
@@ -61,7 +61,7 @@ namespace InternBA.Controllers
             {
                 return BadRequest();
             }
-            
+
             return Ok(await mediator.Send(command));
         }
 
@@ -75,9 +75,11 @@ namespace InternBA.Controllers
 
         // DELETE: api/Posts/5
         [HttpDelete]
-        public async Task<IActionResult> DeletePost([FromQuery]DeletePostByIdCommand command)
+        public async Task<IActionResult> DeletePost([FromQuery] DeletePostByIdCommand command)
         {
             return Ok(await mediator.Send(command));
         }
+
+      
     }
 }

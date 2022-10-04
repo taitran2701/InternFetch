@@ -43,36 +43,36 @@ export default function PostBody(props: IPostBodyProps) {
   };
 
   //Get reaction with filter
-  const upReaction = useCallback(() => {
-    fetch(`https://localhost:7076/api/Reactions/filter?ID=${props.id}`, {
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
-    })
-      .then((response) => response.json())
-      .then((react) => {
-        setReaction(react);
+  // const upReaction = useCallback(() => {
+  //   fetch(`https://localhost:7076/api/Reactions/filter?ID=${props.id}`, {
+  //     headers: {
+  //       "Content-type": "application/json;charset=UTF-8",
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((react) => {
+  //       setReaction(react);
 
-        let count = 0;
-        for (let i = 0; i < react.length; i++) {
-          let x = react[i];
-          for (const key in x) {
-            if (x[key] === "Like") {
-              count++;
-            }
-          }
-        }
-        setCount(count);
-        console.log(count);
-        upReaction();
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, []);
-  useEffect(() => {
-    upReaction();
-  }, [upReaction]);
+  //       let count = 0;
+  //       for (let i = 0; i < react.length; i++) {
+  //         let x = react[i];
+  //         for (const key in x) {
+  //           if (x[key] === "Like") {
+  //             count++;
+  //           }
+  //         }
+  //       }
+  //       setCount(count);
+  //       console.log(count);
+  //       upReaction();
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.message);
+  //     });
+  // }, []);
+  // useEffect(() => {
+  //   upReaction();
+  // }, [upReaction]);
 
   return (
     <React.Fragment>
